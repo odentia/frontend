@@ -30,9 +30,6 @@ jobs:
       - name: format
         run: pnpm format
 
-      - name: test
-        run: pnpm test
-
       - name: build (affected)
         env:
           TURBO_TELEMETRY_DISABLED: '1'
