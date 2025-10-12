@@ -6,7 +6,12 @@ import { DtsPlugin } from "@module-federation/dts-plugin";
 import mfConfig from "./module-federation.config";
 
 export default defineConfig({
-  plugins: [pluginReact(), pluginSass(), pluginModuleFederation(mfConfig), DtsPlugin()],
+  plugins: [
+    pluginReact(),
+    pluginSass(),
+    pluginModuleFederation(mfConfig),
+    DtsPlugin(),
+  ],
   server: {
     port: 3010,
     host: "localhost",
