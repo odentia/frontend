@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  pull_request:
+    branches: [main, dev]
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: install
+        run: pnpm install --frozen-lockfile
+
+      - name: lint
+        run: pnpm lint
+
+      - name: format
+        run: pnpm format
+
+      - name: build (affected on PR)
+        if: ${{ github.event_name == 'pull_request' }}
+        env:
+          TURBO_TELEMETRY_DISABLED: '1'
+        run: pnpm build:repo -- --filter="...[${{ github.event.pull_request.base.sha }}]"
+
+      - name: build (affected on push)
+        if: ${{ github.event_name == 'push' }}
+        env:
+          TURBO_TELEMETRY_DISABLED: '1'
+        run: pnpm build:repo -- --filter="...[HEAD^]"

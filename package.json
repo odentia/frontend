@@ -1,0 +1,47 @@
+{
+  "name": "@codentia/monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.18.1",
+  "scripts": {
+    "dev": "pnpm -r dev",
+    "dev:repo": "turbo run dev",
+    "build:repo": "turbo run build --parallel",
+    "build:apps": "turbo run build --filter=./apps/*",
+    "build:packages": "turbo run build --filter=./packages/*",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "format": "turbo run format",
+    "format:fix": "turbo run format:fix",
+    "changeset": "changeset",
+    "release:version": "changeset version",
+    "release:publish": "changeset publish",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0",
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.4.0",
+    "@eslint/js": "^9.37.0",
+    "eslint": "^9.37.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.10",
+    "husky": "^9.0.10",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.6.2",
+    "turbo": "^2.1.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^7.18.0",
+    "vitest": "^2.0.5"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,md}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}

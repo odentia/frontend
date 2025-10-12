@@ -1,0 +1,8 @@
+dist
+build
+.turbo
+.rspack
+.rsbuild
+.next
+coverage
+pnpm-lock.yaml
