@@ -25,13 +25,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: lint
-        run: pnpm -w lint
+        run: pnpm lint
 
-      - name: typecheck
-        run: pnpm -w typecheck
+      - name: format
+        run: pnpm format
 
       - name: test
-        run: pnpm -w test
+        run: pnpm test
 
       - name: build (affected)
         env:

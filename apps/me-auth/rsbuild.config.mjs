@@ -2,10 +2,11 @@ import { defineConfig } from "@rsbuild/core";
 import { pluginReact } from "@rsbuild/plugin-react";
 import { pluginSass } from "@rsbuild/plugin-sass";
 import { pluginModuleFederation } from "@module-federation/rsbuild-plugin";
+import { DtsPlugin } from "@module-federation/dts-plugin";
 import mfConfig from "./module-federation.config";
 
 export default defineConfig({
-  plugins: [pluginReact(), pluginSass(), pluginModuleFederation(mfConfig)],
+  plugins: [pluginReact(), pluginSass(), pluginModuleFederation(mfConfig), DtsPlugin()],
   server: {
     port: 3010,
     host: "localhost",

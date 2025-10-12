@@ -4,8 +4,10 @@ import { pluginSass } from "@rsbuild/plugin-sass";
 import { pluginModuleFederation } from "@module-federation/rsbuild-plugin";
 import mfConfig from "./module-federation.config";
 
+const FederatedTypesPlugin = require('@module-federation/typescript');
+
 export default defineConfig({
-  plugins: [pluginReact(), pluginSass(), pluginModuleFederation(mfConfig)],
+  plugins: [pluginReact(), pluginSass(), pluginModuleFederation(mfConfig), FederatedTypesPlugin()],
   server: {
     port: 3000,
     host: "localhost",
