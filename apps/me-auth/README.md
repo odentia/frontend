@@ -6,20 +6,19 @@
 
 ## 🧱 Стек технологий
 
-| Категория | Технологии |
-|------------|-------------|
+| Категория            | Технологии                                      |
+| -------------------- | ----------------------------------------------- |
 | Сборка и архитектура | [Rspack](https://rspack.dev), Module Federation |
-| Язык | TypeScript 5 |
-| Фреймворк | React 18 |
-| Состояние | Zustand |
-| Тестирование | Vitest |
-| Форматирование | Prettier |
-| Линтинг | ESLint (React Hooks, Prettier, TypeScript) |
+| Язык                 | TypeScript 5                                    |
+| Фреймворк            | React 18                                        |
+| Состояние            | Zustand                                         |
+| Тестирование         | Vitest                                          |
+| Форматирование       | Prettier                                        |
+| Линтинг              | ESLint (React Hooks, Prettier, TypeScript)      |
 
 ---
 
 ## 📂 Структура проекта
-
 
 ```bash
 FE-{MODULE}/
@@ -71,13 +70,13 @@ pnpm dev
 
 ## 🚀 Основные команды
 
-| Команда | Назначение |
-|----------|------------|
-| `pnpm dev` | Запустить модуль |
-| `pnpm build` | Сборка модуля |
-| `pnpm typecheck` | Проверка типов TypeScript |
-| `pnpm lint` | Проверка линта |
-| `pnpm lint:fix` | Автоисправление линта |
-| `pnpm format` | Проверка форматирования Prettier’ом |
-| `pnpm format:fix` | Автоформатирование |
-| `pnpm test` | Запуск тестов Vitest |
+| Команда           | Назначение                          |
+| ----------------- | ----------------------------------- |
+| `pnpm dev`        | Запустить модуль                    |
+| `pnpm build`      | Сборка модуля                       |
+| `pnpm typecheck`  | Проверка типов TypeScript           |
+| `pnpm lint`       | Проверка линта                      |
+| `pnpm lint:fix`   | Автоисправление линта               |
+| `pnpm format`     | Проверка форматирования Prettier’ом |
+| `pnpm format:fix` | Автоформатирование                  |
+| `pnpm test`       | Запуск тестов Vitest                |
