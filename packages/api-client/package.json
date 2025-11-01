@@ -1,0 +1,35 @@
+{
+  "name": "@api-client",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs",
+    "lint": "pnpm exec eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "pnpm exec eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "format": "pnpm exec prettier . --check",
+    "format:fix": "pnpm exec prettier . --write"
+  },
+  "devDependencies": {
+    "tsup": "^8",
+    "typescript": "^5.6",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.90.5",
+    "axios": "^1.7.7"
+  }
+}

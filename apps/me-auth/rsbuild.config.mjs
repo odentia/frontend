@@ -3,6 +3,7 @@ import { pluginReact } from "@rsbuild/plugin-react";
 import { pluginSass } from "@rsbuild/plugin-sass";
 import { pluginModuleFederation } from "@module-federation/rsbuild-plugin";
 import mfConfig from "./module-federation.config";
+import path from "path";
 
 export default defineConfig({
   plugins: [pluginReact(), pluginSass(), pluginModuleFederation(mfConfig)],

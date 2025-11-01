@@ -15,12 +15,11 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
-
-    "baseUrl": ".",
     "paths": {
-      "@ui/*": ["packages/ui/src/*"],
-      "@contracts/*": ["packages/contracts/src/*"],
-      "@api-client/*": ["packages/api-client/src/*"]
+      "@ui": ["./packages/ui"],
+      "@contracts": ["./packages/contracts/src"],
+      "@config-runtime": ["./packages/config-runtime"],
+      "@api-client": ["./packages/api-client"]
     },
 
     "rootDir": ".",

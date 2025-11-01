@@ -1,10 +1,11 @@
 import { createRsbuild, loadConfig, logger } from "@rsbuild/core";
 import express from "express";
 
-const serverRender = (serverAPI) => async (_req, res) => {
+const serverRender = (serverAPI) => async (req, res) => {
   const indexModule = await serverAPI.environments.node.loadBundle("index");
 
-  const markup = indexModule.render();
+  // Передаем URL из запроса в функцию render
+  const markup = await indexModule.render(req.url);
 
   const template = await serverAPI.environments.web.getTransformedHtml("index");
 
@@ -31,6 +32,7 @@ export async function startDevServer() {
 
   const serverRenderMiddleware = serverRender(rsbuildServer);
 
+  // Обрабатываем все GET запросы для SSR
   app.get("/", async (req, res, next) => {
     try {
       await serverRenderMiddleware(req, res, next);
