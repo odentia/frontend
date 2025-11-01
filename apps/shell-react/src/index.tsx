@@ -1,13 +1,20 @@
+// src/index.tsx
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import App from "./app";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { routesConfig } from "./app/router";
+import { ApiProvider } from "./app/providers/query/Provider";
+import { ThemeProvider } from "@ui";
+
+const router = createBrowserRouter(routesConfig, { basename: "/" });
 
 ReactDOM.hydrateRoot(
   document.getElementById("root")!,
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ThemeProvider>
+      <ApiProvider>
+        <RouterProvider router={router} />
+      </ApiProvider>
+    </ThemeProvider>
   </React.StrictMode>,
 );

@@ -3,7 +3,13 @@ import { createModuleFederationConfig } from "@module-federation/enhanced/rspack
 const shared = {
   react: { singleton: true, requiredVersion: "^19.1.1", eager: true },
   "react-dom": { singleton: true, requiredVersion: "^19.1.1", eager: true },
-  "react-router-dom": { singleton: true, eager: true },
+  "react-router-dom": {
+    singleton: true,
+    requiredVersion: "^7.9.4",
+    eager: true,
+  },
+  "@ui": { singleton: true, eager: true },
+  "@api-client": { singleton: true, eager: true },
   "react/jsx-runtime": {
     singleton: true,
     requiredVersion: "^19.1.1",
@@ -22,5 +28,6 @@ export default createModuleFederationConfig({
   exposes: {
     "./App": "./src/index.tsx",
   },
+  dts: { enabled: true },
   shared,
 });

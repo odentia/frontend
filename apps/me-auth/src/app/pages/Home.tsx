@@ -1,3 +1,11 @@
+import { useThemeHandle } from "@ui";
+
 export const Home = () => {
-  return <div>It`s auth module</div>;
+  const { setVar } = useThemeHandle();
+
+  return (
+    <div onClick={() => setVar("background-color", "#000000")}>
+      It`s auth module
+    </div>
+  );
 };
