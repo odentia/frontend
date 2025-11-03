@@ -4,6 +4,7 @@ export type HttpClientOpts = {
   baseURL: string;
   withCredentials?: boolean;
   refreshPath?: string;
+  onAuthFailed?: () => void;
 };
 
 export function createHttpClient(opts: HttpClientOpts): AxiosInstance {
@@ -39,6 +40,7 @@ export function createHttpClient(opts: HttpClientOpts): AxiosInstance {
           return client.request(original);
         } catch (e) {
           flush(false);
+          opts.onAuthFailed?.()
           throw e;
         } finally {
           isRefreshing = false;

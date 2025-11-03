@@ -1,3 +1,3 @@
 export { createHttpClient } from "./http/createHttpClient";
-export { createAuthHooks } from "./auth/hooks";
+export { createAuthHooks } from "./auth";
 export { createApiHooks } from "./core/hooks";
