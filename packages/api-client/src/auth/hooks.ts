@@ -1,11 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosInstance } from "axios";
-import { authApi } from "./api"
+import { authApi } from "./api";
 import type { SessionUser, LoginDto } from "./dto";
 
 export function createAuthHooks(client: AxiosInstance) {
-
-  const api = authApi(client)
+  const api = authApi(client);
 
   const useSessionQuery = ({ enabled = true }: { enabled?: boolean } = {}) =>
     useQuery<SessionUser>({
@@ -19,11 +18,7 @@ export function createAuthHooks(client: AxiosInstance) {
 
   const useLoginMutation = () => {
     const qc = useQueryClient();
-    return useMutation<
-      { ok: true },
-      unknown,
-      LoginDto
-    >({
+    return useMutation<{ ok: true }, unknown, LoginDto>({
       mutationFn: api.login,
       onSuccess: () => qc.invalidateQueries({ queryKey: ["auth", "session"] }),
     });

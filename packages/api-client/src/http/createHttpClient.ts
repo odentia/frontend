@@ -40,7 +40,7 @@ export function createHttpClient(opts: HttpClientOpts): AxiosInstance {
           return client.request(original);
         } catch (e) {
           flush(false);
-          opts.onAuthFailed?.()
+          opts.onAuthFailed?.();
           throw e;
         } finally {
           isRefreshing = false;

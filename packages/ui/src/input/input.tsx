@@ -83,7 +83,7 @@ const InputComponent = ({
       shadowBlur > 0
         ? `0 0 ${shadowBlur}px ${shadowSpread}px ${hexToRgba(
             shadowColor,
-            shadowOpacity
+            shadowOpacity,
           )}`
         : undefined,
   };

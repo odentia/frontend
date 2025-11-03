@@ -41,6 +41,8 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
+        fontWeight: fontWeight,
+        fontSize: fontSize,
         gap: "8px",
         width,
         height,

@@ -23,7 +23,6 @@ export function createApiHooks(
     };
   },
 ) {
-
   function useApiQuery<TData = unknown>(args: ApiQueryArgs<TData>) {
     const { key, path, params, enabled = true, method = "get", ...opts } = args;
     return useQuery<TData>({
@@ -49,7 +48,7 @@ export function createApiHooks(
     common?: {
       onSuccess?: (data: TData, vars: TVars) => void;
       onError?: (err: unknown, vars: TVars) => void;
-    }
+    },
   ) {
     const qc = useQueryClient();
     return useMutation<TData, unknown, TVars>({
@@ -86,7 +85,7 @@ export function createApiHooks(
     common?: {
       onSuccess?: (data: TData, vars: TVars) => void;
       onError?: (err: unknown, vars: TVars) => void;
-    }
+    },
   ) {
     const { isSuccess } = auth.useSessionQuery({ enabled: true });
     const qc = useQueryClient();

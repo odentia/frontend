@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { Container } from "../shared/container";
 import { useApi } from "@config-runtime";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 interface ErrorType {
   name?: string;
@@ -13,11 +13,11 @@ interface ErrorType {
 export const SignUp = () => {
   const api = useApi();
 
-  const nav = useNavigate()
+  const nav = useNavigate();
 
-  const handleRedirect = () => {
-    nav("/auth/login")
-  }
+  const handleRedirect = useCallback(() => {
+    nav("/auth/login");
+  }, []);
 
   const registerMutation = api.useApiMutation<
     { name: string; email: string; password: string },
@@ -72,7 +72,7 @@ export const SignUp = () => {
             password: message,
           });
         },
-      }
+      },
     );
   };
 
@@ -105,12 +105,8 @@ export const SignUp = () => {
         isPassword: true,
       },
     ],
-    [name, email, password, confirmPassword, errors]
+    [name, email, password, confirmPassword, errors],
   );
-
-  const handleSignUp = useCallback(() => {
-    console.log("Регистрация...");
-  }, []);
 
   return (
     <Container

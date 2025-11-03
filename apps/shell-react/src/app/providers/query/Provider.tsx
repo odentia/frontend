@@ -9,8 +9,8 @@ interface LayoutProps {
 }
 
 const handelOut = () => {
-  console.log("Outed!")
-}
+  console.log("Outed!");
+};
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,7 +24,7 @@ const client = createHttpClient({
   baseURL: "http://localhost:8000/api/v1/",
   refreshPath: "/auth/refresh",
   withCredentials: true,
-  onAuthFailed: handelOut
+  onAuthFailed: handelOut,
 });
 
 export const ApiProvider = ({ children }: LayoutProps) => (

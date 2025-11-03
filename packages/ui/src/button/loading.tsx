@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 
-export const Loading: React.FC<{ size?: number; color?: string; strokeWidth?: number }> = ({
-  size = 40,
-  color = "#4f46e5",
-  strokeWidth = 4,
-}) => {
+export const Loading: React.FC<{
+  size?: number;
+  color?: string;
+  strokeWidth?: number;
+}> = ({ size = 40, color = "#4f46e5", strokeWidth = 4 }) => {
   useEffect(() => {
     const STYLE_ID = "loading-spinner-keyframes";
     if (!document.getElementById(STYLE_ID)) {
