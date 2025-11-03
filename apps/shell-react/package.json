@@ -21,11 +21,13 @@
     "react-dom": "^19.1.1",
     "react-router": "^7.9.4",
     "react-router-dom": "^7.9.4",
+    "@config-runtime": "workspace:*",
     "@ui": "workspace:*",
     "@api-client": "workspace:*"
   },
   "devDependencies": {
     "@api-client": "workspace:*",
+    "@ui": "workspace:*",
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
     "@eslint/js": "^9.33.0",

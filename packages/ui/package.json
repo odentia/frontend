@@ -16,7 +16,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "lint": "pnpm exec eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "pnpm exec eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "pnpm exec prettier . --check",

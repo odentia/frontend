@@ -17,9 +17,10 @@
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "@ui": ["./packages/ui"],
-      "@contracts": ["./packages/contracts/src"],
+      "@contracts": ["./packages/contracts"],
       "@config-runtime": ["./packages/config-runtime"],
-      "@api-client": ["./packages/api-client"]
+      "@api-client": ["./packages/api-client"],
+      "@mixin": ["./apps/shell-react/src/shared/config/styles/mixin.scss"]
     },
 
     "rootDir": ".",

@@ -9,7 +9,7 @@ export const routesConfig: RouteObject[] = [
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "auth", element: <Auth /> },
+      { path: "auth/*", element: <Auth /> },
     ],
   },
 ];

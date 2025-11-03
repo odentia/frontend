@@ -1,11 +1,11 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages";
+import { Login, SignUp } from "./pages";
 
 export function AuthRoutes() {
   return (
     <Routes>
-      <Route index element={<Home />} />
+      <Route path="login" index element={<Login />} />
+      <Route path="signup" element={<SignUp />} />
     </Routes>
   );
 }
