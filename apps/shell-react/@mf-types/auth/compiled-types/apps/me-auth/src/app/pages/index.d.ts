@@ -1,1 +1,2 @@
-export { Home as default } from "./Home";
+export { Login } from "./Login";
+export { SignUp } from "./SignUp";

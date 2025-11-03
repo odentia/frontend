@@ -10,6 +10,7 @@ const shared = {
   },
   "@ui": { singleton: true, eager: true },
   "@api-client": { singleton: true, eager: true },
+  "@config-runtime": { singleton: true, eager: true },
   "react/jsx-runtime": {
     singleton: true,
     requiredVersion: "^19.1.1",

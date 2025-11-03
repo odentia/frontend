@@ -35,6 +35,10 @@ textarea {
   outline: none;
 }
 
+input::placeholder {
+  color: #9da3b0;
+}
+
 html,
 body,
 #root {
@@ -59,5 +63,10 @@ table {
 }
 
 .theme-root {
-  --background-color: #2563eb;
+  --background-color: radial-gradient(circle, #2a2a31 0%, #14141a 100%);
+  --box-shadow: inset 0px 0px 50px -20px rgba(108, 99, 255, 0.6); 
+  --border: #272A33;
+  --subtext: #9DA3B0;
+  --text: #ffffff;
+  --attention: #8C7EFF;
 }
