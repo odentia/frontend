@@ -1,7 +1,6 @@
-import { useCallback, useMemo, useState } from "react";
+import { useRef, useState } from "react";
 import { Container } from "../shared/container";
 import { useApi } from "@config-runtime";
-import { useNavigate } from "react-router-dom";
 
 interface ErrorType {
   name?: string;
@@ -13,53 +12,48 @@ interface ErrorType {
 export const SignUp = () => {
   const api = useApi();
 
-  const nav = useNavigate();
-
-  const handleRedirect = useCallback(() => {
-    nav("/auth/login");
-  }, []);
-
   const registerMutation = api.useApiMutation<
     { name: string; email: string; password: string },
     any
   >("auth/register", "post");
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const nameRef = useRef("");
+  const emailRef = useRef("");
+  const passwordRef = useRef("");
+  const confirmPasswordRef = useRef("");
+
   const [errors, setErrors] = useState<ErrorType>({});
-  const [loading, setLoading] = useState(false);
 
   const handleClick = () => {
     const newErrors: ErrorType = {};
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!name.trim()) newErrors.name = "Поле не может быть пустым";
+    if (!nameRef.current.trim()) newErrors.name = "Поле не может быть пустым";
 
-    if (!email.trim()) newErrors.email = "Введите почту";
-    else if (!emailRegex.test(email))
+    if (!emailRef.current.trim()) newErrors.email = "Введите почту";
+    else if (!emailRegex.test(emailRef.current))
       newErrors.email = "Некорректный формат почты";
 
-    if (!password.trim() || password.length < 6)
+    if (!passwordRef.current.trim() || passwordRef.current.length < 6)
       newErrors.password = "Пароль должен быть больше 6 символов";
 
-    if (password !== confirmPassword)
+    if (passwordRef.current !== confirmPasswordRef.current)
       newErrors.confirmPassword = "Пароли не совпадают";
 
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) return;
 
-    setLoading(true);
-
     registerMutation.mutate(
-      { name, email, password },
+      {
+        name: nameRef.current,
+        email: emailRef.current,
+        password: passwordRef.current,
+      },
       {
         onSuccess: (data) => {
           console.log("[signup] success:", data);
-          setLoading(false);
         },
         onError: (err: any) => {
           console.log("[signup] error:", err);
@@ -67,7 +61,6 @@ export const SignUp = () => {
             err.response?.data?.detail ??
             err.response?.data?.message ??
             "Неизвестная ошибка";
-          setLoading(false);
           setErrors({
             password: message,
           });
@@ -76,37 +69,44 @@ export const SignUp = () => {
     );
   };
 
-  const inputs = useMemo(
-    () => [
-      {
-        value: name,
-        setValue: setName,
-        error: errors.name,
-        placeholder: "Логин",
+  const inputs = [
+    {
+      setValue: (str: string) => {
+        nameRef.current = str;
+        if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
       },
-      {
-        value: email,
-        setValue: setEmail,
-        error: errors.email,
-        placeholder: "Почта",
+      error: errors.name,
+      placeholder: "Логин",
+    },
+    {
+      setValue: (str: string) => {
+        emailRef.current = str;
+        if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
       },
-      {
-        value: password,
-        setValue: setPassword,
-        error: errors.password,
-        placeholder: "Пароль",
-        isPassword: true,
+      error: errors.email,
+      placeholder: "Почта",
+    },
+    {
+      setValue: (str: string) => {
+        passwordRef.current = str;
+        if (errors.password)
+          setErrors((prev) => ({ ...prev, password: undefined }));
       },
-      {
-        value: confirmPassword,
-        setValue: setConfirmPassword,
-        error: errors.confirmPassword,
-        placeholder: "Повторите пароль",
-        isPassword: true,
+      error: errors.password,
+      placeholder: "Пароль",
+      isPassword: true,
+    },
+    {
+      setValue: (str: string) => {
+        confirmPasswordRef.current = str;
+        if (errors.confirmPassword)
+          setErrors((prev) => ({ ...prev, confirmPassword: undefined }));
       },
-    ],
-    [name, email, password, confirmPassword, errors],
-  );
+      error: errors.confirmPassword,
+      placeholder: "Повторите пароль",
+      isPassword: true,
+    },
+  ];
 
   return (
     <Container
@@ -117,8 +117,8 @@ export const SignUp = () => {
       buttonClick={handleClick}
       footerText="Уже есть аккаунт?"
       footerLink="  Войти"
-      loading={loading}
-      linkClick={handleRedirect}
+      loading={registerMutation.isPending}
+      link="/auth/login"
     />
   );
 };

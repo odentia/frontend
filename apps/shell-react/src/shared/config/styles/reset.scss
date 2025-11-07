@@ -48,7 +48,7 @@ body,
     Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  background-color: #fff;
+  background-color: "transparent";
   color: #000;
 }
 
@@ -69,4 +69,5 @@ table {
   --subtext: #9da3b0;
   --text: #ffffff;
   --attention: #8c7eff;
+  --glow-color: rgba(140, 126, 255, 1);
 }
