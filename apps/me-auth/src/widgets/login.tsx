@@ -1,20 +1,13 @@
-import { useCallback, useMemo, useState } from "react";
+import { useRef, useState } from "react";
 import { Container } from "../shared/container";
 import { useApi } from "@config-runtime";
-import { useNavigate } from "react-router-dom";
 
 interface ErrorType {
-  name: string | undefined;
-  password: string | undefined;
+  name?: string;
+  password?: string;
 }
 
 export const Login = () => {
-  const nav = useNavigate();
-
-  const handleRedirect = useCallback(() => {
-    nav("/auth/signup");
-  }, []);
-
   const api = useApi();
 
   const loginMutation = api.useApiMutation<{ name: string; password: string }>(
@@ -22,25 +15,33 @@ export const Login = () => {
     "post",
   );
 
-  const handleClick = () => {
-    const newErrors: ErrorType = { name: undefined, password: undefined };
+  const nameRef = useRef("");
+  const passwordRef = useRef("");
 
-    if (name.length === 0) newErrors.name = "Поле не может быть пустым";
-    if (password.length < 6)
+  const [errors, setErrors] = useState<ErrorType>({
+    name: undefined,
+    password: undefined,
+  });
+
+  const handleClick = () => {
+    const newErrors: ErrorType = {};
+
+    const name = nameRef.current.trim();
+    const password = passwordRef.current;
+
+    if (!name) newErrors.name = "Поле не может быть пустым";
+    if (!password || password.length < 6)
       newErrors.password = "Пароль должен быть больше 6 символов";
 
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) return;
 
-    setLoading(true);
-
     loginMutation.mutate(
       { name, password },
       {
         onSuccess: (data) => {
           console.log("[login] success:", data);
-          setLoading(false);
         },
         onError: (err: any) => {
           console.log("[login] error:", err);
@@ -52,38 +53,31 @@ export const Login = () => {
             name: undefined,
             password: message,
           });
-          setLoading(false);
         },
       },
     );
   };
 
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<ErrorType>({
-    name: undefined,
-    password: undefined,
-  });
-  const [loading, setLoading] = useState(false);
-
-  const inputs = useMemo(
-    () => [
-      {
-        value: name,
-        setValue: setName,
-        error: errors.name,
-        placeholder: "Логин",
+  const inputs = [
+    {
+      setValue: (str: string) => {
+        nameRef.current = str;
+        if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
       },
-      {
-        value: password,
-        setValue: setPassword,
-        error: errors.password,
-        placeholder: "Пароль",
-        isPassword: true,
+      error: errors.name,
+      placeholder: "Логин",
+    },
+    {
+      setValue: (str: string) => {
+        passwordRef.current = str;
+        if (errors.password)
+          setErrors((prev) => ({ ...prev, password: undefined }));
       },
-    ],
-    [name, password, errors.name, errors.password],
-  );
+      error: errors.password,
+      placeholder: "Пароль",
+      isPassword: true,
+    },
+  ];
 
   return (
     <Container
@@ -92,10 +86,10 @@ export const Login = () => {
       subtitle="С возвращением!"
       buttonText="Войти"
       buttonClick={handleClick}
-      loading={loading}
+      loading={loginMutation.isPending}
       footerText="Нет аккаунта?"
       footerLink="  Зарегистрироваться"
-      linkClick={handleRedirect}
-    ></Container>
+      link="/auth/signup"
+    />
   );
 };

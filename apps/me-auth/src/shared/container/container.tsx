@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./container.module.scss";
 import { Button, Input } from "@ui/dist";
+import { Link } from "react-router-dom";
 
 interface InputProps {
-  value: string;
   error: string | undefined;
   placeholder: string;
   setValue: (str: string) => void;
@@ -19,7 +19,7 @@ interface containerProps {
   footerText: string;
   footerLink: string;
   loading: boolean;
-  linkClick: () => void;
+  link: string;
 }
 
 const ContainerComponent = ({
@@ -31,7 +31,7 @@ const ContainerComponent = ({
   footerText,
   footerLink,
   loading,
-  linkClick,
+  link,
 }: containerProps) => (
   <div className={styles.container}>
     <div className={styles.containerTitles}>
@@ -42,7 +42,6 @@ const ContainerComponent = ({
       {inputs.map((el, key) => (
         <Input
           key={key}
-          value={el.value}
           onValueChange={el.setValue}
           hasError={el.error}
           fontSize="18px"
@@ -70,12 +69,9 @@ const ContainerComponent = ({
       />
       <span className={styles.containerFooterText}>
         {footerText}
-        <span
-          className={styles.containerFooterTextLink}
-          onClick={() => linkClick()}
-        >
+        <Link className={styles.containerFooterTextLink} to={link}>
           {footerLink}
-        </span>
+        </Link>
       </span>
     </div>
   </div>

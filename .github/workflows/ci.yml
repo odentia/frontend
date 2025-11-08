@@ -34,7 +34,7 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         env:
           TURBO_TELEMETRY_DISABLED: '1'
-        run: pnpm build:repo --filter="...[${{ github.event.pull_request.base.sha }}]"
+        run: pnpm build:repo
 
       - name: build (affected on push)
         if: ${{ github.event_name == 'push' }}
