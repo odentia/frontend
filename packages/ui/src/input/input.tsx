@@ -45,8 +45,7 @@ const InputComponent = ({
   value,
   fontSize = "14px",
   shadowBlur = 0,
-  shadowOpacity = 0,
-  shadowColor = "transparent",
+  shadowColor = "blue",
   shadowSpread = 0,
 }: InputProps) => {
   const handleChange = (str: string) => {
@@ -54,20 +53,11 @@ const InputComponent = ({
     onValueChange(str);
   };
 
-  function hexToRgba(hex: string, opacity: number): string {
-    const sanitized = hex.replace("#", "");
-    const bigint = parseInt(sanitized, 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-  }
-
   const bodyStyle: React.CSSProperties = {
     width: width ?? "100%",
     backgroundColor: backgroundColor ?? "transparent",
     height,
-    border: "1px solid rebeccapurple",
+    border: "1px solid var(--border)",
     display: "flex",
     borderWidth: borderWidth ?? "1px",
     flexDirection: "row",
@@ -81,10 +71,7 @@ const InputComponent = ({
     fontSize,
     boxShadow:
       shadowBlur > 0
-        ? `0 0 ${shadowBlur}px ${shadowSpread}px ${hexToRgba(
-            shadowColor,
-            shadowOpacity,
-          )}`
+        ? `0 0 ${shadowBlur}px ${shadowSpread}px ${shadowColor}`
         : undefined,
   };
 
