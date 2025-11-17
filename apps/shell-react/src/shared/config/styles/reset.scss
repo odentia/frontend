@@ -64,10 +64,16 @@ table {
 
 .theme-root {
   --background-color: radial-gradient(circle, #2a2a31 0%, #14141a 100%);
-  --box-shadow: inset 0px 0px 50px -20px rgba(108, 99, 255, 0.6);
+  --background-color-main: #14141a;
+  --background-color-sub: #2a2a31;
+  --box-shadow: rgba(108, 99, 255, 0.6);
+  --danger: #a61731;
   --border: #272a33;
   --subtext: #9da3b0;
   --text: #ffffff;
   --attention: #8c7eff;
-  --glow-color: rgba(140, 126, 255, 1);
+  --glow-color: #8c7eff;
+  --glow-opacity: 1;
+  --cards: #1c1e25;
+  --circle-color: rgba(228, 228, 228, 0.9);
 }

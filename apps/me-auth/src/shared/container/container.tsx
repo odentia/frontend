@@ -46,7 +46,7 @@ const ContainerComponent = ({
           hasError={el.error}
           fontSize="18px"
           borderRadius="5px"
-          color={el.error ? "red" : "#6C63FF"}
+          color={el.error ? "red" : "var(--border)"}
           width="320px"
           height="50px"
           isPassword={el.isPassword}
@@ -58,7 +58,6 @@ const ContainerComponent = ({
       <Button
         onClick={buttonClick}
         disabled={false}
-        gradient="linear-gradient(90deg, #6C63FF 0%, #4F4ABF 100%)"
         text={buttonText}
         borderRadius="10px"
         fontWeight="600"

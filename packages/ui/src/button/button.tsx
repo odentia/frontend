@@ -1,4 +1,3 @@
-// Button.tsx
 import React from "react";
 import { Loading } from "./loading";
 
@@ -19,14 +18,13 @@ interface ButtonProps {
 
 const ButtonComponent: React.FC<ButtonProps> = ({
   text = "ClickMe",
-  color = "#ffffff",
-  backgroundColor = "#6C63FF",
+  backgroundColor,
   width = "100%",
   fontWeight = "500",
   gradient,
   loading = false,
   fontSize = "14px",
-  height = "40px",
+  height,
   borderRadius = "8px",
   onClick,
   disabled = false,
@@ -44,13 +42,14 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         fontWeight: fontWeight,
         fontSize: fontSize,
         gap: "8px",
-        width,
-        height,
+        width: width,
+        height: height || "50px",
         padding: "0 14px",
         border: "none",
-        borderRadius,
-        color,
-        background: gradient || backgroundColor,
+        borderRadius: borderRadius,
+        color: "var(--text)",
+        backgroundColor: backgroundColor || "var(--attention)",
+        background: gradient || backgroundColor || "var(--attention)",
         cursor: isBlocked ? "not-allowed" : "pointer",
         opacity: isBlocked ? 0.6 : 1,
         pointerEvents: isBlocked ? "none" : "auto",
