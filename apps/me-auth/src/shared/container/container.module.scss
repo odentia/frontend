@@ -1,8 +1,8 @@
 @use "@mixin" as mixin;
 
 .container {
-  box-shadow: var(--box-shadow);
-  background: rgba(28, 30, 37, 0.8);
+  box-shadow: inset 0px 0px 50px -20px var(--box-shadow);
+  background: var(--cards);
   border: 1px solid var(--border);
   display: flex;
   align-items: center;
