@@ -5,6 +5,7 @@ import React, {
   useRef,
   useImperativeHandle,
   forwardRef,
+  useEffect,
 } from "react";
 
 type ThemeVars = Record<string, string>;
@@ -35,14 +36,24 @@ export const ThemeProvider = forwardRef<
         const el = rootRef.current;
         if (!el) return;
         for (const [k, v] of Object.entries(vars))
-          el.style.setProperty(`--${k}`, v);
+          el.style.setProperty(`${k}`, v);
       },
       setVar: (name, value) => {
-        rootRef.current?.style.setProperty(`--${name}`, value);
+        rootRef.current?.style.setProperty(`${name}`, value);
       },
     }),
     [],
   );
+
+  useEffect(() => {
+    for (let i = 0; i < localStorage.length + 1; i++) {
+      const key = localStorage.key(i);
+      if (key) {
+        const value = localStorage.getItem(key);
+        if (value) handle.setVar(key, value);
+      }
+    }
+  }, []);
 
   useImperativeHandle(ref, () => handle, [handle]);
 

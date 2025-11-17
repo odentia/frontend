@@ -1,4 +1,3 @@
-// src/app/providers/query/Provider.tsx
 import React, { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ApiProvider as RuntimeApiProvider } from "@config-runtime";
