@@ -27,6 +27,7 @@ export default createModuleFederationConfig({
   name: "host",
   remotes: {
     auth: "auth@http://localhost:3010/remoteEntry.js",
+    profile: "profile@http://localhost:3020/remoteEntry.js",
   },
   shared,
 });

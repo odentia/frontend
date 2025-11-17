@@ -1,0 +1,13 @@
+@use "@mixin" as mixin;
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+
+  @include mixin.mobile {
+    flex-direction: column;
+  }
+}
