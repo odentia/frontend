@@ -1,0 +1,45 @@
+.container {
+  width: 300px;
+  font-size: 20px;
+  color: var(--text);
+  display: grid;
+  gap: 10px;
+  max-height: 100px;
+  text-align: left;
+
+  &Body {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    color: var(--subtext);
+    background-color: var(--cards);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    padding: 0 5%;
+
+    &Color {
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+      border: 2px solid var(--border);
+      cursor: pointer;
+    }
+  }
+
+  &Picker {
+    position: fixed;
+    inset: 0;
+    background: transparent;
+  }
+
+  &Pickerself {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 5;
+  }
+}
