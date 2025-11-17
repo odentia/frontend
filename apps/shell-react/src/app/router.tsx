@@ -2,6 +2,7 @@ import { Layout } from "../shared/layouts/layout";
 import { Home } from "../pages";
 import Auth from "../pages/auth/auth";
 import type { RouteObject } from "react-router-dom";
+import Profile from "../pages/profile/profile";
 
 export const routesConfig: RouteObject[] = [
   {
@@ -10,6 +11,7 @@ export const routesConfig: RouteObject[] = [
     children: [
       { index: true, element: <Home /> },
       { path: "auth/*", element: <Auth /> },
+      { path: "profile", element: <Profile /> },
     ],
   },
 ];
