@@ -5,6 +5,7 @@ export type HttpClientOpts = {
   withCredentials?: boolean;
   refreshPath?: string;
   onAuthFailed?: () => void;
+  onNetworkError?: (error: AxiosError) => void;
 };
 
 export function createHttpClient(opts: HttpClientOpts): AxiosInstance {
@@ -25,6 +26,26 @@ export function createHttpClient(opts: HttpClientOpts): AxiosInstance {
     async (error: AxiosError) => {
       const status = error.response?.status;
       const original: any = error.config;
+      if (!error.response) {
+        opts.onNetworkError?.(error);
+        if (error.code === 'ERR_CONNECTION_REFUSED') {
+            return Promise.reject({
+            ...error,
+            isNetworkError: true,
+            message: 'Сервер недоступен. Проверьте подключение.'
+          });
+        }
+
+        if (error.code === 'ERR_NETWORK_CHANGED') {
+          return Promise.reject({
+            ...error,
+            isNetworkError: true,
+            message: 'Проблема с сетью.'
+          });
+        }
+
+        throw error;
+      }
       if (status === 401 && !original?._retry && opts.refreshPath) {
         original._retry = true;
         if (isRefreshing) {

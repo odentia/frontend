@@ -5,7 +5,8 @@ export function useAuth() {
   const client = useApiClient();
   return createAuthHooks(client);
 }
-export function useApi() {
+
+export function useApi(): ReturnType<typeof createApiHooks> {
   const client = useApiClient();
   const { useSessionQuery } = createAuthHooks(client);
   return createApiHooks(client, { useSessionQuery });

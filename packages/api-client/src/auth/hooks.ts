@@ -10,7 +10,7 @@ export function createAuthHooks(client: AxiosInstance) {
     useQuery<SessionUser>({
       queryKey: ["auth", "session"],
       enabled,
-      queryFn: api.me,
+      queryFn: ({ signal }) => api.me(signal),
       staleTime: 5 * 60 * 1000,
       retry: (count, err: any) =>
         err?.response?.status === 401 ? false : count < 2,

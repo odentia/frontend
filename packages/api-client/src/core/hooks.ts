@@ -12,7 +12,21 @@ type ApiQueryArgs<TData> = {
   params?: Record<string, unknown>;
   method?: "get";
   enabled?: boolean;
+  refetchInterval?: number | false;
+  refetchIntervalInBackground?: boolean;
 } & Pick<UseQueryOptions<TData>, "staleTime" | "select" | "gcTime">;
+
+type MutationCommonCallbacks<TData, TVars, TContext> = {
+  onMutate?: (vars: TVars) => Promise<TContext> | TContext;
+  onSuccess?: (data: TData, vars: TVars, ctx: TContext) => void;
+  onError?: (err: unknown, vars: TVars, ctx: TContext | undefined) => void;
+  onSettled?: (
+    data: TData | undefined,
+    err: unknown | null,
+    vars: TVars,
+    ctx: TContext | undefined,
+  ) => void;
+};
 
 export function createApiHooks(
   client: AxiosInstance,
@@ -24,7 +38,16 @@ export function createApiHooks(
   },
 ) {
   function useApiQuery<TData = unknown>(args: ApiQueryArgs<TData>) {
-    const { key, path, params, enabled = true, method = "get", ...opts } = args;
+    const {
+      key,
+      path,
+      params,
+      enabled = true,
+      method = "get",
+      refetchInterval,
+      refetchIntervalInBackground,
+      ...opts
+    } = args;
     return useQuery<TData>({
       queryKey: [...key, params],
       enabled,
@@ -37,21 +60,20 @@ export function createApiHooks(
             signal,
           })
         ).data,
+      refetchInterval,
+      refetchIntervalInBackground,
       ...opts,
     });
   }
 
-  function useApiMutation<TData = unknown, TVars = unknown>(
+  function useApiMutation<TData = unknown, TVars = unknown, TContext = unknown>(
     path: string,
     method: "post" | "put" | "patch" | "delete" = "post",
     invalidate?: unknown[],
-    common?: {
-      onSuccess?: (data: TData, vars: TVars) => void;
-      onError?: (err: unknown, vars: TVars) => void;
-    },
+    common?: MutationCommonCallbacks<TData, TVars, TContext>,
   ) {
     const qc = useQueryClient();
-    return useMutation<TData, unknown, TVars>({
+    return useMutation<TData, unknown, TVars, TContext>({
       mutationFn: async (vars) =>
         (
           await client.request<TData>({
@@ -60,12 +82,22 @@ export function createApiHooks(
             data: vars,
           })
         ).data,
-      onSuccess: (data, vars) => {
-        invalidate && qc.invalidateQueries({ queryKey: invalidate });
-        common?.onSuccess?.(data, vars);
+
+      onMutate: common?.onMutate,
+
+      onSuccess: (data, vars, ctx) => {
+        common?.onSuccess?.(data, vars, ctx as TContext);
       },
-      onError: (err, vars) => {
-        common?.onError?.(err, vars);
+
+      onError: (err, vars, ctx) => {
+        common?.onError?.(err, vars, ctx as TContext | undefined);
+      },
+
+      onSettled: (data, err, vars, ctx) => {
+        if (invalidate) {
+          qc.invalidateQueries({ queryKey: invalidate });
+        }
+        common?.onSettled?.(data, err, vars, ctx as TContext | undefined);
       },
     });
   }
@@ -78,18 +110,20 @@ export function createApiHooks(
     });
   }
 
-  function useAuthedMutation<TData = unknown, TVars = unknown>(
+  function useAuthedMutation<
+    TData = unknown,
+    TVars = unknown,
+    TContext = unknown,
+  >(
     path: string,
     method: "post" | "put" | "patch" | "delete" = "post",
     invalidate?: unknown[],
-    common?: {
-      onSuccess?: (data: TData, vars: TVars) => void;
-      onError?: (err: unknown, vars: TVars) => void;
-    },
+    common?: MutationCommonCallbacks<TData, TVars, TContext>,
   ) {
     const { isSuccess } = auth.useSessionQuery({ enabled: true });
     const qc = useQueryClient();
-    return useMutation<TData, unknown, TVars>({
+
+    return useMutation<TData, unknown, TVars, TContext>({
       mutationFn: async (vars) => {
         if (!isSuccess) throw new Error("Not authorized");
         return (
@@ -100,12 +134,22 @@ export function createApiHooks(
           })
         ).data;
       },
-      onSuccess: (data, vars) => {
-        invalidate && qc.invalidateQueries({ queryKey: invalidate });
-        common?.onSuccess?.(data, vars);
+
+      onMutate: common?.onMutate,
+
+      onSuccess: (data, vars, ctx) => {
+        common?.onSuccess?.(data, vars, ctx as TContext);
       },
-      onError: (err, vars) => {
-        common?.onError?.(err, vars);
+
+      onError: (err, vars, ctx) => {
+        common?.onError?.(err, vars, ctx as TContext | undefined);
+      },
+
+      onSettled: (data, err, vars, ctx) => {
+        if (invalidate) {
+          qc.invalidateQueries({ queryKey: invalidate });
+        }
+        common?.onSettled?.(data, err, vars, ctx as TContext | undefined);
       },
     });
   }
