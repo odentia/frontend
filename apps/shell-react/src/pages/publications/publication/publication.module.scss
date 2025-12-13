@@ -1,0 +1,34 @@
+@use "@mixin" as mixin;
+
+.container {
+  width: 100vw;
+  display: flex;
+  align-items: start;
+  padding: 5% 0;
+  gap: 20px;
+  justify-content: center;
+  overflow-x: hidden;
+
+  &Body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 70%;
+    gap: 20px;
+
+    @include mixin.mobile {
+      width: 95%;
+    }
+  }
+
+  &Same {
+    width: 20%;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    @include mixin.mobile {
+      display: none;
+    }
+  }
+}
