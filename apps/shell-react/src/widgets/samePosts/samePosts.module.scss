@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  width: 100%;
+
+  background: var(--cards);
+  border-radius: 15px;
+
+  &Title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    padding: 4px 4px 0;
+  }
+
+  &Item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    padding: 8px;
+    background: var(--cards);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    &:hover {
+      scale: 1.03;
+    }
+
+    &Image {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+    }
+
+    &Title {
+      margin-top: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    &Metrics {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      margin-top: 2px;
+
+      &Comments {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        &Icon {
+          width: 21px;
+          height: 21px;
+          color: var(--subtext);
+          flex-shrink: 0;
+        }
+
+        &Count {
+          font-size: 18px;
+          font-weight: 500;
+          color: var(--subtext);
+        }
+      }
+    }
+
+    &Tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: end;
+      gap: 6px;
+      margin-top: 4px;
+
+      &Item {
+        padding: 2px 8px;
+        border-radius: 5px;
+        background: var(--cards);
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--subtext);
+      }
+    }
+  }
+}
