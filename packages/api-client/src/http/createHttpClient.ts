@@ -28,19 +28,19 @@ export function createHttpClient(opts: HttpClientOpts): AxiosInstance {
       const original: any = error.config;
       if (!error.response) {
         opts.onNetworkError?.(error);
-        if (error.code === 'ERR_CONNECTION_REFUSED') {
-            return Promise.reject({
-            ...error,
-            isNetworkError: true,
-            message: 'Сервер недоступен. Проверьте подключение.'
-          });
-        }
-
-        if (error.code === 'ERR_NETWORK_CHANGED') {
+        if (error.code === "ERR_CONNECTION_REFUSED") {
           return Promise.reject({
             ...error,
             isNetworkError: true,
-            message: 'Проблема с сетью.'
+            message: "Сервер недоступен. Проверьте подключение.",
+          });
+        }
+
+        if (error.code === "ERR_NETWORK_CHANGED") {
+          return Promise.reject({
+            ...error,
+            isNetworkError: true,
+            message: "Проблема с сетью.",
           });
         }
 

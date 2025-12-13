@@ -114,7 +114,7 @@ export const usePageEditor = create<PageEditorStore>((set, get) => {
           [block.id]: block,
         };
 
-        let containers = { ...state.containers };
+        const containers = { ...state.containers };
 
         if (!root.blockId && root.children.length === 0) {
           containers[root.id] = {
@@ -211,7 +211,7 @@ export const usePageEditor = create<PageEditorStore>((set, get) => {
           [block.id]: block,
         };
 
-        let containers = { ...state.containers };
+        const containers = { ...state.containers };
 
         if (!parent.blockId && parent.children.length === 0) {
           containers[containerId] = {

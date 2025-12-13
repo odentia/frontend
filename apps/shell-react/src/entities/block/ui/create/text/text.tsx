@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react";
 import styles from "./text.module.scss";
 import { usePageEditor } from "../../../../../shared/store/postCreate/postCreate";
+import { BlockCreatingProps } from "../types";
+import { TextBlock } from "../../../models/types";
 
-export const CreateText = ({ containerId, blockId, index }) => {
-  const block = usePageEditor((s) => s.blocks[blockId]);
+export const CreateText = ({ containerId: _containerId, blockId, index: _index }: BlockCreatingProps) => {
+  const block = usePageEditor((s) => s.blocks[blockId]) as TextBlock;
   const updateBlock = usePageEditor((s) => s.updateTextBlock);
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-
-  if (!block || block.type !== "TEXT") return null;
 
   const autoResize = () => {
     const el = textareaRef.current;
@@ -17,6 +17,16 @@ export const CreateText = ({ containerId, blockId, index }) => {
     el.style.height = "auto";
     el.style.height = el.scrollHeight + "px";
   };
+
+  useEffect(() => {
+    if (block?.type === "TEXT" && block.markdown) {
+      autoResize();
+    }
+  }, [block?.markdown]);
+
+  if (!block || block.type !== "TEXT") return null;
+
+  const textBlock = block;
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     updateBlock(blockId, e.target.value);
@@ -50,10 +60,6 @@ export const CreateText = ({ containerId, blockId, index }) => {
       textarea.selectionEnd = end + deltaBefore;
     });
   };
-
-  useEffect(() => {
-    autoResize();
-  }, [block.markdown]);
 
   return (
     <div className={styles.container}>

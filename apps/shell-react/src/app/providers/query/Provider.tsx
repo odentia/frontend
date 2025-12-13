@@ -31,11 +31,11 @@ export const ApiProvider = ({ children }: LayoutProps) => {
         },
         onNetworkError: () => {
           if (typeof window !== "undefined") {
-            if (window.location.pathname !== '/network') {
+            if (window.location.pathname !== "/network") {
               window.location.href = "/network";
             }
-          }        
-        }
+          }
+        },
       }),
     [],
   );

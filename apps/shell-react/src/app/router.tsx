@@ -15,11 +15,18 @@ export const routesConfig: RouteObject[] = [
     children: [
       { index: true, element: <Home /> },
       { path: "auth/*", element: <Auth /> },
-      { path: "profile", element: <ProtectedRoute><Profile /></ProtectedRoute> },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
       { path: "publication", element: <Home /> },
       { path: "publication/:id", element: <PublicationPage /> },
       { path: "publication/create", element: <CreatePostPage /> },
-      { path: "network", element: <NetworkError/> }
+      { path: "network", element: <NetworkError /> },
     ],
   },
 ];

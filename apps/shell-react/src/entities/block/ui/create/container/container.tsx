@@ -62,7 +62,10 @@ export const CreateContainer = React.memo(
 
     if (isUndefined) {
       return (
-        <div className={`${styles.container} ${selection === containerId ? styles.active : ""}`} onClick={handleSelect}>
+        <div
+          className={`${styles.container} ${selection === containerId ? styles.active : ""}`}
+          onClick={handleSelect}
+        >
           <div className={styles.containerHeader}>
             <button
               className={styles.containerHeaderRemove}
@@ -85,7 +88,10 @@ export const CreateContainer = React.memo(
     }
 
     return (
-      <div className={`${styles.container} ${selection === containerId ? styles.active : ""}`} onClick={handleSelect}>
+      <div
+        className={`${styles.container} ${selection === containerId ? styles.active : ""}`}
+        onClick={handleSelect}
+      >
         <div className={styles.containerHeader}>
           <button
             className={styles.containerHeaderRemove}

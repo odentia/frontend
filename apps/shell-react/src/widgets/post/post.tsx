@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import styles from "./post.module.scss";
 import { PostRating } from "../../features/postRating/ui/rating";
-// @ts-ignore
+// @ts-expect-error: SVG import may not have type definitions
 import Comment from "../../shared/assets/comment.svg?react";
 import { PostCard } from "../../entities/post/ui/post";
 import type { Page } from "../../entities/post/models";

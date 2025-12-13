@@ -34,7 +34,7 @@ export const CreatePost: FC = () => {
   };
 
   const handleRemoveTag = (tagToRemove: string) => {
-    setTags(tags.filter(tag => tag !== tagToRemove));
+    setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
   const root = containers[rootContainerId];
@@ -100,25 +100,25 @@ export const CreatePost: FC = () => {
       </div>
       <div className={styles.containerTags}>
         <div className={styles.containerTagsInput}>
-          <input 
+          <input
             className={styles.containerTagsInputSelf}
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}
             onKeyDown={handleKeyPress}
             placeholder="Добавьте тег"
           />
-          <button 
+          <button
             className={styles.containerTagsInputButton}
             onClick={handleAddTag}
             disabled={!tagInput.trim()}
           >
             +
           </button>
-      </div>
+        </div>
         {tags.length > 0 && (
           <div className={styles.containerTagsItems}>
             {tags.map((tag, index) => (
-              <div 
+              <div
                 key={index}
                 className={styles.containerTagsItemsItem}
                 onClick={() => handleRemoveTag(tag)}
@@ -130,7 +130,7 @@ export const CreatePost: FC = () => {
         )}
       </div>
       <div className={styles.containerButton}>
-        <CreatePostButton tags={tags}/>
+        <CreatePostButton tags={tags} />
       </div>
     </div>
   );

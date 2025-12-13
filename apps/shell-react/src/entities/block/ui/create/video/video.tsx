@@ -5,16 +5,12 @@ import styles from "./video.module.scss";
 import { BlockCreatingProps } from "../types";
 
 export const CreateVideo = ({
-  containerId,
+  containerId: _containerId,
   blockId,
-  index,
+  index: _index,
 }: BlockCreatingProps) => {
   const block = usePageEditor((state) => state.blocks[blockId]);
   const updateBlock = usePageEditor((state) => state.updateBlock);
-
-  if (!block || block.type !== "VIDEO") return null;
-
-  const hasVideo = Boolean(block.url);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -43,6 +39,10 @@ export const CreateVideo = ({
     noClick: true,
     noKeyboard: true,
   });
+
+  if (!block || block.type !== "VIDEO") return null;
+
+  const hasVideo = Boolean(block.url);
 
   const rootClassName = [
     styles.container,

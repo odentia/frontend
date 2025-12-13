@@ -13,7 +13,6 @@ export const Comment = ({
   text,
   isPositive,
   rating,
-  parentId,
   isLikedMe,
   isDisLikedMe,
   childrenCount,
@@ -26,7 +25,6 @@ export const Comment = ({
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
-    isLoading,
   } = useFlattenedChildren(id, showChildren, type);
 
   const setReply = useReplyStore((s) => s.setReply);

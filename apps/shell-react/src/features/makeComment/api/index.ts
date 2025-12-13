@@ -49,7 +49,7 @@ export const useMakeComment = (
             avatar: null,
           },
           date: new Date().toISOString(),
-          // @ts-ignore
+          // @ts-expect-error: Object literal may only specify known properties, and 'isOptimistic' does not exist in type 'Comment'.
           isOptimistic: true,
         };
 

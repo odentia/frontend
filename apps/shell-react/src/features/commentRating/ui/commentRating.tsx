@@ -1,7 +1,7 @@
 import { useCommentRating } from "../api";
 import { RatingProps } from "../models";
 import styles from "./commentRating.module.scss";
-// @ts-ignore
+// @ts-expect-error: SVG import may not have type definitions
 import Arrow from "../../../shared/assets/arrow.svg?react";
 
 export const CommentRating = ({

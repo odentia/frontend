@@ -3,16 +3,15 @@ import { useDropzone } from "react-dropzone";
 import { usePageEditor } from "../../../../../shared/store/postCreate/postCreate";
 import styles from "./image.module.scss";
 import { BlockCreatingProps } from "../types";
+import { ImageBlock } from "../../../models/types";
 
 export const CreateImage = ({
   containerId,
   blockId,
   index,
 }: BlockCreatingProps) => {
-  const block = usePageEditor((state) => state.blocks[blockId]);
+  const block = usePageEditor((state) => state.blocks[blockId]) as ImageBlock;
   const updateBlock = usePageEditor((state) => state.updateBlock);
-
-  if (!block || block.type !== "IMAGE") return null;
 
   const hasImage = Boolean(block.url);
 
@@ -56,6 +55,8 @@ export const CreateImage = ({
   const handleClick = () => {
     open();
   };
+
+  if (!block || block.type !== "IMAGE") return null;
 
   return (
     <div {...getRootProps({ className: rootClassName })}>

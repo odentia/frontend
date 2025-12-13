@@ -1,7 +1,7 @@
 import { useState, KeyboardEvent } from "react";
 import { useMakeComment } from "../api";
 import styles from "./makeComments.module.scss";
-// @ts-ignore;
+// @ts-expect-error: SVG import may not have type definitions
 import Enter from "../../../shared/assets/enter.svg?react";
 import { useReplyStore } from "../../../shared/store/reply";
 
