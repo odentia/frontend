@@ -9,7 +9,7 @@ export const PostRating = ({
   rating,
   isDislikedMe,
   isLikedMe,
-  isPositiv,
+  isPositive,
 }: RatingProps) => {
   const { likePost } = usePostRating(id);
 
@@ -20,8 +20,8 @@ export const PostRating = ({
         onClick={() => likePost.mutate({ like: true })}
       />
       <span
-        className={`${styles.containerText} ${isPositiv ? styles.positiv : styles.negative}`}
-      >{`${isPositiv ? "+" : "-"}${rating}`}</span>
+        className={`${styles.containerText} ${isPositive ? styles.positiv : styles.negative}`}
+      >{`${isPositive ? "+" : "-"}${rating}`}</span>
       <Arrow
         style={{ transform: "rotate(180deg)" }}
         className={`${styles.containerImage} ${isDislikedMe ? styles.positiv : ""}`}

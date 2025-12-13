@@ -1,13 +1,13 @@
 import { useApi } from "@config-runtime";
-import { Page } from "../models";
+import { Page, Post } from "../models";
 
 export const usePost = (id: number) => {
-  const post = useApi().useApiQuery<Page>({
+  const post = useApi().useApiQuery<Post>({
     key: [`post-${id}`],
     path: `/posts/${id}`,
   });
 
-  const samePosts = useApi().useApiQuery<Page[]>({
+  const samePosts = useApi().useApiQuery<Post[]>({
     key: [`post-${id}`, "same"],
     path: `/posts/${id}/same`,
   });

@@ -1,4 +1,4 @@
-import { usePost } from "../../entities/publication/api";
+import { usePost } from "../../entities/post/api";
 import { PostRating } from "../../features/postRating/ui/rating";
 import styles from "./samePosts.module.scss";
 // @ts-expect-error: SVG import may not have type definitions
@@ -17,33 +17,27 @@ export const SamePosts = ({ postId }: { postId: number }) => {
     <div className={styles.container}>
       <span className={styles.containerTitle}>Похожие публикации</span>
 
-      {posts.map((el) => (
+      {posts.data?.map((el) => (
         <div
           key={el.id}
           className={styles.containerItem}
           onClick={() => handleClick(el.id)}
         >
-          <img
-            className={styles.containerItemImage}
-            src={el.images[0]}
-            alt="prev"
-          />
-
           <span className={styles.containerItemTitle}>{el.title}</span>
 
           <div className={styles.containerItemMetrics}>
             <PostRating
               id={el.id}
               rating={el.rating}
-              isPositiv={el.isPositiv}
-              isDislikedMe={el.isDislikedMe}
+              isPositive={el.isPositive}
+              isDislikedMe={el.isDislikedByMe}
               isLikedMe={el.isLikedByMe}
             />
 
             <div className={styles.containerItemMetricsComments}>
               <Comment className={styles.containerItemMetricsCommentsIcon} />
               <span className={styles.containerItemMetricsCommentsCount}>
-                {el.commentsCount}
+                {el.commentCount}
               </span>
             </div>
           </div>

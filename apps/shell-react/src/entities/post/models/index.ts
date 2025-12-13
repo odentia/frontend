@@ -29,11 +29,21 @@ export interface LayoutContainer {
   parentId?: string | null;
 }
 
-export interface Page {
-  id: string;
+export interface Post {
+  id: number;
   author: Author;
   created_at: string;
   title?: string;
+  rating: number;
+  isPositive: boolean;
+  isLikedByMe: boolean;
+  isDislikedByMe: boolean;
+  commentCount: number;
+  tags: string[];
+  page: Page;
+}
+
+export interface Page {
   styles: PageStyles;
 
   rootContainerId: string;

@@ -1,5 +1,5 @@
 export interface RatingProps {
-  isPositiv: boolean;
+  isPositive: boolean;
   rating: number;
   isLikedMe: boolean;
   isDislikedMe: boolean;

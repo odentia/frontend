@@ -1,7 +1,6 @@
-import React from "react";
 import type { ReactNode } from "react";
 
-import type { Page, LayoutContainer } from "../models";
+import type { Page, LayoutContainer, Post } from "../models";
 import type { Block } from "../../block/models/types";
 import { renderLeafBlock } from "../../block";
 import pageStyles from "./post.module.scss";
@@ -51,14 +50,14 @@ const renderContainer = (container: LayoutContainer, page: Page): ReactNode => {
 };
 
 interface PostCardProps {
-  page: Page;
+  post: Post;
 }
 
-export const PostCard = ({ page }: PostCardProps) => {
-  const { author, created_at, title, styles, rootContainerId, containers } =
-    page;
+export const PostCard = ({ post }: PostCardProps) => {
+  const { author, created_at, title, page } = post;
 
-  const rootContainer = containers[rootContainerId];
+  const rootContainer = page.containers[page.rootContainerId];
+  const styles = page.styles;
 
   return (
     <article

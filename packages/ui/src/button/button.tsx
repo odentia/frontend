@@ -8,6 +8,7 @@ interface ButtonProps {
   fontSize?: string;
   gradient?: string;
   width?: string;
+  borderWidth?: string;
   height?: string;
   loading?: boolean;
   fontWeight?: string;
@@ -27,6 +28,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
   height,
   borderRadius = "8px",
   onClick,
+  borderWidth = "0px",
   disabled = false,
 }) => {
   const isBlocked = disabled || loading;
@@ -45,7 +47,7 @@ const ButtonComponent: React.FC<ButtonProps> = ({
         width: width,
         height: height || "50px",
         padding: "0 14px",
-        border: "none",
+        border: `${borderWidth} solid var(--border)`,
         borderRadius: borderRadius,
         color: "var(--text)",
         backgroundColor: backgroundColor || "var(--attention)",
