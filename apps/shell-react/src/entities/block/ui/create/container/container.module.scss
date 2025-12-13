@@ -1,0 +1,135 @@
+.container {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+
+  border-radius: 8px;
+  border: 1px dashed transparent;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  &:has(.sideDropZone.over) {
+    border-color: var(--border);
+    background-color: rgba(99, 102, 241, 0.06);
+  }
+
+  &Inner {
+    flex: 1;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  &Content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &Header {
+    position: absolute;
+    right: 5px;
+    z-index: 10;
+
+    &Remove {
+      color: var(--subtext);
+      transition: 0.2s ease;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--attention);
+      }
+    }
+  }
+}
+
+.children {
+  display: flex;
+  gap: 12px;
+  flex-wrap: nowrap;
+  width: 100%;
+  flex-direction: column;
+}
+
+.sideDropZone {
+  display: flex;
+  padding: 15px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: auto;
+
+  .plus {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--subtext);
+    pointer-events: none;
+  }
+
+  &.over {
+    opacity: 1 !important;
+  }
+}
+
+.top {
+  height: 15px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom {
+  height: 15px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left {
+  align-self: stretch;
+  width: 15px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right {
+  align-self: stretch;
+  width: 15px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.dragging .sideDropZone {
+  opacity: 0.18;
+}
+
+body.dragging .sideDropZone.over {
+  opacity: 1;
+}
+
+.active {
+  border: 1px solid var(--attention) !important;
+}

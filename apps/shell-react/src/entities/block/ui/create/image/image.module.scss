@@ -1,0 +1,60 @@
+.container {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &Dragging {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  &HasImage {
+    border: none;
+  }
+
+  &Input {
+    display: none;
+  }
+
+  &Button {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    border: 1px dashed var(--border);
+    background: transparent;
+    color: var(--subtext);
+    padding: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &Inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px dashed var(--border);
+    background: #f8f8f8;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  &InnerImage {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    object-fit: contain;
+    pointer-events: none;
+  }
+}

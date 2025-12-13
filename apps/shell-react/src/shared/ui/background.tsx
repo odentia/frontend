@@ -143,7 +143,7 @@ export const Background = () => {
     <canvas
       ref={ref}
       style={{
-        position: "absolute",
+        position: "fixed",
         left: 0,
         top: 0,
         pointerEvents: "none",
