@@ -12,7 +12,6 @@ export const CreatePostButton = ({ tags }: { tags: string[] }) => {
   const rootContainer = usePageEditor((state) => state.rootContainerId);
 
   const handleClick = () => {
-
     create.mutate({
       title: title,
       tags: tags,

@@ -1,8 +1,5 @@
 import { usePageEditor } from "../../shared/store/postCreate/postCreate";
-import {
-  VideoBlock,
-  ButtonBlock,
-} from "../../entities/block/models/types";
+import { VideoBlock, ButtonBlock } from "../../entities/block/models/types";
 import styles from "./blockStyles.module.scss";
 
 export const BlockStylePanel = () => {
@@ -16,7 +13,16 @@ export const BlockStylePanel = () => {
     return <div>Block not found</div>;
   }
 
-  const handleChange = (field: keyof { padding?: number; paddingTop?: number; paddingBottom?: number; align?: string; backgroundColor?: string; }, value: any) => {
+  const handleChange = (
+    field: keyof {
+      padding?: number;
+      paddingTop?: number;
+      paddingBottom?: number;
+      align?: string;
+      backgroundColor?: string;
+    },
+    value: any,
+  ) => {
     updateBlockStyles(block.id, { [field]: value });
   };
 

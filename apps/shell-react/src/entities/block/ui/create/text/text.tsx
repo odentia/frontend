@@ -4,7 +4,11 @@ import { usePageEditor } from "../../../../../shared/store/postCreate/postCreate
 import { BlockCreatingProps } from "../types";
 import { TextBlock } from "../../../models/types";
 
-export const CreateText = ({ containerId: _containerId, blockId, index: _index }: BlockCreatingProps) => {
+export const CreateText = ({
+  containerId: _containerId,
+  blockId,
+  index: _index,
+}: BlockCreatingProps) => {
   const block = usePageEditor((s) => s.blocks[blockId]) as TextBlock;
   const updateBlock = usePageEditor((s) => s.updateTextBlock);
 
