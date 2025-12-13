@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  &Image {
+    width: 21px;
+    height: 21px;
+    color: var(--subtext);
+    cursor: pointer;
+  }
+
+  &Text {
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+.positiv {
+  color: var(--attention);
+}
+
+.negative {
+  color: var(--danger);
+}
