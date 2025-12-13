@@ -25,8 +25,8 @@ export const UpdateProfileFields = ({
               width="100%"
               color={hasError ? "var(--danger)" : "var(--border)"}
               height={30}
-              shadowBlur={16}
-              shadowSpread={2}
+              shadowBlur={20}
+              shadowSpread={0.5}
               shadowColor={hasError ? "var(--danger)" : "var(--box-shadow)"}
             />
             {hasError && <span className={styles.error}>{error}</span>}

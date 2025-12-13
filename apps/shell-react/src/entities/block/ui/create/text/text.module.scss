@@ -1,0 +1,39 @@
+@use "@mixin" as mixin;
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  gap: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  border-radius: 5px;
+
+  &Toolbar {
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+
+    &Item {
+      color: var(--text);
+      border: 2px solid var(--subtext);
+      padding: 2px;
+      padding: 5px;
+      border-radius: 5px;
+
+      @include mixin.mobile {
+        font-size: 12px;
+      }
+    }
+  }
+
+  &Text {
+    width: 100%;
+    color: var(--text);
+    resize: none;
+    overflow: hidden;
+  }
+}

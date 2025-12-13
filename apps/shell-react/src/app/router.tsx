@@ -3,6 +3,11 @@ import { Home } from "../pages";
 import Auth from "../pages/auth/auth";
 import type { RouteObject } from "react-router-dom";
 import Profile from "../pages/profile/profile";
+import { PublicationPage } from "../pages/publications/publication/publication";
+import { CreatePostPage } from "../pages/publications/create";
+import { ProtectedRoute } from "./routes/protectedRoute";
+import { NetworkError } from "../pages/networkError";
+import { NotFoundPage } from "../pages/notFound";
 
 export const routesConfig: RouteObject[] = [
   {
@@ -11,7 +16,19 @@ export const routesConfig: RouteObject[] = [
     children: [
       { index: true, element: <Home /> },
       { path: "auth/*", element: <Auth /> },
-      { path: "profile", element: <Profile /> },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      { path: "publication", element: <Home /> },
+      { path: "publication/:id", element: <PublicationPage /> },
+      { path: "publication/create", element: <CreatePostPage /> },
+      { path: "network", element: <NetworkError /> },
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
 ];

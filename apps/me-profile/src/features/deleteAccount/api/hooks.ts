@@ -1,4 +1,4 @@
-// import { useApi } from "@config-runtime/dist";
+// import { useApi } from "@config-runtime";
 // import { useNavigate } from "react-router-dom";
 
 // export const deleteUser = () => {

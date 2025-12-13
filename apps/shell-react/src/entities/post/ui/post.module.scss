@@ -1,0 +1,73 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &Header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+
+    &Image {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    &Text {
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      color: var(--subtext);
+      font-weight: 500;
+
+      &Name {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--subtext);
+      }
+
+      &Date {
+        font-size: 13px;
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &Title {
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  &Body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &Block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &Content {
+      width: 100%;
+    }
+
+    &Children {
+      display: flex;
+      gap: 16px;
+      align-items: stretch;
+
+      &Item {
+        flex: 1 1 0;
+        min-width: 0;
+      }
+    }
+  }
+}

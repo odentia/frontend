@@ -3,10 +3,21 @@ import { pluginReact } from "@rsbuild/plugin-react";
 import { pluginSass } from "@rsbuild/plugin-sass";
 import { pluginModuleFederation } from "@module-federation/rsbuild-plugin";
 import mfConfig from "./module-federation.config";
+import { pluginSvgr } from "@rsbuild/plugin-svgr";
 import path from "path";
 
 export default defineConfig({
-  plugins: [pluginReact(), pluginSass(), pluginModuleFederation(mfConfig)],
+  plugins: [
+    pluginReact(),
+    pluginSass(),
+    pluginModuleFederation(mfConfig),
+    pluginSvgr({
+      svgrOptions: {
+        exportType: "default",
+        jsxRuntime: "automatic",
+      },
+    }),
+  ],
   server: {
     port: 3000,
     host: "localhost",

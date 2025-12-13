@@ -11,5 +11,5 @@
     "resolveJsonModule": true,
     "moduleResolution": "bundler"
   },
-  "include": ["src"]
+  "include": ["src", "../shell-react/src/shared/store"]
 }

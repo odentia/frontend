@@ -1,4 +1,4 @@
-import { useApi } from "@config-runtime/dist";
+import { useApi } from "@config-runtime";
 
 export const useAvatar = () => {
   const api = useApi();

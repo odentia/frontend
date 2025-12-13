@@ -1,0 +1,221 @@
+.container {
+  width: 100%;
+  max-width: 480px;
+  padding: 24px;
+  border-radius: 24px;
+  background: var(--cards);
+  border: 1px solid var(--border);
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &Title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  &Input {
+    width: 100%;
+    background: var(--background-color-main);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    padding: 10px 14px;
+    color: var(--subtext);
+    font-size: 14px;
+
+    outline: none;
+    transition:
+      0.15s border-color,
+      0.15s box-shadow,
+      0.15s background;
+
+    &::placeholder {
+      color: #6b7280;
+    }
+  }
+
+  &Textarea {
+    @extend .containerInput;
+    min-height: 160px;
+    resize: vertical;
+  }
+
+  &Images {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &Drag {
+      width: 140px;
+      aspect-ratio: 1 / 1;
+
+      border-radius: 14px;
+      border: 1px dashed var(--border);
+      background: var(--background-color-main);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+      color: var(--subtext);
+      font-size: 32px;
+      user-select: none;
+
+      transition:
+        0.15s border-color,
+        0.15s background,
+        0.1s transform;
+
+      &Active {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+    }
+
+    &DragPrev {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      &Item {
+        position: relative;
+        width: 82px;
+        height: 82px;
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--background-color-main);
+        border: 1px solid var(--border);
+
+        &Image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          cursor: pointer;
+        }
+
+        &Close {
+          position: absolute;
+          top: 4px;
+          right: 4px;
+
+          width: 18px;
+          height: 18px;
+          border-radius: 999px;
+          background: var(--subtext);
+          color: var(--text);
+
+          font-size: 11px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          cursor: pointer;
+          border: none;
+
+          transition:
+            0.15s background,
+            0.1s transform;
+
+          &:hover {
+            background: var(--danger);
+            transform: scale(1.05);
+          }
+        }
+      }
+    }
+  }
+
+  &Tags {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    padding: 8px 10px 10px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--background-color-main);
+    box-sizing: border-box;
+
+    &InputRow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    &Input {
+      flex: 1 1 auto;
+      height: 32px;
+
+      background: transparent;
+      border: none;
+      outline: none;
+
+      color: var(--text);
+      font-size: 14px;
+
+      &::placeholder {
+        color: var(--subtext);
+      }
+    }
+
+    &Button {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+
+      border: 1px solid #374151;
+      background: #1f2937;
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+      transition:
+        0.15s background,
+        0.15s border-color,
+        0.1s transform;
+
+      &:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+    }
+
+    &List {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    &Item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+
+      border-radius: 5px;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: var(--cards);
+      color: var(--text);
+      font-size: 12px;
+    }
+  }
+
+  &Submit {
+    width: 100%;
+    margin-top: 4px;
+  }
+}
