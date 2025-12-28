@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: rgb(0, 0, 0, 0.2);
+  color: var(--subtext);
+
+  user-select: none;
+
+  &Arrow,
+  &Page {
+    min-width: 32px;
+    height: 32px;
+    aspect-ratio: 1 / 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border);
+    border-radius: 5px;
+
+    background: transparent;
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+
+    transition:
+      background 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease;
+
+    &:hover:not(:disabled) {
+      background: var(--hover);
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.5;
+    }
+  }
+
+  &Page {
+    &Active {
+      background: var(--attention);
+      border-color: var(--attention);
+      color: #fff;
+    }
+  }
+
+  &Arrow {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  &Dots {
+    min-width: 20px;
+    text-align: center;
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+}

@@ -6,6 +6,8 @@ import { ChangePassword } from "../../features/changePassword/ui/changePassword"
 import { DeleteButton } from "../../features/deleteAccount/ui/button";
 import { SaveButton } from "../../features/updateProfile/ui/Button/button";
 import { ProfileForm } from "../../features/updateProfile/ui/Fields/types";
+import { useUser } from "../../entities/user/api";
+import { Loading } from "@ui";
 
 type ErrorKey = "username" | "email" | "description";
 
@@ -28,6 +30,8 @@ export const Profile = () => {
     bio: "description",
   };
 
+  const user = useUser();
+
   const handleFieldChange = (field: keyof ProfileForm, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
 
@@ -39,38 +43,48 @@ export const Profile = () => {
     setErrors((prev) => ({ ...prev, [field]: value }));
   };
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.containerHeader}>
-        <Avatar url="asdasd" />
-        <div className={styles.containerHeaderInfo}>
-          <span className={styles.containerHeaderInfoTitle}>Qrtx</span>Я всегда
-          мечтал стать огромным летающим крабом
-        </div>
+  if (!user.data)
+    return (
+      <div className={styles.container}>
+        <Loading />
       </div>
+    );
 
-      <div className={styles.containerBody}>
-        <UpdateProfileFields
-          form={form}
-          onChange={handleFieldChange}
-          errors={{
-            name: errors.username,
-            email: errors.email,
-            bio: errors.description,
-          }}
-        />
-        <ChangePassword />
+  if (user.data)
+    return (
+      <div className={styles.container}>
+        <div className={styles.containerHeader}>
+          <Avatar url={user.data.image_url} />
+          <div className={styles.containerHeaderInfo}>
+            <span className={styles.containerHeaderInfoTitle}>
+              {user.data.username}
+            </span>
+            {user.data.description}
+          </div>
+        </div>
 
-        <div className={styles.containerButtons}>
-          <DeleteButton />
-          <SaveButton
-            username={form.name}
-            email={form.email}
-            description={form.bio}
-            setErrors={handleSetError}
+        <div className={styles.containerBody}>
+          <UpdateProfileFields
+            form={form}
+            onChange={handleFieldChange}
+            errors={{
+              name: errors.username,
+              email: errors.email,
+              bio: errors.description,
+            }}
           />
+          <ChangePassword />
+
+          <div className={styles.containerButtons}>
+            <DeleteButton />
+            <SaveButton
+              username={form.name}
+              email={form.email}
+              description={form.bio}
+              setErrors={handleSetError}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 };

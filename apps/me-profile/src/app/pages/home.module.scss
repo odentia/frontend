@@ -5,7 +5,17 @@
   align-items: center;
   width: 100%;
   justify-content: center;
+  align-items: stretch;
   gap: 20px;
+  padding: 5%;
+
+  &Theme {
+    width: 40%;
+
+    @include mixin.mobile {
+      width: 100%;
+    }
+  }
 
   @include mixin.mobile {
     flex-direction: column;

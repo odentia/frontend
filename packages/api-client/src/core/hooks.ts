@@ -16,13 +16,13 @@ type ApiQueryArgs<TData> = {
   refetchIntervalInBackground?: boolean;
 } & Pick<UseQueryOptions<TData>, "staleTime" | "select" | "gcTime">;
 
-type MutationCommonCallbacks<TData, TVars, TContext> = {
+type MutationCommonCallbacks<TData, TVars, TContext, TError = unknown> = {
   onMutate?: (vars: TVars) => Promise<TContext> | TContext;
   onSuccess?: (data: TData, vars: TVars, ctx: TContext) => void;
-  onError?: (err: unknown, vars: TVars, ctx: TContext | undefined) => void;
+  onError?: (err: TError, vars: TVars, ctx: TContext | undefined) => void;
   onSettled?: (
     data: TData | undefined,
-    err: unknown | null,
+    err: TError | null,
     vars: TVars,
     ctx: TContext | undefined,
   ) => void;
@@ -66,14 +66,19 @@ export function createApiHooks(
     });
   }
 
-  function useApiMutation<TData = unknown, TVars = unknown, TContext = unknown>(
+  function useApiMutation<
+    TData = unknown,
+    TVars = unknown,
+    TContext = unknown,
+    TError = unknown,
+  >(
     path: string,
     method: "post" | "put" | "patch" | "delete" = "post",
     invalidate?: unknown[],
-    common?: MutationCommonCallbacks<TData, TVars, TContext>,
+    common?: MutationCommonCallbacks<TData, TVars, TContext, TError>,
   ) {
     const qc = useQueryClient();
-    return useMutation<TData, unknown, TVars, TContext>({
+    return useMutation<TData, TError, TVars, TContext>({
       mutationFn: async (vars) =>
         (
           await client.request<TData>({
@@ -114,16 +119,17 @@ export function createApiHooks(
     TData = unknown,
     TVars = unknown,
     TContext = unknown,
+    TError = unknown,
   >(
     path: string,
     method: "post" | "put" | "patch" | "delete" = "post",
     invalidate?: unknown[],
-    common?: MutationCommonCallbacks<TData, TVars, TContext>,
+    common?: MutationCommonCallbacks<TData, TVars, TContext, TError>,
   ) {
     const { isSuccess } = auth.useSessionQuery({ enabled: true });
     const qc = useQueryClient();
 
-    return useMutation<TData, unknown, TVars, TContext>({
+    return useMutation<TData, TError, TVars, TContext>({
       mutationFn: async (vars) => {
         if (!isSuccess) throw new Error("Not authorized");
         return (
