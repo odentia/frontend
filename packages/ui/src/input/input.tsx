@@ -89,7 +89,7 @@ const InputComponent = ({
     border: "none",
     outline: "none",
     font: "inherit",
-    width: "100%"
+    width: "100%",
   };
 
   const containerStyle: React.CSSProperties = {

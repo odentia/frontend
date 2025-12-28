@@ -30,15 +30,7 @@ export const Profile = () => {
     bio: "description",
   };
 
-  // const user = useUser();
-
-  const user = {
-    data: {
-      image_url: "asdasd",
-      username: "QrtX",
-      description: "Я всегда мечтал стать огромным космическим крабом"
-    }
-  }
+  const user = useUser();
 
   const handleFieldChange = (field: keyof ProfileForm, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -51,42 +43,48 @@ export const Profile = () => {
     setErrors((prev) => ({ ...prev, [field]: value }));
   };
 
-  if (!user.data) return (
-    <div className={styles.container}><Loading/></div>
-  )
-
-  if (user.data) return (
-    <div className={styles.container}>
-      <div className={styles.containerHeader}>
-        <Avatar url={user.data.image_url} />
-        <div className={styles.containerHeaderInfo}>
-          <span className={styles.containerHeaderInfoTitle}>{user.data.username}</span>
-          {user.data.description}
-        </div>
+  if (!user.data)
+    return (
+      <div className={styles.container}>
+        <Loading />
       </div>
+    );
 
-      <div className={styles.containerBody}>
-        <UpdateProfileFields
-          form={form}
-          onChange={handleFieldChange}
-          errors={{
-            name: errors.username,
-            email: errors.email,
-            bio: errors.description,
-          }}
-        />
-        <ChangePassword />
+  if (user.data)
+    return (
+      <div className={styles.container}>
+        <div className={styles.containerHeader}>
+          <Avatar url={user.data.image_url} />
+          <div className={styles.containerHeaderInfo}>
+            <span className={styles.containerHeaderInfoTitle}>
+              {user.data.username}
+            </span>
+            {user.data.description}
+          </div>
+        </div>
 
-        <div className={styles.containerButtons}>
-          <DeleteButton />
-          <SaveButton
-            username={form.name}
-            email={form.email}
-            description={form.bio}
-            setErrors={handleSetError}
+        <div className={styles.containerBody}>
+          <UpdateProfileFields
+            form={form}
+            onChange={handleFieldChange}
+            errors={{
+              name: errors.username,
+              email: errors.email,
+              bio: errors.description,
+            }}
           />
+          <ChangePassword />
+
+          <div className={styles.containerButtons}>
+            <DeleteButton />
+            <SaveButton
+              username={form.name}
+              email={form.email}
+              description={form.bio}
+              setErrors={handleSetError}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 };

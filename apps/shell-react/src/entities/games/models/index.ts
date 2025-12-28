@@ -1,5 +1,5 @@
 export interface GamePrev {
-    image: string;
-    title: string;
-    id: number;
+  image: string;
+  title: string;
+  id: number;
 }

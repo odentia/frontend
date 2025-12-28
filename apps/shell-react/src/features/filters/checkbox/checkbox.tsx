@@ -1,8 +1,8 @@
 import { useQueryParams } from "../../../shared/lib/searchParams";
 import styles from "./checkbox.module.scss";
-// @ts-expect-error
+// @ts-expect-error: image to comp convert
 import Plus from "../../../shared/assets/plus.svg?react";
-// @ts-expect-error
+// @ts-expect-error: image to comp convert
 import Minus from "../../../shared/assets/minus.svg?react";
 
 interface FilterCheckboxProps {
@@ -16,10 +16,7 @@ export const FilterCheckbox = ({
   param,
   value,
 }: FilterCheckboxProps) => {
-  const {
-    getAll,
-    toggleParamValue,
-  } = useQueryParams();
+  const { getAll, toggleParamValue } = useQueryParams();
 
   const selectedValues = getAll(param);
   const isChecked = selectedValues.includes(value);
@@ -30,10 +27,10 @@ export const FilterCheckbox = ({
 
   return (
     <div className={styles.container} onClick={handleClick}>
-      <div className={`${styles.containerCheckbox} ${isChecked ? styles.active : ""}`}>
-        {isChecked && (
-          <Plus className={styles.containerCheckboxIcon} />
-        )}
+      <div
+        className={`${styles.containerCheckbox} ${isChecked ? styles.active : ""}`}
+      >
+        {isChecked && <Plus className={styles.containerCheckboxIcon} />}
       </div>
       <span className={styles.containerLabel}>{label}</span>
     </div>

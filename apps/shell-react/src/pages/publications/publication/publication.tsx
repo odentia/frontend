@@ -10,17 +10,18 @@ export const PublicationPage = () => {
   const { id } = useParams<{ id: string }>();
   const post = usePost(Number(id)).post;
 
-  if (post.error) return <NotFoundPage/>
+  if (post.error) return <NotFoundPage />;
 
-  if (post.data) return (
-    <div className={styles.container}>
-      <div className={styles.containerBody}>
-        <Post post={post.data} />
-        <PostComments id={Number(id)} type="post" />
+  if (post.data)
+    return (
+      <div className={styles.container}>
+        <div className={styles.containerBody}>
+          <Post post={post.data} />
+          <PostComments id={Number(id)} type="post" />
+        </div>
+        <div className={styles.containerSame}>
+          <SamePosts postId={Number(id)} />
+        </div>
       </div>
-      <div className={styles.containerSame}>
-        <SamePosts postId={Number(id)} />
-      </div>
-    </div>
-  );
+    );
 };

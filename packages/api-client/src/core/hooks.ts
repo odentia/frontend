@@ -66,7 +66,12 @@ export function createApiHooks(
     });
   }
 
-  function useApiMutation<TData = unknown, TVars = unknown, TContext = unknown, TError = unknown>(
+  function useApiMutation<
+    TData = unknown,
+    TVars = unknown,
+    TContext = unknown,
+    TError = unknown,
+  >(
     path: string,
     method: "post" | "put" | "patch" | "delete" = "post",
     invalidate?: unknown[],
@@ -114,7 +119,7 @@ export function createApiHooks(
     TData = unknown,
     TVars = unknown,
     TContext = unknown,
-    TError = unknown
+    TError = unknown,
   >(
     path: string,
     method: "post" | "put" | "patch" | "delete" = "post",

@@ -21,7 +21,8 @@ export const Background = () => {
     let raf = 0;
 
     // ---- user prefs
-    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+    const reduceMotion =
+      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
 
     // ---- dpr
     const dpr = Math.min(window.devicePixelRatio || 1, 2);

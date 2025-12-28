@@ -36,9 +36,7 @@ export const FilterCategory = ({ param }: FilterCategoryProps) => {
       {open && value && (
         <div className={styles.containerDropdown}>
           {isLoading && (
-            <div className={styles.containerDropdownItem}>
-              Загрузка...
-            </div>
+            <div className={styles.containerDropdownItem}>Загрузка...</div>
           )}
 
           {data?.map((game) => (

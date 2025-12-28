@@ -1,43 +1,42 @@
 @use "@mixin" as mixin;
 
 .container {
-    display: flex;
-    align-items: start;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  gap: 20px;
+  padding: 5%;
+
+  @include mixin.mobile {
+    flex-direction: column;
     padding: 5%;
+  }
+
+  &Filters {
+    width: 20%;
+    height: 100%;
 
     @include mixin.mobile {
-        flex-direction: column;
-        padding: 5%;
+      width: 100%;
+      height: auto;
     }
+  }
 
-    &Filters {
-        width: 20%;
-        height: 100%;
+  &Body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--cards);
+    width: 100%;
+    border: 1px solid var(--border);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid (--border);
 
-        @include mixin.mobile {
-            width: 100%;
-            height: auto;
-        }
+    &Items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
     }
-
-    &Body {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        background-color: var(--cards);
-        width: 100%;
-        border: 1px solid var(--border);
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid (--border);
-
-        &Items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 20px;
-        }
-
-    }
+  }
 }

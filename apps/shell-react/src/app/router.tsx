@@ -19,16 +19,14 @@ export const routesConfig: RouteObject[] = [
       { path: "auth/*", element: <Auth /> },
       {
         path: "profile",
-        element: (
-            <Profile />
-        ),
+        element: <Profile />,
       },
       { path: "publication", element: <Home /> },
       { path: "publication/:id", element: <PublicationPage /> },
       { path: "publication/create", element: <CreatePostPage /> },
       { path: "network", element: <NetworkError /> },
       { path: "*", element: <NotFoundPage /> },
-      { path: "games", element: <GamesPage/> }
+      { path: "games", element: <GamesPage /> },
     ],
   },
 ];

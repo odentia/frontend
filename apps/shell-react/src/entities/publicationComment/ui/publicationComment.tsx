@@ -3,14 +3,13 @@ import { CommentProps } from "../models";
 import styles from "./publicationComment.module.scss";
 
 export const CommentCard = ({ author, date, text }: CommentProps) => {
-  
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/users/${author.id}`)
-  }
+    navigate(`/users/${author.id}`);
+  };
 
-  return(
+  return (
     <div className={styles.container}>
       <div className={styles.containerHeader}>
         <img
@@ -27,5 +26,5 @@ export const CommentCard = ({ author, date, text }: CommentProps) => {
 
       <p className={styles.containerText}>{text}</p>
     </div>
-)};
-
+  );
+};

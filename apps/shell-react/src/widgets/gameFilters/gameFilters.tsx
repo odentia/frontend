@@ -10,66 +10,63 @@ export const GameFilters = () => {
   const category = [
     {
       name: "Рогалик",
-      value: "Rogulike"
+      value: "Rogulike",
     },
     {
       name: "Хоррор",
-      value: "Horror"
+      value: "Horror",
     },
-    { 
+    {
       name: "Шутер",
-      value: "Shooter"
-    }
-    ];
+      value: "Shooter",
+    },
+  ];
 
   const platform = [
     {
       name: "PS5",
-      value: "PS5"
+      value: "PS5",
     },
     {
       name: "PC",
-      value: "PC"
+      value: "PC",
     },
     {
       name: "Nintendo Switch",
-      value: "nintendosw"
+      value: "nintendosw",
     },
     {
       name: "Xbox One",
-      value: "xboxone"
+      value: "xboxone",
     },
-
-  ]
+  ];
 
   const ageRating = [
-  {
-    name: "Для всех",
-    value: "E",
-  },
-  {
-    name: "10+",
-    value: "E10+",
-  },
-  {
-    name: "13+",
-    value: "T",
-  },
-  {
-    name: "17+",
-    value: "M",
-  },
-  {
-    name: "18+",
-    value: "AO",
-  },
-  {
-    name: "Не указано ",
-    value: "RP",
-  },
-];
-
-  
+    {
+      name: "Для всех",
+      value: "E",
+    },
+    {
+      name: "10+",
+      value: "E10+",
+    },
+    {
+      name: "13+",
+      value: "T",
+    },
+    {
+      name: "17+",
+      value: "M",
+    },
+    {
+      name: "18+",
+      value: "AO",
+    },
+    {
+      name: "Не указано ",
+      value: "RP",
+    },
+  ];
 
   const params = useQueryParams();
 
@@ -81,7 +78,12 @@ export const GameFilters = () => {
 
       <Item title="Категории">
         {category.map((el) => (
-          <FilterCheckbox key={el.name} param="category" label={el.name} value={el.value} />
+          <FilterCheckbox
+            key={el.name}
+            param="category"
+            label={el.name}
+            value={el.value}
+          />
         ))}
       </Item>
 
@@ -101,7 +103,12 @@ export const GameFilters = () => {
 
       <Item title="Платформа">
         {platform.map((el) => (
-          <FilterCheckbox key={el.name} param="platform" label={el.name} value={el.value} />
+          <FilterCheckbox
+            key={el.name}
+            param="platform"
+            label={el.name}
+            value={el.value}
+          />
         ))}
       </Item>
 
@@ -119,8 +126,8 @@ export const GameFilters = () => {
       <Button
         text="Сбросить фильтры"
         onClick={() => params.resetParams()}
-        width = "100%"
-        height = "30px"
+        width="100%"
+        height="30px"
         borderRadius="5px"
         backgroundColor="var(--attention)"
       />
@@ -140,12 +147,10 @@ const Item = ({ title, children }: ItemProps) => {
     <div className={styles.containerItem}>
       <div
         className={styles.containerItemHeader}
-        onClick={() => setOpen(prev => !prev)}
+        onClick={() => setOpen((prev) => !prev)}
       >
         <span className={styles.containerItemTitle}>{title}</span>
-        <span className={styles.containerItemArrow}>
-          {open ? "−" : "+"}
-        </span>
+        <span className={styles.containerItemArrow}>{open ? "−" : "+"}</span>
       </div>
 
       <motion.div
