@@ -11,6 +11,13 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
+      retry: (count, error: any) => {
+        if (error?.isNetworkError || !error?.response) {
+          return false;
+        }
+
+        return count < 2;
+      },
     },
   },
 });
@@ -30,11 +37,11 @@ export const ApiProvider = ({ children }: LayoutProps) => {
           }
         },
         onNetworkError: () => {
-          if (typeof window !== "undefined") {
-            if (window.location.pathname !== "/network") {
-              window.location.href = "/network";
-            }
-          }
+          // if (typeof window !== "undefined") {
+          //   if (window.location.pathname !== "/network") {
+          //     window.location.href = "/network";
+          //   }
+          // }
         },
       }),
     [],

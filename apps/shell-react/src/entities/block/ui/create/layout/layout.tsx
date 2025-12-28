@@ -1,5 +1,3 @@
-// src/entities/post/model/CreateBlockFrame.tsx (или ui/common)
-
 import React from "react";
 import { usePageEditor } from "../../../../../shared/store/postCreate/postCreate";
 import type { LeafBlock } from "../../../models/registr";

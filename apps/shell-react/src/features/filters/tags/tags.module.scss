@@ -1,0 +1,109 @@
+.container {
+    
+    &Tags {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+
+    &Input {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      &Self {
+        flex: 1;
+        height: 36px;
+        padding: 0 12px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text);
+        font-size: 14px;
+        transition: border-color 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: var(--attention);
+        }
+
+        &::placeholder {
+          color: var(--subtext);
+          opacity: 0.7;
+        }
+      }
+
+      &Button {
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text);
+        font-size: 20px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+
+        &:hover:not(:disabled) {
+          background-color: var(--attention);
+          border-color: var(--attention);
+          color: var(--text);
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    &Items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      &Item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 4px 10px;
+        background: rgba(17, 17, 17, 0.1);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        user-select: none;
+
+        &:hover {
+          opacity: 0.1;
+          border-color: var(--attention);
+          transform: translateY(-1px);
+
+          .containerTagsItemsItemClose {
+            opacity: 1;
+            transform: scale(1.1);
+          }
+        }
+
+        &Text {
+          font-size: 13px;
+          color: var(--text);
+          font-weight: 500;
+        }
+
+        &Close {
+          font-size: 16px;
+          color: var(--subtext);
+          opacity: 0.7;
+          transition: all 0.2s ease;
+          margin-left: 2px;
+        }
+      }
+    }
+  }
+}
