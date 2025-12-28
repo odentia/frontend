@@ -54,7 +54,7 @@ const InputComponent = ({
   };
 
   const bodyStyle: React.CSSProperties = {
-    width: width ?? "100%",
+    width: "100%",
     backgroundColor: backgroundColor ?? "transparent",
     height,
     border: "1px solid var(--border)",
@@ -89,6 +89,7 @@ const InputComponent = ({
     border: "none",
     outline: "none",
     font: "inherit",
+    width: "100%"
   };
 
   const containerStyle: React.CSSProperties = {
@@ -96,7 +97,7 @@ const InputComponent = ({
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    width: "auto",
+    width: width ?? "100%",
   };
 
   const errorStyle: React.CSSProperties = {

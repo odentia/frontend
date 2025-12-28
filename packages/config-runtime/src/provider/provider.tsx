@@ -3,6 +3,7 @@ import type { AxiosInstance } from "axios";
 
 type Ctx = { client: AxiosInstance };
 const ApiCtx = createContext<Ctx | null>(null);
+export type __PING__ = "I_AM_REBUILT";
 
 export function ApiProvider({
   client,
