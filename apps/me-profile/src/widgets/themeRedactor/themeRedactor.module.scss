@@ -1,7 +1,9 @@
+@use "@mixin" as mixin;
+
 .container {
-  width: 350px;
-  height: 80vh;
+  width: 100%;
   display: flex;
+  max-height: 90vh;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -16,10 +18,15 @@
   font-weight: 600;
   padding: 10px 0;
 
+  @include mixin.mobile {
+    max-height: 80vh;
+  }
+
   &Button {
-    padding: 5px 0;
+    padding: 10px 0;
     height: 40px;
     width: 100%;
+    margin-bottom: 10px;
   }
 }
 

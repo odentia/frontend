@@ -2,12 +2,18 @@
   width: 100px;
   height: 100px;
   border-radius: 999;
-  background-color: var(--cards);
+  background-color: rgb(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid var(--border);
   position: relative;
   cursor: pointer;
+  transition: 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
 
   &Image {
     object-fit: contain;
