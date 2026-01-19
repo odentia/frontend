@@ -84,9 +84,9 @@ export function useGamesPrev(params?: GamesQueryParams) {
   const api = useApi();
   const normalized = normalizeParams(params);
 
-  return api.useApiQuery<GamePrev[]>({
+  return api.useApiQuery<GamePrev>({
     key: ["games", "list", normalized],
-    path: "/games/",
+    path: "/api/v1/games/",
     params: normalized,
   });
 }
@@ -94,7 +94,7 @@ export function useGamesPrev(params?: GamesQueryParams) {
 export function usePlatforms() {
   const api = useApi().useApiQuery<Platform>({
     key: ["platforms"],
-    path: "/genres/platforms",
+    path: "/api/v1/genres/platforms",
   });
   return api;
 }
@@ -102,12 +102,12 @@ export function usePlatforms() {
 export function useAge() {
   const api = useApi().useApiQuery<Age>({
     key: ["age"],
-    path: "/genres/age-ratings",
+    path: "/api/v1/genres/age-ratings",
   });
   return api;
 }
 
 export function useGenres() {
-  const api = useApi().useApiQuery<Genres>({ key: ["genre"], path: "/genres" });
+  const api = useApi().useApiQuery<Genres>({ key: ["genre"], path: "/api/v1/genres" });
   return api;
 }

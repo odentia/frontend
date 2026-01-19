@@ -1,7 +1,10 @@
 export interface GamePrev {
-  background_image: string;
-  name: string;
-  id: string;
+  total: number,
+  items: {
+    background_image: string;
+    name: string;
+    id: string;
+  }[]
 }
 
 export interface Platform {

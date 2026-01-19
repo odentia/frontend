@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { GamePrev } from "../models";
 import styles from "./gameCard.module.scss";
 
-export const GameCard = ({ background_image, name, id }: GamePrev) => {
+export const GameCard = ({ background_image, name, id }: GamePrev["items"][0]) => {
   const navigate = useNavigate();
 
   const handleClick = () => {

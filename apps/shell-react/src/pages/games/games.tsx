@@ -32,7 +32,7 @@ export const GamesPage = () => {
       <div className={styles.containerBody}>
         <div className={styles.containerBodyItems}>
           {games.data &&
-            games.data.map((el) => (
+            games.data.items.map((el) => (
               <GameCard
                 key={el.id}
                 id={el.id}

@@ -26,7 +26,7 @@ export const ApiProvider = ({ children }: LayoutProps) => {
   const client = useMemo(
     () =>
       createHttpClient({
-        baseURL: "http://89.111.163.192:8010/api/v1/",
+        baseURL: "",
         refreshPath: "/auth/refresh",
         withCredentials: true,
         onAuthFailed: () => {
@@ -36,13 +36,13 @@ export const ApiProvider = ({ children }: LayoutProps) => {
             window.location.href = "/auth/login";
           }
         },
-        onNetworkError: () => {
-          // if (typeof window !== "undefined") {
-          //   if (window.location.pathname !== "/network") {
-          //     window.location.href = "/network";
-          //   }
-          // }
-        },
+        // onNetworkError: () => {
+        //   if (typeof window !== "undefined") {
+        //     if (window.location.pathname !== "/network") {
+        //         window.location.href = "/network";
+        //     }
+        //   }
+        // },
       }),
     [],
   );
