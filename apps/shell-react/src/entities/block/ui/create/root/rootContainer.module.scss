@@ -1,0 +1,55 @@
+.containerCanvasInner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.containerRootChildren {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.rootInsertZone {
+  width: 100%;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+  border: 1px dashed transparent;
+  background: transparent;
+
+  opacity: 0;
+  transition:
+    opacity 0.15s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+
+  pointer-events: auto;
+}
+
+.rootInsertPlus {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--subtext);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.rootInsertZoneOver {
+  opacity: 1 !important;
+  border-color: var(--border);
+  background-color: rgba(99, 102, 241, 0.06);
+}
+
+body.dragging .rootInsertZone {
+  opacity: 0.18;
+}
+
+body.dragging .rootInsertZoneOver {
+  opacity: 1;
+}

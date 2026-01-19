@@ -1,4 +1,5 @@
 import type { ImageBlock as ImageBlockProps } from "../../models/types";
+import { isValidUrl } from "../create/utils";
 
 export const ImageBlock = ({ block }: { block: ImageBlockProps }) => {
   const { url, caption, rounded, alt, styles = {} } = block;
@@ -6,7 +7,7 @@ export const ImageBlock = ({ block }: { block: ImageBlockProps }) => {
   return (
     <div style={{ ...styles, overflow: "hidden", display: "grid", gap: "5px" }}>
       <img
-        src={url}
+        src={isValidUrl(url) ? url : ""}
         alt={alt}
         style={{
           width: "100%",

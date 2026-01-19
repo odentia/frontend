@@ -1,4 +1,5 @@
 import { usePageEditor } from "../../../../../shared/store/postCreate/postCreate";
+import { blockStylesToCSS } from "../../../models/registr";
 import { BlockCreatingProps } from "../types";
 import styles from "./spacer.module.scss";
 
@@ -8,12 +9,8 @@ export const CreateSpacer = ({
   index,
 }: BlockCreatingProps) => {
   const spacer = usePageEditor((state) => state.blocks[blockId]);
-  const updateSpacer = usePageEditor((state) => state.updateBlock);
 
   if (spacer.type !== "SPACER") return null;
 
-  const handleClick = (num: number): void => {
-    updateSpacer(blockId, { styles: { height: num } });
-  };
-  return <div className={styles.container}></div>;
+  return <div className={styles.container} style={blockStylesToCSS(spacer.styles)}></div>;
 };

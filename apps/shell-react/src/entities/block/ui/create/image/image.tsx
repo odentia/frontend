@@ -4,6 +4,7 @@ import { usePageEditor } from "../../../../../shared/store/postCreate/postCreate
 import styles from "./image.module.scss";
 import { BlockCreatingProps } from "../types";
 import { ImageBlock } from "../../../models/types";
+import { blockStylesToCSS } from "../../../models/registr";
 
 export const CreateImage = ({
   containerId,
@@ -61,28 +62,30 @@ export const CreateImage = ({
   return (
     <div {...getRootProps({ className: rootClassName })}>
       <input {...getInputProps()} className={styles.containerInput} />
-
-      {hasImage ? (
-        <button
-          type="button"
-          className={styles.containerInner}
-          onClick={handleClick}
-        >
-          <img
-            src={block.url}
-            alt={block.alt ?? ""}
-            className={styles.containerInnerImage}
-          />
-        </button>
-      ) : (
-        <button
-          type="button"
-          className={styles.containerButton}
-          onClick={handleClick}
-        >
-          Добавьте изображение
-        </button>
-      )}
+      <div className={styles.containerBody} style={blockStylesToCSS(block.styles)}>
+        {hasImage ? (
+          <button
+            type="button"
+            className={styles.containerBodyInner}
+            style={{ borderRadius: block.rounded ? 999 : 10 }}
+            onClick={handleClick}
+          >
+            <img
+              src={block.url}
+              alt={block.alt ?? ""}
+              className={styles.containerBodyInnerImage}
+            />
+          </button>
+        ) : (
+          <button
+            type="button"
+            className={styles.containerBodyButton}
+            onClick={handleClick}
+          >
+            Добавьте изображение
+          </button>
+        )}
+      </div>
     </div>
   );
 };
