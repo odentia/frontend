@@ -1,90 +1,112 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Avatar } from "../../features/avatar/ui";
 import styles from "./profile.module.scss";
 import { UpdateProfileFields } from "../../features/updateProfile/ui/Fields/updateProfile";
 import { ChangePassword } from "../../features/changePassword/ui/changePassword";
 import { DeleteButton } from "../../features/deleteAccount/ui/button";
 import { SaveButton } from "../../features/updateProfile/ui/Button/button";
-import { ProfileForm } from "../../features/updateProfile/ui/Fields/types";
+import type { ProfileForm } from "../../features/updateProfile/ui/Fields/types";
 import { useUser } from "../../entities/user/api";
-import { Loading } from "@ui";
+import { Loading } from "@ui/dist";
 
-type ErrorKey = "username" | "email" | "description";
+type FieldErrorKey = "name" | "email" | "bio";
+type FieldErrors = Record<FieldErrorKey, string>;
 
 export const Profile = () => {
+  
+  const user = useUser();
+
+  if (user.isPending) return <div className={styles.wrapper}><Loading/></div>
+  if (user.error || !user.data) return <div className={styles.wrapper}>{user.error.message}</div>
+
   const [form, setForm] = useState<ProfileForm>({
+    name: user.data.name ,
+    email: user.data.email,
+    bio: user.data.description ?? "",
+    avatar_preview: user.data.avatar_url,
+    avatar_file: null,
+  });
+
+  const [errors, setErrors] = useState<FieldErrors>({
     name: "",
     email: "",
     bio: "",
   });
 
-  const [errors, setErrors] = useState<Record<ErrorKey, string>>({
-    username: "",
-    email: "",
-    description: "",
-  });
-
-  const fieldToErrorKey: Record<keyof ProfileForm, ErrorKey> = {
-    name: "username",
-    email: "email",
-    bio: "description",
+  const setFieldError = (field: FieldErrorKey, message: string) => {
+    setErrors((prev) => ({ ...prev, [field]: message }));
   };
 
-  const user = useUser();
+  const clearErrors = () => setErrors({ name: "", email: "", bio: "" });
 
-  const handleFieldChange = (field: keyof ProfileForm, value: string) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+  const lastObjectUrlRef = useRef<string | null>(null);
+  useEffect(() => {
+    return () => {
+      if (lastObjectUrlRef.current) URL.revokeObjectURL(lastObjectUrlRef.current);
+    };
+  }, []);
 
-    const errorKey = fieldToErrorKey[field];
-    setErrors((prev) => ({ ...prev, [errorKey]: "" }));
+  const handleAvatarFile = (file: File) => {
+    if (lastObjectUrlRef.current) URL.revokeObjectURL(lastObjectUrlRef.current);
+
+    const previewUrl = URL.createObjectURL(file);
+    lastObjectUrlRef.current = previewUrl;
+
+    setForm((p) => ({
+      ...p,
+      avatar_preview: previewUrl,
+      avatar_file: file,
+    }));
   };
 
-  const handleSetError = (field: ErrorKey, value: string) => {
-    setErrors((prev) => ({ ...prev, [field]: value }));
-  };
-
-  if (!user.data)
-    return (
-      <div className={styles.container}>
-        <Loading />
-      </div>
-    );
-
-  if (user.data)
-    return (
-      <div className={styles.container}>
-        <div className={styles.containerHeader}>
-          <Avatar url={user.data.image_url} />
-          <div className={styles.containerHeaderInfo}>
-            <span className={styles.containerHeaderInfoTitle}>
-              {user.data.username}
-            </span>
-            {user.data.description}
-          </div>
+  return (
+    <div className={styles.container}>
+      <div className={styles.containerHeader}>
+        <Avatar url={form.avatar_preview} onPickFile={handleAvatarFile} />
+        <div className={styles.containerHeaderInfo}>
+          <span className={styles.containerHeaderInfoTitle}>{user.data.name}</span>
+          {user.data.description}
         </div>
+      </div>
 
-        <div className={styles.containerBody}>
-          <UpdateProfileFields
-            form={form}
-            onChange={handleFieldChange}
-            errors={{
-              name: errors.username,
-              email: errors.email,
-              bio: errors.description,
+      <div className={styles.containerBody}>
+        <UpdateProfileFields
+          form={{
+            name: form.name,
+            email: form.email,
+            bio: form.bio,
+          }}
+          onChange={(field, value) => {
+            setForm((p) => ({ ...p, [field]: value }));
+
+            if (field === "name" || field === "email" || field === "bio") {
+              setFieldError(field, "");
+            }
+          }}
+          errors={errors}
+        />
+
+        <ChangePassword />
+
+        <div className={styles.containerButtons}>
+          <DeleteButton />
+
+          <SaveButton
+            name={form.name}
+            email={form.email}
+            bio={form.bio}
+            avatar_file={form.avatar_file}
+            initial={{
+              name: user.data.name,
+              email: user.data.email,
+              bio: user.data.description ?? "",
+              avatar_url: user.data.avatar_url,
             }}
+            setErrors={setFieldError}
+            clearErrors={clearErrors}
           />
-          <ChangePassword />
-
-          <div className={styles.containerButtons}>
-            <DeleteButton />
-            <SaveButton
-              username={form.name}
-              email={form.email}
-              description={form.bio}
-              setErrors={handleSetError}
-            />
-          </div>
         </div>
       </div>
-    );
+    </div>
+  );
 };

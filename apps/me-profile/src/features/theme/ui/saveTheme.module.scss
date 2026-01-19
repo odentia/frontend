@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  padding-bottom: 8pxa;
+
+  &Error {
+    width: 50%;
+    color: var(--danger);
+    font-size: 13px;
+    text-align: center;
+  }
+}

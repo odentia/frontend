@@ -82,6 +82,7 @@ const Popup = ({ setVisible }: { setVisible: () => void }) => {
           onValueChange={setFirst}
           height={40}
           color="var(--border)"
+          value={first}
           shadowColor="var(--attention)"
           shadowBlur={5}
           shadowSpread={1}
@@ -91,6 +92,7 @@ const Popup = ({ setVisible }: { setVisible: () => void }) => {
         />
         <Input
           onValueChange={setSecond}
+          value={second}
           height={40}
           color="var(--border)"
           shadowColor="var(--attention)"
@@ -103,6 +105,7 @@ const Popup = ({ setVisible }: { setVisible: () => void }) => {
         <Input
           onValueChange={setNewPass}
           height={40}
+          value={newPass}
           color="var(--border)"
           shadowColor="var(--attention)"
           shadowBlur={5}
@@ -113,8 +116,10 @@ const Popup = ({ setVisible }: { setVisible: () => void }) => {
         />
         <Button
           width="60%"
-          height="4s0px"
+          height="40px"
+          disabled={(errors.first || errors.new || errors.second) !== undefined}
           text="Изменить"
+          loading={changePassword.isPending}
           onClick={() => handleClick(first, second, newPass)}
         />
       </div>

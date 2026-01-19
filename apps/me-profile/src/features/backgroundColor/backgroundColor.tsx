@@ -1,13 +1,13 @@
+import React, { useEffect, useState } from "react";
 import styles from "./backgroundColor.module.scss";
-import React from "react";
 import { useThemeHandle } from "@ui";
 import { SketchPicker } from "react-color";
-import { useEffect, useState } from "react";
+import type { ScssTheme } from "../../entities/theme/models";
 
 interface BackgroundColorProps {
-  param: string;
+  param: keyof ScssTheme;
   title: string;
-  func: (name: string, value: string) => void;
+  func: (name: keyof ScssTheme, value: string) => void;
   type: "shadow" | "circle";
 }
 
@@ -20,21 +20,25 @@ export const BackgroundColor = React.memo(
 
     useEffect(() => {
       const el = document.querySelector(".theme-root");
-      if (el) {
-        const color = getComputedStyle(el).getPropertyValue(param).trim();
-        setColor(color);
-      }
+      if (!el) return;
+
+      const current = getComputedStyle(el)
+        .getPropertyValue(param as string)
+        .trim();
+
+      setColor(current);
     }, [param]);
 
     const handleChange = (c: any) => {
-      theme.setVar(
-        param,
-        `rgba(${c.rgb.r}, ${c.rgb.g}, ${c.rgb.b}, ${c.rgb.a})`,
-      );
-      func(param, c.hex);
+      const rgba = `rgba(${c.rgb.r}, ${c.rgb.g}, ${c.rgb.b}, ${c.rgb.a})`;
+
+      theme.setVar(param as string, rgba);
+
+      func(param, rgba);
+
       window.dispatchEvent(
         new CustomEvent("theme:glow-change", {
-          detail: { color: c.hex, type: type },
+          detail: { color: rgba, type },
         }),
       );
     };
@@ -42,11 +46,12 @@ export const BackgroundColor = React.memo(
     return (
       <div className={styles.container}>
         <span>{title}</span>
+
         <div className={styles.containerBody}>
           <div
             className={styles.containerBodyColor}
             onClick={() => setPicker((p) => !p)}
-            style={{ backgroundColor: `var(${param})` }}
+            style={{ backgroundColor: `var(${String(param)})` }}
           />
           <span> - </span>
           <span>{color}</span>
@@ -57,12 +62,12 @@ export const BackgroundColor = React.memo(
             <div
               className={styles.containerPicker}
               onClick={() => setPicker(false)}
-            ></div>
+            />
             <SketchPicker
               className={styles.containerPickerself}
               onChange={handleChange}
               color={color}
-              onChangeComplete={(color: any) => setColor(color.hex)}
+              onChangeComplete={(c: any) => setColor(c.hex)}
             />
           </>
         )}

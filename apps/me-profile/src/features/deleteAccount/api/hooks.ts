@@ -1,12 +1,9 @@
-// import { useApi } from "@config-runtime";
-// import { useNavigate } from "react-router-dom";
+import { useApi } from "@config-runtime";
 
-// export const deleteUser = () => {
-//   const navigate = useNavigate();
+export const useDeleteUser = () => {
+   const api = useApi().useAuthedMutation<unknown, void>("/profile/account", "delete", [
+     "user-me",
+   ]);
 
-//   return useApi().useAuthedMutation<unknown, void>("/user/me", "delete", [
-//     "user-me",
-//   ]);
-
-//   return deleteUser;
-// };
+   return api;
+};

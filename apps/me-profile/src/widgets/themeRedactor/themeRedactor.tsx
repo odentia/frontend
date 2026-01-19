@@ -1,58 +1,52 @@
-import { Button } from "@ui";
-import { BackgroundColor } from "../../features/backgroundColor/backgroundColor";
-import { ThemeColor } from "../../features/themeColor/themeColor";
-import { params } from "./lib";
+import { useCallback, useRef, useState } from "react";
 import styles from "./themeRedactor.module.scss";
-import { useCallback, useRef } from "react";
-
-interface ThemeRef {
-  [key: string]: string;
-}
+import { params } from "./lib";
+import { ThemeColor } from "../../features/themeColor/themeColor";
+import { BackgroundColor } from "../../features/backgroundColor/backgroundColor";
+import { SaveTheme } from "../../features/theme/ui/saveTheme";
+import type { ScssTheme } from "../../entities/theme/models";
+import { DEFAULT_SCSS_THEME } from "../../entities/theme/models";
 
 export const ThemeRedactor = () => {
-  const themeRef = useRef<ThemeRef>({});
+  const themeRef = useRef<ScssTheme>({ ...DEFAULT_SCSS_THEME });
+  const [disabled, setDisabled] = useState(true);
 
-  const handlePush = useCallback((name: string, value: string) => {
+  const handlePush = useCallback((name: keyof ScssTheme, value: string) => {
     themeRef.current[name] = value;
-    console.log(themeRef.current);
-  }, []);
-
-  const handleClick = useCallback(() => {
-    Object.entries(themeRef.current).forEach(([key, value]) =>
-      localStorage.setItem(key, value),
-    );
+    setDisabled(false);
   }, []);
 
   return (
     <div className={styles.container}>
       <span>Редактировать тему</span>
+
       {params.map((el) => (
         <ThemeColor
           key={el.title}
-          param={el.param}
+          param={el.param as keyof ScssTheme}
           title={el.title}
           func={handlePush}
         />
       ))}
+
       <BackgroundColor
         param="--glow-color"
-        title="Цвет свечения шариков"
+        title="Цвет свечения фигур"
         type="shadow"
         func={handlePush}
       />
       <BackgroundColor
         param="--circle-color"
-        title="Цвет шариков"
+        title="Цвет фигур"
         type="circle"
         func={handlePush}
       />
 
       <div className={styles.containerButton}>
-        <Button
-          text="Сохранить"
-          width="50%"
-          height="30px"
-          onClick={handleClick}
+        <SaveTheme
+          disabled={disabled}
+          setDisabled={setDisabled}
+          themeRef={themeRef}
         />
       </div>
     </div>
