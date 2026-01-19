@@ -1,9 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./tags.module.scss";
 import { useQueryParams } from "../../../shared/lib/searchParams";
 
 export const FilterTags = () => {
   const params = useQueryParams();
+
+  const tagsFromUrl = useMemo(() => {
+    const multi = params.getAll("tags");
+    if (multi.length > 1) return multi;
+
+    const single = params.getParam("tags");
+    if (!single) return [];
+    return single.split(",").filter(Boolean);
+  }, [params.search]);
 
   const [tags, setTags] = useState<string[]>(
     params.getParam("tags")?.split(",") || [],
@@ -11,9 +20,12 @@ export const FilterTags = () => {
   const [tagInput, setTagInput] = useState<string>("");
 
   useEffect(() => {
-    const value = params.getParam("tags");
-    setTags(value ? value.split(",") : []);
-  }, [params]);
+    const same =
+      tags.length === tagsFromUrl.length &&
+      tags.every((t, i) => t === tagsFromUrl[i]);
+
+    if (!same) setTags(tagsFromUrl);
+  }, [tagsFromUrl]);
 
   const handleAddTag = () => {
     const trimmed = tagInput.trim();
@@ -21,7 +33,7 @@ export const FilterTags = () => {
       const newTags = [...tags, trimmed];
       setTags(newTags);
       setTagInput("");
-      params.setParam("tags", tags.join(","));
+      params.setParam("tags", newTags.join(","));
     }
   };
 

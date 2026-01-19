@@ -5,7 +5,7 @@ export interface Comment {
   text: string;
   isPositive: boolean;
   rating: number;
-  parentId: number | null;
+  parentId: string | null;
   childrenCount: number;
   isLikedMe: boolean;
   isDisLikedMe: boolean;
@@ -28,8 +28,8 @@ export interface MakeComemntProps {
 }
 
 export type CommentTarget =
-  | { kind: "post"; id: number; page: number }
-  | { kind: "children"; parentId: number };
+  | { kind: "post"; id: string; page: number }
+  | { kind: "children"; parentId: string };
 
 export type MakeCommentVars = {
   text: string;

@@ -10,14 +10,15 @@ export const CommentRating = ({
   isDislikedMe,
   isLikedMe,
   isPositive,
+  type
 }: RatingProps) => {
-  const { likePost } = useCommentRating(id);
+  const { likePost, dislikePost } = useCommentRating(id, type);
 
   return (
     <div className={styles.container}>
       <Arrow
         className={`${styles.containerImage} ${isLikedMe ? styles.positiv : ""}`}
-        onClick={() => likePost.mutate({ like: true })}
+        onClick={() => likePost.mutate({})}
       />
       <span
         className={`${styles.containerText} ${isPositive ? styles.positiv : styles.negative}`}
@@ -25,7 +26,7 @@ export const CommentRating = ({
       <Arrow
         style={{ transform: "rotate(180deg)" }}
         className={`${styles.containerImage} ${isDislikedMe ? styles.positiv : ""}`}
-        onClick={() => likePost.mutate({ like: false })}
+        onClick={() => dislikePost.mutate({})}
       />
     </div>
   );
