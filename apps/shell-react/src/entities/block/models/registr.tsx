@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import type { CSSProperties } from "react";
 import { nanoid } from "nanoid";
 
 import {
@@ -182,3 +183,62 @@ export const createBlockByType = (type: BlockType): Block => {
       };
   }
 };
+
+const isColor = (v: string) =>
+  /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v) ||
+  /^rgba?\(/i.test(v) ||
+  /^hsla?\(/i.test(v);
+
+const clamp = (n: number, min: number, max: number) =>
+  Math.max(min, Math.min(max, n));
+
+const clampPx = (v: unknown, maxPx: number) => {
+  if (typeof v !== "number" || Number.isNaN(v)) return undefined;
+  return clamp(v, 0, maxPx);
+};
+
+const clampWidth = (v: unknown) => {
+  if (typeof v === "number" && !Number.isNaN(v)) {
+    return clamp(v, 0, 1200);
+  }
+
+  if (typeof v === "string") {
+    const m = v.match(/^(\d+)(px|%)$/);
+    if (!m) return undefined;
+
+    const num = Number(m[1]);
+    const unit = m[2];
+
+    if (unit === "%") return `${clamp(num, 0, 100)}%`;
+    return `${clamp(num, 0, 1200)}px`;
+  }
+
+  return undefined;
+};
+
+export function blockStylesToCSS(styles?: Block["styles"]): CSSProperties {
+  if (!styles) return {};
+
+  const css: CSSProperties = {};
+
+  const MAX_PADDING = 50;
+
+  if (typeof styles.padding === "number") css.padding = clampPx(styles.padding, MAX_PADDING);
+
+  if (typeof styles.paddingTop === "number") css.paddingTop = clampPx(styles.paddingTop, MAX_PADDING);
+  if (typeof styles.paddingBottom === "number") css.paddingBottom = clampPx(styles.paddingBottom, MAX_PADDING);
+
+  if (typeof styles.backgroundColor === "string" && isColor(styles.backgroundColor)) {
+    css.backgroundColor = styles.backgroundColor;
+  }
+
+  const w = clampWidth(styles.width);
+  if (w !== undefined) css.width = w;
+
+  if (styles.align === "left" || styles.align === "center" || styles.align === "right") {
+    css.textAlign = styles.align;
+  }
+
+  return css;
+}
+

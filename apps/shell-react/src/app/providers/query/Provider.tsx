@@ -26,7 +26,7 @@ export const ApiProvider = ({ children }: LayoutProps) => {
   const client = useMemo(
     () =>
       createHttpClient({
-        baseURL: "http://localhost:8000/api/v1/",
+        baseURL: "http://89.111.163.192:8010/api/v1/",
         refreshPath: "/auth/refresh",
         withCredentials: true,
         onAuthFailed: () => {

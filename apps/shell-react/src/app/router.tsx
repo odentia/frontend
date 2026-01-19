@@ -9,6 +9,7 @@ import { ProtectedRoute } from "./routes/protectedRoute";
 import { NetworkError } from "../pages/networkError";
 import { NotFoundPage } from "../pages/notFound";
 import { GamesPage } from "../pages/games";
+import { PublicationsCatalog } from "../pages/publications/catalog";
 
 export const routesConfig: RouteObject[] = [
   {
@@ -18,12 +19,12 @@ export const routesConfig: RouteObject[] = [
       { index: true, element: <Home /> },
       { path: "auth/*", element: <Auth /> },
       {
-        path: "profile",
+        path: "user",
         element: <Profile />,
       },
-      { path: "publication", element: <Home /> },
-      { path: "publication/:id", element: <PublicationPage /> },
-      { path: "publication/create", element: <CreatePostPage /> },
+      { path: "publications", element: <PublicationsCatalog/>},
+      { path: "publications/:id", element: <PublicationPage /> },
+      { path: "publications/create", element: <CreatePostPage /> },
       { path: "network", element: <NetworkError /> },
       { path: "*", element: <NotFoundPage /> },
       { path: "games", element: <GamesPage /> },

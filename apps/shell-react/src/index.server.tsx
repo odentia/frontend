@@ -1,4 +1,3 @@
-// src/server-entry.tsx
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 import {
@@ -9,6 +8,7 @@ import {
 import { routesConfig } from "./app/router";
 import { ApiProvider } from "./app/providers/query/Provider";
 import { ThemeProvider } from "@ui";
+import { loadThemeVarsServer } from "./entities/theme/api";
 
 export async function render(
   url: string = "/",
@@ -45,17 +45,19 @@ export async function render(
 
     const router = createStaticRouter(routesConfig, context);
 
+    const vars = await loadThemeVarsServer(baseUrl, requestHeaders);
+
     return ReactDOMServer.renderToString(
       <React.StrictMode>
-        <ThemeProvider>
-          <ApiProvider>
+        <ApiProvider>
+          <ThemeProvider initial={vars}>
             <StaticRouterProvider
               router={router}
               context={context}
               hydrate={false}
             />
-          </ApiProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </ApiProvider>
       </React.StrictMode>,
     );
   } catch (error) {
