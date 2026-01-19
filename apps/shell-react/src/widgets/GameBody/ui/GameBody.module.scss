@@ -1,0 +1,484 @@
+@use "@mixin" as mixin;
+
+.container {
+  padding: 0 8%;
+  color: #ffffff;
+}
+
+/* Отступ от хедера вниз 105px */
+.headerSpacer {
+  height: 105px;
+}
+
+/* Название игры */
+.gameTitle {
+  width: 36%;
+  margin: 0 auto 50px auto;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Первый блок (картинка + характеристики) */
+.gameInfoBlock {
+  width: 93%;
+  margin: 0 auto;
+  background-color: #1c1e25;
+  border-radius: 12px;
+  height: calc(93vw * 0.35); /* 35% от ширины 93% */
+  display: flex;
+  overflow: hidden;
+}
+
+.gamePoster {
+  width: 23%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.infoList {
+  flex: 1;
+  padding: 5% 3.5% 5% 3.5%;
+  display: flex;
+  flex-direction: column;
+  gap: 6%;
+  font-size: 18px;
+}
+
+.infoItem {
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Отступ 30px вниз */
+.blockSpacer {
+  height: 30px;
+}
+
+/* Блок с описанием игры */
+.descriptionBlock {
+  width: 93%;
+  margin: 0 auto;
+  background-color: #1c1e25;
+  border-radius: 12px;
+  height: calc(93vw * 0.111); /* 1:9 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5%;
+  box-sizing: border-box;
+}
+
+.descriptionText {
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 0;
+  color: #ffffff;
+}
+
+/* Отступ 40px вниз */
+.featuresSpacer {
+  height: 40px;
+}
+
+/* Заголовки Ключевые особенности и Статистика игры */
+.featuresHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 93%;
+  margin: 0 auto;
+}
+
+.featuresTitleLeft,
+.featuresTitleRight {
+  width: 40%;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+}
+
+/* Отступ 30px вниз */
+.featuresSpacerSmall {
+  height: 30px;
+}
+
+/* Два блока рядом */
+.featuresBlocks {
+  display: flex;
+  justify-content: space-between;
+  width: 93%;
+  margin: 0 auto;
+  gap: 3%;
+}
+
+/* Каждый блок */
+.featureBlock {
+  width: 45%;
+  background-color: #1c1e25;
+  border-radius: 12px;
+  height: calc(45vw * 0.2); /* 1:5 */
+  padding: 5% 3% 5% 3%;
+  box-sizing: border-box;
+}
+
+/* Список внутри блока */
+.featureList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: 6%;
+}
+
+.featureItem {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+/* Отступ 40px вниз от предыдущего блока */
+.nextBlockSpacer {
+  height: 40px;
+}
+
+/* Большая карусель 16:10 */
+.carouselBlock {
+  width: 56%;
+  margin: 0 auto;
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.carouselImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carouselNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(27, 30, 37, 0.7);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+
+  svg {
+    width: 13px;
+    height: 23px;
+  }
+
+  &:hover {
+    background: rgba(27, 30, 37, 0.9);
+  }
+}
+
+.left {
+  left: 10px;
+}
+
+.right {
+  right: 10px;
+}
+
+/* Отступ 20px вниз */
+.carouselSpacer {
+  height: 20px;
+}
+
+/* 5 маленьких картинок */
+.smallImages {
+  display: flex;
+  justify-content: center;
+  gap: 1%;
+  margin: 0 23%; /* 23% слева и справа для центрирования */
+}
+
+.smallImage,
+.smallImageCentral {
+  width: 10%;
+  aspect-ratio: 16 / 10;
+  border: 1px solid #8C7EFF;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.smallImageCentral {
+  width: 16%;
+}
+
+/* Отступ 40px вниз */
+.systemSpacer {
+  height: 40px;
+}
+
+/* Надпись "Системные требования (PC)" */
+.systemTitle {
+  width: 20%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 38px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Отступ 30px вниз */
+.systemSpacerSmall {
+  height: 30px;
+}
+
+/* Два блока системных требований */
+.systemBlocks {
+  display: flex;
+  justify-content: space-between;
+  width: 93%;
+  margin: 0 auto;
+  gap: 4%;
+}
+
+.systemBlock {
+  width: 25%;
+  background-color: #1c1e25;
+  border-radius: 12px;
+  height: calc(25vw * 0.444); /* 36:16 → высота = ширина * 16/36 */
+  padding: 5% 10% 5% 10%; /* 10px отступ слева внутри блока */
+  box-sizing: border-box;
+}
+
+.systemItem {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+/* Отступ 100px вниз */
+.similarSpacer {
+  height: 100px;
+}
+
+/* Надпись "Похожие игры" */
+.similarTitle {
+  width: 18%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Отступ 50px вниз */
+.similarSpacerSmall {
+  height: 50px;
+}
+
+/* Карусель из 5 картинок */
+.similarCarousel {
+  display: flex;
+  justify-content: center;
+  gap: 3%;
+  margin: 0 8%;
+}
+
+.similarImage,
+.similarImageCentral {
+  width: 14%;
+  aspect-ratio: 2 / 3;
+  border: 1px solid #8C7EFF;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.similarImageCentral {
+  width: 16%;
+}
+
+/* Отступ 60px вниз */
+.postsSpacer {
+  height: 60px;
+}
+
+/* Надпись "Последние посты" */
+.postsTitle {
+  width: 20%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 38px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Отступ 60px вниз */
+.postsSpacerSmall {
+  height: 60px;
+}
+
+/* Блок рецензий (тот же, что на главной) */
+.popularPostsSection {
+  width: 93%;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.postsAndGameContainer {
+  display: flex;
+  gap: 3.5%;
+  background-color: #1c1e25;
+  border-radius: 12px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.postsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.postCard {
+  width: 60%;
+  height: 250px;
+  background-color: #1c1e25;
+  border: 2px solid #272A33;
+  border-radius: 12px;
+  padding: 15px;
+  box-sizing: border-box;
+  position: relative;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+.postHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #444;
+  margin-top: 15px;
+  margin-left: 18px;
+}
+
+.username {
+  margin-left: 1%;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.postTitle {
+  margin-left: 18px;
+  margin-top: 5px;
+  width: 19%;
+  height: 25px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+  line-height: 25px;
+}
+
+.postText {
+  margin-left: 18px;
+  margin-top: 5px;
+  width: 55%;
+  height: 115px;
+  font-size: 16px;
+  color: #cccccc;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.postFooter {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 18px;
+}
+
+.votesBlock {
+  display: flex;
+  align-items: center;
+  width: 11%;
+  height: 20px;
+  gap: 5px;
+}
+
+.voteDiff {
+  width: 30px;
+  height: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #6C63FF;
+  text-align: center;
+  line-height: 16px;
+}
+
+.commentsBlock {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  gap: 5px;
+}
+
+.commentsCount {
+  width: 30px;
+  height: 15px;
+  font-size: 14px;
+  color: #6C63FF;
+  line-height: 15px;
+}
+
+.hashtags {
+  position: absolute;
+  bottom: 30px;
+  right: 2%;
+  display: flex;
+  gap: 2%;
+  width: 12%;
+  height: 25px;
+}
+
+.hashtag {
+  width: 5%;
+  height: 25px;
+  background-color: #23262f;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
