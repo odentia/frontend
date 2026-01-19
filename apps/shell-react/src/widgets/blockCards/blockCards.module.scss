@@ -9,12 +9,7 @@
   border-radius: 8px;
   border: 1px solid var(--border);
   background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(12px);
-  width: 25%;
-
-  @include mixin.mobile {
-    width: 100%;
-  }
+  width: 100%;
 
   &Header {
     display: flex;
@@ -54,6 +49,7 @@
 
     &Item {
       position: relative;
+      touch-action: none;
       padding: 10px 10px;
       border-radius: 8px;
       border: 1px solid var(--border);
@@ -67,6 +63,10 @@
       width: 100%;
       flex: 0 0 auto;
       transition: 0.12s ease;
+
+      @include mixin.mobile {
+        max-width: 120px;
+      }
 
       &:hover {
         box-shadow: 0 4px 10px var(--box-shadow);

@@ -41,10 +41,12 @@ export const usePageEditor = create<PageEditorStore>((set, get) => {
   return {
     id: nanoid(),
     title: "",
+    description: "",
     styles: initialStyles,
     rootContainerId: initialIds.rootContainerId,
     containers: initialIds.containers,
     blocks: {},
+    game: null,
     selectedContainerId: null,
     selectedBlockId: null,
 
@@ -56,6 +58,7 @@ export const usePageEditor = create<PageEditorStore>((set, get) => {
         rootContainerId: page.rootContainerId,
         containers: page.containers as Record<string, LayoutContainer>,
         blocks: page.blocks,
+        game: (page as any).game ?? null,
       }),
 
     reset: () => {
@@ -64,6 +67,8 @@ export const usePageEditor = create<PageEditorStore>((set, get) => {
       set({
         id: nanoid(),
         title: "",
+        description: "",
+        game: null,
         styles: initialStyles,
         rootContainerId: ids.rootContainerId,
         containers: ids.containers,
@@ -95,6 +100,9 @@ export const usePageEditor = create<PageEditorStore>((set, get) => {
       }),
 
     setTitle: (title) => set(() => ({ title })),
+
+    setDescription: (description) => set(() => ({ description })),
+    setGame: (game) => set(() => ({ game })),
 
     updatePageStyles: (patch) =>
       set((state) => ({

@@ -3,5 +3,5 @@ export interface RatingProps {
   rating: number;
   isLikedMe: boolean;
   isDislikedMe: boolean;
-  id: number;
+  id: string;
 }

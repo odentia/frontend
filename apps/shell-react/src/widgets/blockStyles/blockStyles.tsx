@@ -1,141 +1,157 @@
 import { usePageEditor } from "../../shared/store/postCreate/postCreate";
-import { VideoBlock, ButtonBlock } from "../../entities/block/models/types";
+import type { VideoBlock, ButtonBlock } from "../../entities/block/models/types";
 import styles from "./blockStyles.module.scss";
+import { Input } from "@ui/dist";
+
+type EditableStyleKey =
+  | "padding"
+  | "paddingTop"
+  | "paddingBottom"
+  | "align"
+  | "backgroundColor";
 
 export const BlockStylePanel = () => {
-  const blockId = usePageEditor((state) => state.selectedContainerId);
+  const selectedContainerId = usePageEditor((s) => s.selectedContainerId);
 
-  const block = usePageEditor((state) => state.blocks[blockId || 0]);
-  const updateBlockStyles = usePageEditor((state) => state.updateBlockStyles);
-  const updateBlock = usePageEditor((state) => state.updateBlock);
+  const container = usePageEditor((s) =>
+    selectedContainerId ? s.containers[selectedContainerId] : null
+  );
 
-  if (!block) {
-    return <div>Block not found</div>;
+  const block = usePageEditor((s) => {
+    const bid = container?.blockId;
+    return bid ? s.blocks[bid] : null;
+  });
+
+  const updateBlockStyles = usePageEditor((s) => s.updateBlockStyles);
+  const updateBlock = usePageEditor((s) => s.updateBlock);
+
+  if (!selectedContainerId) return null;
+
+  if (!container?.blockId) {
+    return <div className={styles.container}>Выбран контейнер без блока</div>;
   }
 
-  const handleChange = (
-    field: keyof {
-      padding?: number;
-      paddingTop?: number;
-      paddingBottom?: number;
-      align?: string;
-      backgroundColor?: string;
-    },
-    value: any,
-  ) => {
-    updateBlockStyles(block.id, { [field]: value });
-  };
-
-  if (blockId === null) return null;
+  if (!block) {
+    return <div className={styles.container}>Block not found</div>;
+  }
 
   const blockStyles = block.styles || {};
+
+  const handleChange = (field: EditableStyleKey, value: any) => {
+    updateBlockStyles(block.id, { [field]: value });
+  };
 
   return (
     <div className={styles.container}>
       <h3>{block.type} Styles</h3>
 
-      <label>
-        Padding
-        <input
-          type="number"
-          value={blockStyles.padding ?? 0}
-          onChange={(e) => handleChange("padding", Number(e.target.value))}
-        />
-      </label>
+      <div className={styles.containerBody}>
+        <div className={styles.containerItem}>
+          <label>Padding</label>
+          <Input
+            value={blockStyles.padding?.toString() ?? "0"}
+            onlyNumber
+            color="var(--attention)"
+            onValueChange={(v) => handleChange("padding", Number(v || 0))}
+          />
+        </div>
 
-      <label>
-        Padding Top
-        <input
-          type="number"
-          value={blockStyles.paddingTop ?? 0}
-          onChange={(e) => handleChange("paddingTop", Number(e.target.value))}
-        />
-      </label>
+        <div className={styles.containerItem}>
+          <label>Padding Top</label>
+          <Input
+            value={blockStyles.paddingTop?.toString() ?? "0"}
+            onlyNumber
+            color="var(--attention)"
+            onValueChange={(v) => handleChange("paddingTop", Number(v || 0))}
+          />
+        </div>
 
-      <label>
-        Padding Bottom
-        <input
-          type="number"
-          value={blockStyles.paddingBottom ?? 0}
-          onChange={(e) =>
-            handleChange("paddingBottom", Number(e.target.value))
-          }
-        />
-      </label>
+        <div className={styles.containerItem}>
+          <label>Padding Bottom</label>
+          <Input
+            value={blockStyles.paddingBottom?.toString() ?? "0"}
+            onlyNumber
+            color="var(--attention)"
+            onValueChange={(v) => handleChange("paddingBottom", Number(v || 0))}
+          />
+        </div>
 
-      <label>
-        Alignment
-        <select
-          value={blockStyles.align ?? "left"}
-          onChange={(e) => handleChange("align", e.target.value)}
-        >
-          <option value="left">Left</option>
-          <option value="center">Center</option>
-          <option value="right">Right</option>
-        </select>
-      </label>
+        <div className={styles.containerItem}>
+          <label>Alignment</label>
+          <select
+            className={styles.containerSelect}
+            value={(blockStyles.align ?? "left") as any}
+            onChange={(e) => handleChange("align", e.target.value)}
+          >
+            <option value="left">Left</option>
+            <option value="center">Center</option>
+            <option value="right">Right</option>
+          </select>
+        </div>
 
-      <label>
-        Background Color
-        <input
-          type="color"
-          value={blockStyles.backgroundColor ?? "#ffffff"}
-          onChange={(e) => handleChange("backgroundColor", e.target.value)}
-        />
-      </label>
+        <div className={styles.containerItem}>
+          <label>Background Color</label>
+          <input
+            className={styles.containerColor}
+            type="color"
+            value={(blockStyles.backgroundColor as string) ?? "#ffffff"}
+            onChange={(e) => handleChange("backgroundColor", e.target.value)}
+          />
+        </div>
+      </div>
 
       {block.type === "IMAGE" && (
-        <div>
-          <label>
-            Alt
-            <input
-              type="text"
-              value={block.alt ?? ""}
-              onChange={(e) => updateBlock(block.id, { alt: e.target.value })}
+        <div className={styles.containerGroup}>
+          <div className={styles.containerItem}>
+            <label>Alt</label>
+            <Input
+              value={(block as any).alt ?? ""}
+              color="var(--attention)"
+              onValueChange={(v) => updateBlock(block.id, { alt: v })}
             />
-          </label>
-          <label>
-            Rounded
+          </div>
+
+          <div className={styles.containerItem}>
+            <label>Rounded</label>
             <input
+              className={styles.containerCheckbox}
               type="checkbox"
-              checked={block.rounded ?? false}
-              onChange={(e) =>
-                updateBlock(block.id, { rounded: e.target.checked })
-              }
+              checked={(block as any).rounded ?? false}
+              onChange={(e) => updateBlock(block.id, { rounded: e.target.checked })}
             />
-          </label>
+          </div>
         </div>
       )}
 
       {block.type === "VIDEO" && (
-        <div>
-          <h4>Video Block</h4>
-          <label>
-            Autoplay
+        <div className={styles.containerGroup}>
+          <h4 className={styles.containerTitle}>Video Block</h4>
+
+          <div className={styles.containerItem}>
+            <label>Autoplay</label>
             <input
+              className={styles.containerCheckbox}
               type="checkbox"
               checked={(block as VideoBlock).autoplay ?? false}
-              onChange={(e) =>
-                updateBlock(block.id, { autoplay: e.target.checked })
-              }
+              onChange={(e) => updateBlock(block.id, { autoplay: e.target.checked })}
             />
-          </label>
+          </div>
         </div>
       )}
 
       {block.type === "BUTTON" && (
-        <div>
-          <h4>Button Block</h4>
-          <label>
-            Border Radius
-            <input
-              type="number"
-              value={(block as ButtonBlock).borderRadius ?? 0}
-              onChange={(e) =>
-                updateBlock(block.id, { borderRadius: Number(e.target.value) })
-              }
+        <div className={styles.containerGroup}>
+          <h4 className={styles.containerTitle}>Button Block</h4>
+
+          <div className={styles.containerItem}>
+            <label>Border Radius</label>
+            <Input
+              value={String((block as ButtonBlock).borderRadius ?? 0)}
+              onlyNumber
+              color="var(--attention)"
+              onValueChange={(v) => updateBlock(block.id, { borderRadius: Number(v || 0) })}
             />
-          </label>
+          </div>
         </div>
       )}
     </div>
