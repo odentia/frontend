@@ -1,3 +1,5 @@
+@use "@mixin" as mixin;
+
 .container {
   display: flex;
   flex-direction: column;
@@ -8,10 +10,15 @@
   border-radius: 8px;
   padding: 24px;
 
+  @include mixin.mobile {
+    
+  }
+
   &Header {
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: flex-start;
+    flex-direction: column;
     gap: 16px;
   }
 
@@ -187,10 +194,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
+    gap: 20px;
     transition: 0.3s ease;
-
-    &:hover {
-      opacity: 0.8;
-    }
   }
 }

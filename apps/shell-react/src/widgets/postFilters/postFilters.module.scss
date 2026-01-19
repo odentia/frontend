@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  width: 100%;
+  height: 100%;
+  background: var(--cards);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  &Range {
+    display: flex;
+    gap: 8px;
+  }
+
+  &Item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+
+    &Header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    &Title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    &Arrow {
+      font-size: 18px;
+      line-height: 1;
+      color: var(--subtext);
+    }
+
+    &Content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      align-items: start;
+      gap: 8px;
+      overflow: hidden;
+    }
+  }
+}

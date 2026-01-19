@@ -5,11 +5,11 @@ import styles from "./samePosts.module.scss";
 import Comment from "../../shared/assets/comment.svg?react";
 import { useNavigate } from "react-router";
 
-export const SamePosts = ({ postId }: { postId: number }) => {
+export const SamePosts = ({ postId }: { postId: string }) => {
   const posts = usePost(postId).samePosts;
   const navigate = useNavigate();
 
-  const handleClick = (postId: number) => {
+  const handleClick = (postId: string) => {
     navigate(`/publication/${postId}`);
   };
 

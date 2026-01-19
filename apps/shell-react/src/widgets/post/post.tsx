@@ -5,6 +5,7 @@ import { PostRating } from "../../features/postRating/ui/rating";
 import Comment from "../../shared/assets/comment.svg?react";
 import { PostCard } from "../../entities/post/ui/post";
 import { Post as PostProps } from "../../entities/post/models";
+import { TagsList } from "../tagsList/ui/tagList";
 
 export const Post = ({ post }: { post: PostProps }) => {
   return (
@@ -26,7 +27,7 @@ export const Post = ({ post }: { post: PostProps }) => {
               isDislikedMe={post.isDislikedByMe}
               rating={post.rating}
               isLikedMe={post.isLikedByMe}
-              isPositive={post.isDislikedByMe}
+              isPositive={post.isPositive}
             />
             <Comment className={styles.containerFooterMetricsComment} />
             <span className={styles.containerFooterMetricsText}>
@@ -34,11 +35,7 @@ export const Post = ({ post }: { post: PostProps }) => {
             </span>
           </div>
           <div className={styles.containerFooterTags}>
-            {post.tags.map((el) => (
-              <div key={el} className={styles.containerFooterTagsItem}>
-                {el}
-              </div>
-            ))}
+            <TagsList tags={post.tags}/>
           </div>
         </div>
       </>

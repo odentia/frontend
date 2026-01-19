@@ -1,16 +1,20 @@
-import { FC, KeyboardEventHandler, useState } from "react";
+import { FC, useState } from "react";
 import { useDroppable } from "@dnd-kit/core";
 import { usePageEditor } from "../../shared/store/postCreate/postCreate";
 import { renderCreateBlock } from "../../entities/block/models/registr";
 import styles from "./postCreate.module.scss";
 
 import { CreateContainer } from "../../entities/block/ui/create";
-import { Input } from "@ui";
+import { Button, Input } from "@ui";
 import { CreatePostButton } from "../../features/createPost/ui";
+import { SelectGame } from "../../features/selectGame";
 
 export const CreatePost: FC = () => {
   const title = usePageEditor((s) => s.title);
   const setTitle = usePageEditor((s) => s.setTitle);
+  const description = usePageEditor((s) => s.description);
+  const setDescription = usePageEditor((s) => s.setDescription);
+  const reset = usePageEditor((state) => state.reset);
 
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
@@ -58,10 +62,21 @@ export const CreatePost: FC = () => {
           onValueChange={(value) => setTitle(value)}
           width="320px"
           height="40px"
-          shadowBlur={5}
-          shadowSpread={3}
+          shadowBlur={2}
+          shadowSpread={1}
           shadowColor="var(--attention)"
           placeholder="Введите название публикации"
+          color="var(--border)"
+        />
+        <Input
+          value={description}
+          onValueChange={(v) => setDescription(v)}
+          width="70%"
+          height="40px"
+          shadowBlur={2}
+          shadowSpread={1}
+          shadowColor="var(--attention)"
+          placeholder="Короткое описание для превью"
           color="var(--border)"
         />
       </div>
@@ -75,7 +90,7 @@ export const CreatePost: FC = () => {
           >
             <div className={styles.containerCanvasEmptyPlus}>+</div>
             <div className={styles.containerCanvasEmptyText}>
-              перетащи сюда блок, чтобы начать
+              Перетащите блок, чтобы начать
             </div>
           </div>
         )}
@@ -129,7 +144,21 @@ export const CreatePost: FC = () => {
           </div>
         )}
       </div>
+      <div className={styles.containerGame}>
+        <SelectGame />
+      </div>
       <div className={styles.containerButton}>
+        <Button
+          text="Сбросить"
+          onClick={() => {
+            reset();
+            setTags([]);
+            setTagInput("");
+          }}
+          width="150px"
+          height="30px"
+          backgroundColor="var(--danger)"
+        />
         <CreatePostButton tags={tags} />
       </div>
     </div>

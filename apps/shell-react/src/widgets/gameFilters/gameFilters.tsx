@@ -1,90 +1,73 @@
 import { ReactNode, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { FilterInput } from "../../features/filters/input";
 import { FilterCheckbox } from "../../features/filters/checkbox";
 import styles from "./gameFilter.module.scss";
-import { Button } from "@ui/dist";
+import { Button, Input } from "@ui/dist";
 import { useQueryParams } from "../../shared/lib/searchParams";
 
-export const GameFilters = () => {
-  const category = [
-    {
-      name: "Рогалик",
-      value: "Rogulike",
-    },
-    {
-      name: "Хоррор",
-      value: "Horror",
-    },
-    {
-      name: "Шутер",
-      value: "Shooter",
-    },
-  ];
+interface FiltersProps {
+  platforms: string[];
+  category: string[];
+  age: string[];
+}
 
-  const platform = [
-    {
-      name: "PS5",
-      value: "PS5",
-    },
-    {
-      name: "PC",
-      value: "PC",
-    },
-    {
-      name: "Nintendo Switch",
-      value: "nintendosw",
-    },
-    {
-      name: "Xbox One",
-      value: "xboxone",
-    },
-  ];
 
-  const ageRating = [
-    {
-      name: "Для всех",
-      value: "E",
-    },
-    {
-      name: "10+",
-      value: "E10+",
-    },
-    {
-      name: "13+",
-      value: "T",
-    },
-    {
-      name: "17+",
-      value: "M",
-    },
-    {
-      name: "18+",
-      value: "AO",
-    },
-    {
-      name: "Не указано ",
-      value: "RP",
-    },
-  ];
+interface FilterableCheckboxListProps {
+  param: string;
+  values: string[];
+  placeholder?: string;
+}
+
+const FilterableCheckboxList = ({
+  param,
+  values,
+  placeholder = "Поиск...",
+}: FilterableCheckboxListProps) => {
+  const [query, setQuery] = useState("");
+
+  const filteredOptions = values.filter((o) =>
+    o.toLowerCase().includes(query.toLowerCase().trim())
+  );
+
+  return (
+    <>
+      <Input
+        placeholder={placeholder}
+        width="100%"
+        height="40px"
+        color="var(--attention)"
+        value={query}
+        onValueChange={(e) => setQuery(e)}
+      />
+      {filteredOptions.map((el) => (
+        <FilterCheckbox
+          key={el}
+          param={param}
+          label={el}
+          value={el}
+        />
+      ))}
+    </>
+  );
+};
+
+export const GameFilters = ({platforms, category, age}: FiltersProps) => {
 
   const params = useQueryParams();
 
   return (
     <div className={styles.container}>
       <Item title="Название">
-        <FilterInput param="game" placeholder="Введите название игры" />
+        <FilterInput param="search" placeholder="Введите название игры" />
       </Item>
 
       <Item title="Категории">
-        {category.map((el) => (
-          <FilterCheckbox
-            key={el.name}
-            param="category"
-            label={el.name}
-            value={el.value}
-          />
-        ))}
+        <FilterableCheckboxList
+          param="genre"
+          values={category}
+          placeholder="Поиск категории"
+        />
       </Item>
 
       <Item title="Дата создания">
@@ -102,25 +85,19 @@ export const GameFilters = () => {
       </Item>
 
       <Item title="Платформа">
-        {platform.map((el) => (
-          <FilterCheckbox
-            key={el.name}
-            param="platform"
-            label={el.name}
-            value={el.value}
-          />
-        ))}
+        <FilterableCheckboxList
+          param="platform"
+          values={platforms}
+          placeholder="Поиск платформы"
+        />
       </Item>
 
       <Item title="Возрастное ограничение">
-        {ageRating.map((el) => (
-          <FilterCheckbox
-            key={el.value}
-            param="age"
-            label={el.name}
-            value={el.value}
-          />
-        ))}
+        <FilterableCheckboxList
+          param="age_rating"
+          values={age}
+          placeholder="Поиск рейтинга"
+        />
       </Item>
 
       <Button

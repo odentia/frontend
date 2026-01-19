@@ -1,57 +1,27 @@
+import { Loading } from "@ui";
 import { useComments } from "../../entities/publicationComment/api";
-import { Comment as CommentProps } from "../../entities/publicationComment/models";
 import { MakeComment } from "../../features/makeComment/ui/makeComment";
 import { Comment } from "../comment/comment";
 import styles from "./comment.module.scss";
-
-const mockComment = [
-  {
-    id: 42,
-    author: {
-      id: 7,
-      name: "Пользоатель",
-      avatar: "https://example.com/avatars/7.png",
-    },
-    date: "2025-11-21T08:30:00.000Z",
-    text: "норм тема, можна чуть доработать но в целом ок",
-    isPositive: true,
-    rating: 12,
-    parentId: null,
-    childrenCount: 3,
-    isLikedMe: true,
-    isDisLikedMe: false,
-  },
-  {
-    id: 42,
-    author: {
-      id: 7,
-      name: "Пользователь",
-      avatar: "https://example.com/avatars/7.png",
-    },
-    date: "2025-11-21T08:30:00.000Z",
-    text: "норм тема, можна чуть доработать но в целом ок",
-    isPositive: true,
-    rating: 12,
-    parentId: null,
-    childrenCount: 3,
-    isLikedMe: true,
-    isDisLikedMe: false,
-  },
-];
 
 export const PostComments = ({
   id,
   type,
 }: {
-  id: number;
+  id: string;
   type: "game" | "post";
 }) => {
   const comments = useComments(id, 0, type);
 
+  if (comments.isPending) return <div className={styles.wrapper}><Loading/></div>
+  if (comments.error) return <div className={styles.wrapper}><span className={styles.wrapperError}>{comments.error.message}</span></div>
+
+  if (comments.data)
+
   return (
     <div className={styles.container}>
       <span className={styles.containerTitle}>Комментарии</span>
-      {mockComment.map((el) => (
+      {comments.data.items.map((el) => (
         <Comment
           id={el.id}
           author={el.author}
