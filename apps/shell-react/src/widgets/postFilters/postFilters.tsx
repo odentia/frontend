@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FilterInput } from "../../features/filters/input";
 import { FilterTags } from "../../features/filters/tags/tags";
 import { FilterCategory } from "../../features/filters/category/category";
-import styles from "./postFilters.module.scss"
+import styles from "./postFilters.module.scss";
 import { Button } from "@ui/dist";
 import { useQueryParams } from "../../shared/lib/searchParams";
 

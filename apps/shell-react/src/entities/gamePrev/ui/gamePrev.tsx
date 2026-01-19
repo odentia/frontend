@@ -9,13 +9,13 @@ export const GamePrev = ({ games, onValueChange }: GamePrevProps) => {
 
   const prev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? games.length - 1 : prevIndex - 1
+      prevIndex === 0 ? games.length - 1 : prevIndex - 1,
     );
   };
 
   const next = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === games.length - 1 ? 0 : prevIndex + 1
+      prevIndex === games.length - 1 ? 0 : prevIndex + 1,
     );
   };
 
@@ -26,37 +26,37 @@ export const GamePrev = ({ games, onValueChange }: GamePrevProps) => {
   const currentGame = games[currentIndex];
 
   return (
-<div className={styles.container}>
-  <button className={styles.containerArrowButton} onClick={prev}>
-    {`<-`}
-  </button>
+    <div className={styles.container}>
+      <button className={styles.containerArrowButton} onClick={prev}>
+        {`<-`}
+      </button>
 
-  <div className={styles.containerBody}>
-    {games.map((game, index) => (
-      <div
-        key={game.id}
-        className={`${styles.containerBodyItem} ${
-          index === currentIndex
-            ? styles.containerBodyItemActive
-            : styles.containerBodyItemInactive
-        }`}
-        onClick={() => handleSelect(game.title)}
-      >
-        <img
-          src={game.image}
-          alt={game.title}
-          className={styles.containerBodyItemImage}
-        />
-        <div className={styles.containerBodyItemTitle}>
-          {game.title.toUpperCase()}
-        </div>
+      <div className={styles.containerBody}>
+        {games.map((game, index) => (
+          <div
+            key={game.id}
+            className={`${styles.containerBodyItem} ${
+              index === currentIndex
+                ? styles.containerBodyItemActive
+                : styles.containerBodyItemInactive
+            }`}
+            onClick={() => handleSelect(game.title)}
+          >
+            <img
+              src={game.image}
+              alt={game.title}
+              className={styles.containerBodyItemImage}
+            />
+            <div className={styles.containerBodyItemTitle}>
+              {game.title.toUpperCase()}
+            </div>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
 
-  <button className={styles.containerArrowButton} onClick={next}>
-    {`->`}
-  </button>
-</div>
+      <button className={styles.containerArrowButton} onClick={next}>
+        {`->`}
+      </button>
+    </div>
   );
 };

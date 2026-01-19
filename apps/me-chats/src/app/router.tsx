@@ -1,8 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes } from "react-router-dom";
 
 export function ChatsRoutes() {
-  return (
-    <Routes>
-    </Routes>
-  );
+  return <Routes></Routes>;
 }

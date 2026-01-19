@@ -22,7 +22,7 @@ export const routesConfig: RouteObject[] = [
         path: "user",
         element: <Profile />,
       },
-      { path: "publications", element: <PublicationsCatalog/>},
+      { path: "publications", element: <PublicationsCatalog /> },
       { path: "publications/:id", element: <PublicationPage /> },
       { path: "publications/create", element: <CreatePostPage /> },
       { path: "network", element: <NetworkError /> },

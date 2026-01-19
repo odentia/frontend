@@ -145,7 +145,6 @@ export function useQueryParams() {
   };
 }
 
-
 function cleanStr(v: string | null): string | undefined {
   const s = v?.trim();
   return s ? s : undefined;

@@ -10,7 +10,7 @@ export const CommentRating = ({
   isDislikedMe,
   isLikedMe,
   isPositive,
-  type
+  type,
 }: RatingProps) => {
   const { likePost, dislikePost } = useCommentRating(id, type);
 

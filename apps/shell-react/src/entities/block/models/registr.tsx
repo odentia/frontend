@@ -223,22 +223,31 @@ export function blockStylesToCSS(styles?: Block["styles"]): CSSProperties {
 
   const MAX_PADDING = 50;
 
-  if (typeof styles.padding === "number") css.padding = clampPx(styles.padding, MAX_PADDING);
+  if (typeof styles.padding === "number")
+    css.padding = clampPx(styles.padding, MAX_PADDING);
 
-  if (typeof styles.paddingTop === "number") css.paddingTop = clampPx(styles.paddingTop, MAX_PADDING);
-  if (typeof styles.paddingBottom === "number") css.paddingBottom = clampPx(styles.paddingBottom, MAX_PADDING);
+  if (typeof styles.paddingTop === "number")
+    css.paddingTop = clampPx(styles.paddingTop, MAX_PADDING);
+  if (typeof styles.paddingBottom === "number")
+    css.paddingBottom = clampPx(styles.paddingBottom, MAX_PADDING);
 
-  if (typeof styles.backgroundColor === "string" && isColor(styles.backgroundColor)) {
+  if (
+    typeof styles.backgroundColor === "string" &&
+    isColor(styles.backgroundColor)
+  ) {
     css.backgroundColor = styles.backgroundColor;
   }
 
   const w = clampWidth(styles.width);
   if (w !== undefined) css.width = w;
 
-  if (styles.align === "left" || styles.align === "center" || styles.align === "right") {
+  if (
+    styles.align === "left" ||
+    styles.align === "center" ||
+    styles.align === "right"
+  ) {
     css.textAlign = styles.align;
   }
 
   return css;
 }
-

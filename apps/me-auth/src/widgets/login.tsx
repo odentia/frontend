@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Container } from "../shared/container";
-import { useApi, useAuth } from "@config-runtime";
+import { useAuth } from "@config-runtime";
 
 interface ErrorType {
   name?: string;

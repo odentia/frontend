@@ -43,11 +43,17 @@ export const useThemeHandle = () => {
 
 const isColor = (v: string) =>
   /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v) ||
-  /^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*(0|1|0?\.\d+))?\s*\)$/i.test(v) ||
-  /^hsla?\(\s*\d{1,3}\s*,\s*\d+%\s*,\s*\d+%(?:\s*,\s*(0|1|0?\.\d+))?\s*\)$/i.test(v);
+  /^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*(0|1|0?\.\d+))?\s*\)$/i.test(
+    v,
+  ) ||
+  /^hsla?\(\s*\d{1,3}\s*,\s*\d+%\s*,\s*\d+%(?:\s*,\s*(0|1|0?\.\d+))?\s*\)$/i.test(
+    v,
+  );
 
 const isRadialGradient = (v: string) =>
-  /^radial-gradient\(\s*circle\s*,\s*#[0-9a-f]{6}\s*0%\s*,\s*#[0-9a-f]{6}\s*100%\s*\)$/i.test(v);
+  /^radial-gradient\(\s*circle\s*,\s*#[0-9a-f]{6}\s*0%\s*,\s*#[0-9a-f]{6}\s*100%\s*\)$/i.test(
+    v,
+  );
 
 const isOpacity = (v: string) => /^(0(\.\d+)?|1(\.0+)?)$/.test(v);
 
@@ -114,7 +120,7 @@ export const ThemeProvider = forwardRef<
   }>
 >(function ThemeProvider(
   { initial, children, enabled = false, adapter, persistServerToLocal = true },
-  ref
+  ref,
 ) {
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -133,7 +139,7 @@ export const ThemeProvider = forwardRef<
         localStorage.setItem(STORAGE_PREFIX + name, value);
       },
     }),
-    []
+    [],
   );
 
   useEffect(() => {
@@ -167,6 +173,7 @@ export const ThemeProvider = forwardRef<
 
         applyVars(el, serverVars, persistServerToLocal);
       } catch {
+        // ignore: ws may already be closed
       }
     };
 
@@ -181,7 +188,7 @@ export const ThemeProvider = forwardRef<
 
   return (
     <ThemeCtx.Provider value={handle}>
-      <div ref={rootRef} className="theme-root" >
+      <div ref={rootRef} className="theme-root">
         {children}
       </div>
     </ThemeCtx.Provider>

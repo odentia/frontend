@@ -43,18 +43,18 @@
       transition: background 0.15s ease;
 
       &Static {
-  cursor: default;
+        cursor: default;
 
-  &:hover {
-    background: transparent;
-  }
-}
+        &:hover {
+          background: transparent;
+        }
+      }
 
-&Loading {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-}
+      &Loading {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
 
       &:hover {
         background: rgba(255, 255, 255, 0.05);
@@ -74,6 +74,4 @@
       }
     }
   }
-  
 }
-

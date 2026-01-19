@@ -12,5 +12,10 @@ export const CreateSpacer = ({
 
   if (spacer.type !== "SPACER") return null;
 
-  return <div className={styles.container} style={blockStylesToCSS(spacer.styles)}></div>;
+  return (
+    <div
+      className={styles.container}
+      style={blockStylesToCSS(spacer.styles)}
+    ></div>
+  );
 };

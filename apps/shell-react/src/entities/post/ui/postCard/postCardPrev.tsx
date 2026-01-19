@@ -25,8 +25,12 @@ export const PostCardPrev = ({ post, onClick }: PostCardPrevProps) => {
           alt={post.author.name}
         />
         <div className={styles.containerHeaderText}>
-          <span className={styles.containerHeaderTextName}>{post.author.name}</span>
-          <span className={styles.containerHeaderTextDate}>{post.created_at}</span>
+          <span className={styles.containerHeaderTextName}>
+            {post.author.name}
+          </span>
+          <span className={styles.containerHeaderTextDate}>
+            {post.created_at}
+          </span>
         </div>
       </div>
 
@@ -50,10 +54,7 @@ export const PostCardPrev = ({ post, onClick }: PostCardPrevProps) => {
           </span>
         </div>
 
-        <TagsList
-          tags={post.tags}
-          mode="toggle"
-        />
+        <TagsList tags={post.tags} mode="toggle" />
       </div>
     </article>
   );

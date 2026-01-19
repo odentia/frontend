@@ -35,7 +35,7 @@ export const Post = ({ post }: { post: PostProps }) => {
             </span>
           </div>
           <div className={styles.containerFooterTags}>
-            <TagsList tags={post.tags}/>
+            <TagsList tags={post.tags} />
           </div>
         </div>
       </>

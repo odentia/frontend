@@ -7,5 +7,10 @@ export const CreateDivider = ({ containerId, blockId, index }) => {
 
   if (divider.type !== "DIVIDER") return null;
 
-  return <div className={styles.container} style={blockStylesToCSS(divider.styles)}></div>;
+  return (
+    <div
+      className={styles.container}
+      style={blockStylesToCSS(divider.styles)}
+    ></div>
+  );
 };

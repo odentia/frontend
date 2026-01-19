@@ -12,7 +12,6 @@ interface FiltersProps {
   age: string[];
 }
 
-
 interface FilterableCheckboxListProps {
   param: string;
   values: string[];
@@ -27,7 +26,7 @@ const FilterableCheckboxList = ({
   const [query, setQuery] = useState("");
 
   const filteredOptions = values.filter((o) =>
-    o.toLowerCase().includes(query.toLowerCase().trim())
+    o.toLowerCase().includes(query.toLowerCase().trim()),
   );
 
   return (
@@ -41,19 +40,13 @@ const FilterableCheckboxList = ({
         onValueChange={(e) => setQuery(e)}
       />
       {filteredOptions.map((el) => (
-        <FilterCheckbox
-          key={el}
-          param={param}
-          label={el}
-          value={el}
-        />
+        <FilterCheckbox key={el} param={param} label={el} value={el} />
       ))}
     </>
   );
 };
 
-export const GameFilters = ({platforms, category, age}: FiltersProps) => {
-
+export const GameFilters = ({ platforms, category, age }: FiltersProps) => {
   const params = useQueryParams();
 
   return (

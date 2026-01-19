@@ -19,7 +19,9 @@ export const FilterCategory = ({ param }: FilterCategoryProps) => {
 
   const query = value.trim();
 
-  const { data, isLoading, isPending, isError }: any = useGamesPrev({search: query});
+  const { data, isLoading, isPending, isError }: any = useGamesPrev({
+    search: query,
+  });
   const pending = Boolean(isPending ?? isLoading);
 
   const firstGame = useMemo(() => data?.[0], [data]);
@@ -33,8 +35,10 @@ export const FilterCategory = ({ param }: FilterCategoryProps) => {
   const content = (() => {
     if (pending) {
       return (
-        <div className={`${styles.containerDropdownItem} ${styles.containerDropdownItemStatic}`}>
-          <Loading/>
+        <div
+          className={`${styles.containerDropdownItem} ${styles.containerDropdownItemStatic}`}
+        >
+          <Loading />
           <span className={styles.containerDropdownItemTitle}>Загрузка...</span>
         </div>
       );
@@ -42,23 +46,33 @@ export const FilterCategory = ({ param }: FilterCategoryProps) => {
 
     if (isError) {
       return (
-        <div className={`${styles.containerDropdownItem} ${styles.containerDropdownItemStatic}`}>
-          <span className={styles.containerDropdownItemTitle}>Непредвиденная ошибка</span>
+        <div
+          className={`${styles.containerDropdownItem} ${styles.containerDropdownItemStatic}`}
+        >
+          <span className={styles.containerDropdownItemTitle}>
+            Непредвиденная ошибка
+          </span>
         </div>
       );
     }
 
     if (!query) {
       return (
-        <div className={`${styles.containerDropdownItem} ${styles.containerDropdownItemStatic}`}>
-          <span className={styles.containerDropdownItemTitle}>Начните вводить название игры</span>
+        <div
+          className={`${styles.containerDropdownItem} ${styles.containerDropdownItemStatic}`}
+        >
+          <span className={styles.containerDropdownItemTitle}>
+            Начните вводить название игры
+          </span>
         </div>
       );
     }
 
     if (!firstGame) {
       return (
-        <div className={`${styles.containerDropdownItem} ${styles.containerDropdownItemStatic}`}>
+        <div
+          className={`${styles.containerDropdownItem} ${styles.containerDropdownItemStatic}`}
+        >
           <span className={styles.containerDropdownItemTitle}>
             Игры по данному запросу не найдены
           </span>
@@ -67,13 +81,18 @@ export const FilterCategory = ({ param }: FilterCategoryProps) => {
     }
 
     return (
-      <div className={styles.containerDropdownItem} onMouseDown={() => handleSelect(firstGame.title)}>
+      <div
+        className={styles.containerDropdownItem}
+        onMouseDown={() => handleSelect(firstGame.title)}
+      >
         <img
           className={styles.containerDropdownItemImage}
           src={firstGame.image}
           alt={firstGame.title}
         />
-        <span className={styles.containerDropdownItemTitle}>{firstGame.title}</span>
+        <span className={styles.containerDropdownItemTitle}>
+          {firstGame.title}
+        </span>
       </div>
     );
   })();

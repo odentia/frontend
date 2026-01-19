@@ -13,7 +13,7 @@ export const CreatePostPage = () => {
         </div>
         <div className={styles.containerCards}>
           <BlockCards />
-          <BlockStylePanel/>
+          <BlockStylePanel />
         </div>
       </div>
     </EditorDndProvider>

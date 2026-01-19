@@ -18,7 +18,10 @@ type Message = {
   clientMsgId?: string;
 };
 
-function upsertById<T extends { id: string }>(arr: T[] | undefined, item: T): T[] {
+function upsertById<T extends { id: string }>(
+  arr: T[] | undefined,
+  item: T,
+): T[] {
   const list = arr ?? [];
   const idx = list.findIndex((x) => x.id === item.id);
   if (idx === -1) return [item, ...list];
@@ -36,7 +39,11 @@ function moveChatToTop(chats: Chat[], chatId: string) {
   return copy;
 }
 
-export function handleServerEvent(qc: QueryClient, evt: ServerEvent, getActiveChatId?: () => string | null) {
+export function handleServerEvent(
+  qc: QueryClient,
+  evt: ServerEvent,
+  getActiveChatId?: () => string | null,
+) {
   switch (evt.type) {
     case "message.created": {
       const { chatId, message } = evt.payload;
@@ -84,9 +91,13 @@ export function handleServerEvent(qc: QueryClient, evt: ServerEvent, getActiveCh
 
           next = moveChatToTop(next, chatId);
 
-          next.sort((a, b) => (b.lastMessage?.createdAt ?? "").localeCompare(a.lastMessage?.createdAt ?? ""));
+          next.sort((a, b) =>
+            (b.lastMessage?.createdAt ?? "").localeCompare(
+              a.lastMessage?.createdAt ?? "",
+            ),
+          );
           return next;
-        }
+        },
       );
 
       return;
@@ -109,7 +120,7 @@ export function handleServerEvent(qc: QueryClient, evt: ServerEvent, getActiveCh
             unread: typeof unread === "number" ? unread : 0,
           };
           return next;
-        }
+        },
       );
 
       // optionally update single chat
@@ -124,25 +135,33 @@ export function handleServerEvent(qc: QueryClient, evt: ServerEvent, getActiveCh
     case "chat.updated": {
       const chat = evt.payload.chat;
 
-      qc.setQueryData<any>(["chat", chat.id], (old) => (old ? { ...old, ...chat } : old));
+      qc.setQueryData<any>(["chat", chat.id], (old) =>
+        old ? { ...old, ...chat } : old,
+      );
 
-      qc.setQueriesData<Chat[]>({ queryKey: ["chats"], exact: false }, (old) => {
-        if (!old) return old;
-        const next = upsertById(old, chat as Chat);
-        return next;
-      });
+      qc.setQueriesData<Chat[]>(
+        { queryKey: ["chats"], exact: false },
+        (old) => {
+          if (!old) return old;
+          const next = upsertById(old, chat as Chat);
+          return next;
+        },
+      );
 
       return;
     }
 
     case "chat.created": {
       const chat = evt.payload.chat;
-      qc.setQueriesData<Chat[]>({ queryKey: ["chats"], exact: false }, (old) => {
-        if (!old) return old;
-        // prepend new chat
-        if (old.some((c) => c.id === chat.id)) return old;
-        return [chat as Chat, ...old];
-      });
+      qc.setQueriesData<Chat[]>(
+        { queryKey: ["chats"], exact: false },
+        (old) => {
+          if (!old) return old;
+          // prepend new chat
+          if (old.some((c) => c.id === chat.id)) return old;
+          return [chat as Chat, ...old];
+        },
+      );
       return;
     }
 

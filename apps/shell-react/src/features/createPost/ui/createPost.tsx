@@ -32,7 +32,7 @@ export const CreatePostButton = ({ tags }: { tags: string[] }) => {
       rootContainerId: rootContainer,
     });
 
-    if (create.data) navigate(`/publications/${create.data.id}`)
+    if (create.data) navigate(`/publications/${create.data.id}`);
   };
 
   return (

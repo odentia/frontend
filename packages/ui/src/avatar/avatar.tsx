@@ -215,9 +215,11 @@ export const Avatar = ({
             />
             <div style={{ minWidth: 0 }}>
               <div style={nameStyle}>
-                {loading ? "Загрузка..." : user?.name ?? "Пользователь"}
+                {loading ? "Загрузка..." : (user?.name ?? "Пользователь")}
               </div>
-              {user?.description && <div style={descStyle}>{user.description}</div>}
+              {user?.description && (
+                <div style={descStyle}>{user.description}</div>
+              )}
             </div>
           </div>
 
@@ -254,7 +256,9 @@ export const Avatar = ({
               </button>
             )}
 
-            {!error && loading && <div style={hintStyle}>Тянем данные профиля…</div>}
+            {!error && loading && (
+              <div style={hintStyle}>Тянем данные профиля…</div>
+            )}
             {!error && !loading && !user && (
               <div style={hintStyle}>Не удалось загрузить профиль</div>
             )}

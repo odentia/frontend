@@ -50,11 +50,7 @@ export const SaveTheme = ({
 
   return (
     <div className={styles.container}>
-      {errorText && (
-        <div className={styles.containerError}>
-          {errorText}
-        </div>
-      )}
+      {errorText && <div className={styles.containerError}>{errorText}</div>}
 
       <Button
         text="Сохранить"

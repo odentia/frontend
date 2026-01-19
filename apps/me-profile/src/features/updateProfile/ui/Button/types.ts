@@ -4,11 +4,11 @@ export interface SaveButtonProps {
   username: string;
   avatar_url: string;
   initial: {
-    email: string,
-    username: string,
-    description: string,
-    avatar_url: string
-  }
+    email: string;
+    username: string;
+    description: string;
+    avatar_url: string;
+  };
   setErrors: (
     error: "email" | "description" | "username",
     value: string,

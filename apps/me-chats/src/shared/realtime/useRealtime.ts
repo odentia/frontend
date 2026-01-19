@@ -15,14 +15,20 @@ function setLastSeq(seq: number) {
   localStorage.setItem(LAST_SEQ_KEY, String(seq));
 }
 
-export function useRealtime(opts?: { url?: string; getActiveChatId?: () => string | null }) {
+export function useRealtime(opts?: {
+  url?: string;
+  getActiveChatId?: () => string | null;
+}) {
   const qc = useQueryClient();
   const url = opts?.url ?? "wss://example.com/ws";
   const clientRef = useRef<RealtimeClient | null>(null);
 
-  const handlers = useMemo(() => ({
-    onEvent: (evt: any) => handleServerEvent(qc, evt, opts?.getActiveChatId),
-  }), [qc, opts?.getActiveChatId]);
+  const handlers = useMemo(
+    () => ({
+      onEvent: (evt: any) => handleServerEvent(qc, evt, opts?.getActiveChatId),
+    }),
+    [qc, opts?.getActiveChatId],
+  );
 
   useEffect(() => {
     if (!clientRef.current) {

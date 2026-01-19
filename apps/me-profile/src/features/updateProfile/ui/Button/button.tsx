@@ -80,7 +80,9 @@ export const SaveButton = ({
     return true;
   };
 
-  const isPending = Boolean(updateUser.isPending ?? (updateUser as any).isLoading);
+  const isPending = Boolean(
+    updateUser.isPending ?? (updateUser as any).isLoading,
+  );
   const canSubmit = isDirty && !isPending;
 
   const handleClick = () => {

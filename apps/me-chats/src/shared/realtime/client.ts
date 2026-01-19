@@ -42,7 +42,11 @@ export class RealtimeClient {
   stop() {
     this.stopped = true;
     this.clearPing();
-    try { this.ws?.close(); } catch {}
+    try {
+      this.ws?.close();
+    } catch {
+      // ignore: ws may already be closed
+    }
     this.ws = null;
   }
 
@@ -95,25 +99,25 @@ export class RealtimeClient {
       return;
     }
 
-this.ws.onopen = () => {
-  this.reconnectAttempt = 0;
-  this.handlers.onOpen?.();
+    this.ws.onopen = () => {
+      this.reconnectAttempt = 0;
+      this.handlers.onOpen?.();
 
-  const lastSeq = this.getLastSeq();
+      const lastSeq = this.getLastSeq();
 
-  const hello = {
-    v: 1,
-    id: this.newId("hello"),
-    seq: 0,
-    type: "hello",
-    payload: { lastSeq },
-  } as const;
+      const hello = {
+        v: 1,
+        id: this.newId("hello"),
+        seq: 0,
+        type: "hello",
+        payload: { lastSeq },
+      } as const;
 
-  this.ws?.send(JSON.stringify(hello));
+      this.ws?.send(JSON.stringify(hello));
 
-  this.subChatList();
-  this.startPing();
-};
+      this.subChatList();
+      this.startPing();
+    };
 
     this.ws.onmessage = (m) => {
       let evt: Envelope;

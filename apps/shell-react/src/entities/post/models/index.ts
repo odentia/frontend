@@ -51,7 +51,7 @@ export interface Page {
   blocks: Record<string, Block>;
 }
 
-export interface PostQueryParams{
+export interface PostQueryParams {
   search?: string;
   tags?: string[];
   game?: string;

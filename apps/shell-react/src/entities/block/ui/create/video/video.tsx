@@ -57,7 +57,7 @@ export const CreateVideo = ({
     open();
   };
 
- return (
+  return (
     <div {...getRootProps({ className: rootClassName })}>
       <input {...getInputProps()} className={styles.input} />
 

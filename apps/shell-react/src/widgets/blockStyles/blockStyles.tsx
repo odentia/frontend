@@ -1,5 +1,8 @@
 import { usePageEditor } from "../../shared/store/postCreate/postCreate";
-import type { VideoBlock, ButtonBlock } from "../../entities/block/models/types";
+import type {
+  VideoBlock,
+  ButtonBlock,
+} from "../../entities/block/models/types";
 import styles from "./blockStyles.module.scss";
 import { Input } from "@ui/dist";
 
@@ -14,7 +17,7 @@ export const BlockStylePanel = () => {
   const selectedContainerId = usePageEditor((s) => s.selectedContainerId);
 
   const container = usePageEditor((s) =>
-    selectedContainerId ? s.containers[selectedContainerId] : null
+    selectedContainerId ? s.containers[selectedContainerId] : null,
   );
 
   const block = usePageEditor((s) => {
@@ -117,7 +120,9 @@ export const BlockStylePanel = () => {
               className={styles.containerCheckbox}
               type="checkbox"
               checked={(block as any).rounded ?? false}
-              onChange={(e) => updateBlock(block.id, { rounded: e.target.checked })}
+              onChange={(e) =>
+                updateBlock(block.id, { rounded: e.target.checked })
+              }
             />
           </div>
         </div>
@@ -133,7 +138,9 @@ export const BlockStylePanel = () => {
               className={styles.containerCheckbox}
               type="checkbox"
               checked={(block as VideoBlock).autoplay ?? false}
-              onChange={(e) => updateBlock(block.id, { autoplay: e.target.checked })}
+              onChange={(e) =>
+                updateBlock(block.id, { autoplay: e.target.checked })
+              }
             />
           </div>
         </div>
@@ -149,7 +156,9 @@ export const BlockStylePanel = () => {
               value={String((block as ButtonBlock).borderRadius ?? 0)}
               onlyNumber
               color="var(--attention)"
-              onValueChange={(v) => updateBlock(block.id, { borderRadius: Number(v || 0) })}
+              onValueChange={(v) =>
+                updateBlock(block.id, { borderRadius: Number(v || 0) })
+              }
             />
           </div>
         </div>

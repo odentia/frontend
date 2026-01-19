@@ -5,10 +5,9 @@ export type ProfileFieldsForm = {
 };
 
 export type ProfileForm = ProfileFieldsForm & {
-  avatar_preview: string;
+  avatar_preview: string | undefined;
   avatar_file: File | null;
 };
-
 
 type FieldKey = keyof ProfileForm;
 

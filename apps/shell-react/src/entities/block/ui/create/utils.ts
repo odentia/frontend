@@ -87,7 +87,7 @@ export const createBlock = (type: BlockType): Block => {
 export const isValidUrl = (url: string): boolean => {
   try {
     const parsed = new URL(url);
-    const allowedProtocols = ['http:', 'https:'];
+    const allowedProtocols = ["http:", "https:"];
     return allowedProtocols.includes(parsed.protocol);
   } catch {
     return false;

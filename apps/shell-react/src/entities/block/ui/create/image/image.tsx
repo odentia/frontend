@@ -62,7 +62,10 @@ export const CreateImage = ({
   return (
     <div {...getRootProps({ className: rootClassName })}>
       <input {...getInputProps()} className={styles.containerInput} />
-      <div className={styles.containerBody} style={blockStylesToCSS(block.styles)}>
+      <div
+        className={styles.containerBody}
+        style={blockStylesToCSS(block.styles)}
+      >
         {hasImage ? (
           <button
             type="button"

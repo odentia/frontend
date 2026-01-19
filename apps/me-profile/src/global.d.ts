@@ -10,7 +10,7 @@ declare module "*.scss" {
   export default content;
 }
 
-declare module '*.svg' {
+declare module "*.svg" {
   const src: string;
   export default src;
 }

@@ -11,7 +11,11 @@ export const GameCard = ({ background_image, name, id }: GamePrev) => {
 
   return (
     <div className={styles.container} onClick={handleClick}>
-      <img src={background_image} alt="image" className={styles.containerImage} />
+      <img
+        src={background_image}
+        alt="image"
+        className={styles.containerImage}
+      />
       <span className={styles.containerTitle}>{name}</span>
     </div>
   );
