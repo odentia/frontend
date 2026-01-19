@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Container } from "../shared/container";
-import { useApi } from "@config-runtime";
+import { useApi, useAuth } from "@config-runtime";
 
 interface ErrorType {
   name?: string;
@@ -8,12 +8,9 @@ interface ErrorType {
 }
 
 export const Login = () => {
-  const api = useApi();
+  const api = useAuth();
 
-  const loginMutation = api.useApiMutation<{ name: string; password: string }>(
-    "auth/login",
-    "post",
-  );
+  const loginMutation = api.useLoginMutation();
 
   const nameRef = useRef("");
   const passwordRef = useRef("");
@@ -38,7 +35,7 @@ export const Login = () => {
     if (Object.keys(newErrors).length > 0) return;
 
     loginMutation.mutate(
-      { name, password },
+      { email: name, password },
       {
         onSuccess: (data) => {
           console.log("[login] success:", data);
@@ -65,7 +62,7 @@ export const Login = () => {
         if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
       },
       error: errors.name,
-      placeholder: "Логин",
+      placeholder: "Почта",
     },
     {
       setValue: (str: string) => {
