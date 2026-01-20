@@ -27,7 +27,7 @@ export const ApiProvider = ({ children }: LayoutProps) => {
     () =>
       createHttpClient({
         baseURL: "",
-        refreshPath: "/auth/refresh",
+        refreshPath: "/auth-api/api/v1/auth/refresh",
         withCredentials: true,
         onAuthFailed: () => {
           console.log("Outed!");

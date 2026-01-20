@@ -26,10 +26,12 @@ export const CreatePostButton = ({ tags }: { tags: string[] }) => {
       title: title.trim(),
       description: description.trim(),
       tags,
-      pageStyles,
-      blocksId: blocks,
-      containers,
-      rootContainerId: rootContainer,
+      page: {
+        styles: pageStyles,
+        blocks: blocks,
+        containers: containers,
+        rootContainerId: rootContainer,
+      }
     });
 
     if (create.data) navigate(`/publications/${create.data.id}`);

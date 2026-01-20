@@ -7,6 +7,7 @@ export const Login = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        height: "100vh"
       }}
     >
       <LoginWidget />

@@ -24,7 +24,7 @@ export const FilterCategory = ({ param }: FilterCategoryProps) => {
   });
   const pending = Boolean(isPending ?? isLoading);
 
-  const firstGame = useMemo(() => data?.[0], [data]);
+  const firstGame = useMemo(() => data?.items[0], [data]);
 
   const handleSelect = (title: string) => {
     params.setParam(param, title);

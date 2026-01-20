@@ -29,6 +29,11 @@ export interface LayoutContainer {
   parentId?: string | null;
 }
 
+export interface PostData {
+  total: number,
+  posts: Post[],
+}
+
 export interface Post {
   id: string;
   author: Author;

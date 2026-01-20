@@ -13,9 +13,17 @@ export const GameCard = ({ background_image, name, id }: GamePrev["items"][0]) =
     <div className={styles.container} onClick={handleClick}>
       <img
         src={background_image}
-        alt="image"
-        className={styles.containerImage}
+        alt=""
+        className={styles.bgImage}
+        aria-hidden="true"
       />
+
+      <img
+        src={background_image}
+        alt={name}
+        className={styles.fgImage}
+      />
+
       <span className={styles.containerTitle}>{name}</span>
     </div>
   );

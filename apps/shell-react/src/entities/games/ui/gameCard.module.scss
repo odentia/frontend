@@ -8,27 +8,42 @@
   border: 1px solid var(--border);
   position: relative;
   transition: 0.3s ease;
+  overflow: hidden;
   cursor: pointer;
 
   &:hover {
     scale: 1.05;
     box-shadow: 0 4px 10px var(--box-shadow);
   }
+}
 
-  &Image {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-  }
+.bgImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(18px);
+  transform: scale(1.12);
+  opacity: 0.9;
+  z-index: 0;
+}
 
-  &Title {
-    font-size: 16px;
-    text-wrap: wrap;
-    font-weight: 600;
-    position: absolute;
-    width: 90%;
-    text-align: center;
-    top: 70%;
-    color: var(--text);
-  }
+.fgImage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.containerTitle {
+  font-size: 16px;
+  font-weight: 600;
+  position: absolute;
+  width: 90%;
+  text-align: center;
+  top: 70%;
+  color: var(--text);
+  z-index: 2;
 }

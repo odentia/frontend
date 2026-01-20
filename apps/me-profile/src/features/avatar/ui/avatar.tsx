@@ -27,7 +27,7 @@ export const Avatar = ({ url, onPickFile, disabled }: AvatarProps) => {
   return (
     <div {...getRootProps()} className={cls}>
       <input {...getInputProps()} />
-      <img src={url} className={styles.containerImage} alt="avatar" />
+      {url !== "" && (<img src={url} className={styles.containerImage} alt="avatar" />)}
       <img src={redact} className={styles.containerRedact} alt="edit" />
     </div>
   );

@@ -7,6 +7,7 @@ export const SignUp = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        height: "100vh"
       }}
     >
       <SignUpWidget />

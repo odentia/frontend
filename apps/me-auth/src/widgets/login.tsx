@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Container } from "../shared/container";
-import { useAuth } from "@config-runtime";
+import { useApi } from "@config-runtime";
+import { useNavigate } from "react-router-dom";
 
 interface ErrorType {
   name?: string;
@@ -8,12 +9,12 @@ interface ErrorType {
 }
 
 export const Login = () => {
-  const api = useAuth();
+  const api = useApi().useApiMutation("/auth-api/api/v1/auth/login");
 
-  const loginMutation = api.useLoginMutation();
+  const navigate = useNavigate();
 
-  const nameRef = useRef("");
-  const passwordRef = useRef("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
 
   const [errors, setErrors] = useState<ErrorType>({
     name: undefined,
@@ -23,33 +24,25 @@ export const Login = () => {
   const handleClick = () => {
     const newErrors: ErrorType = {};
 
-    const name = nameRef.current.trim();
-    const password = passwordRef.current;
+    const email = name.trim();
 
-    if (!name) newErrors.name = "Поле не может быть пустым";
+    if (!email) newErrors.name = "Поле не может быть пустым";
     if (!password || password.length < 6)
       newErrors.password = "Пароль должен быть больше 6 символов";
 
     setErrors(newErrors);
-
     if (Object.keys(newErrors).length > 0) return;
 
-    loginMutation.mutate(
-      { email: name, password },
+    api.mutate(
+      { email, password },
       {
-        onSuccess: (data) => {
-          console.log("[login] success:", data);
-        },
+        onSuccess: (data) => navigate("/"),
         onError: (err: any) => {
-          console.log("[login] error:", err);
           const message =
             err.response?.data?.detail ??
             err.response?.data?.message ??
             "Неизвестная ошибка";
-          setErrors({
-            name: undefined,
-            password: message,
-          });
+          setErrors({ name: undefined, password: message });
         },
       },
     );
@@ -57,16 +50,18 @@ export const Login = () => {
 
   const inputs = [
     {
+      value: name,
       setValue: (str: string) => {
-        nameRef.current = str;
+        setName(str);
         if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
       },
       error: errors.name,
       placeholder: "Почта",
     },
     {
+      value: password,
       setValue: (str: string) => {
-        passwordRef.current = str;
+        setPassword(str);
         if (errors.password)
           setErrors((prev) => ({ ...prev, password: undefined }));
       },
@@ -83,7 +78,7 @@ export const Login = () => {
       subtitle="С возвращением!"
       buttonText="Войти"
       buttonClick={handleClick}
-      loading={loginMutation.isPending}
+      loading={api.isPending}
       footerText="Нет аккаунта?"
       footerLink="  Зарегистрироваться"
       link="/auth/signup"

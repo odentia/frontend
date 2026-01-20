@@ -10,6 +10,7 @@ import { Pagination } from "../../features/pagination/ui/pagination";
 import { GameFilters } from "../../widgets/gameFilters";
 import styles from "./games.module.scss";
 import { useGamesQueryParams } from "../../shared/lib/searchParams";
+import { useEffect } from "react";
 
 export const GamesPage = () => {
   const params = useGamesQueryParams();
@@ -19,6 +20,10 @@ export const GamesPage = () => {
   const platforms = usePlatforms();
   const genres = useGenres();
   const age = useAge();
+
+  useEffect(() => {
+    console.log(games.data, platforms.data)
+  },[games.data, platforms.data])
 
   return (
     <div className={styles.container}>
@@ -40,8 +45,10 @@ export const GamesPage = () => {
                 name={el.name}
               />
             ))}
+          {games.isPending && (<div className={styles.wrapper}><Loading/></div>)}
+          {games.error && (<div className={styles.wrapper}><span className={styles.wrapperError}>{games.error.message}</span></div>)}
         </div>
-        <Pagination pages={12} />
+        <Pagination pages={games.data?.total ? games.data?.total / 20 : 1} />
       </div>
     </div>
   );

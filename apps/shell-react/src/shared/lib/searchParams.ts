@@ -98,6 +98,19 @@ export function useQueryParams() {
     [search, updateURL],
   );
 
+  const setSingleValue = useCallback(
+    (key: string, value: string | undefined) => {
+      const next = new URLSearchParams(search);
+
+      next.delete(key);
+      if (value) next.set(key, value);
+
+      updateURL(next);
+    },
+    [search, updateURL],
+  );
+
+
   const toggleParamValue = useCallback(
     (key: string, value: string) => {
       const next = new URLSearchParams(search);
@@ -142,6 +155,7 @@ export function useQueryParams() {
     addParamValue,
     removeParamValue,
     toggleParamValue,
+    setSingleValue
   };
 }
 

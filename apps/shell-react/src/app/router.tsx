@@ -20,11 +20,11 @@ export const routesConfig: RouteObject[] = [
       { path: "auth/*", element: <Auth /> },
       {
         path: "user",
-        element: <Profile />,
+        element: <ProtectedRoute><Profile /></ProtectedRoute>,
       },
       { path: "publications", element: <PublicationsCatalog /> },
       { path: "publications/:id", element: <PublicationPage /> },
-      { path: "publications/create", element: <CreatePostPage /> },
+      { path: "publications/create", element: <ProtectedRoute><CreatePostPage /></ProtectedRoute> },
       { path: "network", element: <NetworkError /> },
       { path: "*", element: <NotFoundPage /> },
       { path: "games", element: <GamesPage /> },

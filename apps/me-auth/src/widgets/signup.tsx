@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Container } from "../shared/container";
 import { useApi } from "@config-runtime";
+import { useNavigate } from "react-router-dom";
 
 interface ErrorType {
   name?: string;
@@ -12,58 +13,51 @@ interface ErrorType {
 export const SignUp = () => {
   const api = useApi();
 
+  const navigate = useNavigate();
+
   const registerMutation = api.useApiMutation<
     { name: string; email: string; password: string },
     any
-  >("auth/register", "post");
+  >("/auth-api/api/v1/auth/register", "post");
 
-  const nameRef = useRef("");
-  const emailRef = useRef("");
-  const passwordRef = useRef("");
-  const confirmPasswordRef = useRef("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [errors, setErrors] = useState<ErrorType>({});
 
   const handleClick = () => {
     const newErrors: ErrorType = {};
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!nameRef.current.trim()) newErrors.name = "Поле не может быть пустым";
+    if (!name.trim()) newErrors.name = "Поле не может быть пустым";
 
-    if (!emailRef.current.trim()) newErrors.email = "Введите почту";
-    else if (!emailRegex.test(emailRef.current))
+    if (!email.trim()) newErrors.email = "Введите почту";
+    else if (!emailRegex.test(email))
       newErrors.email = "Некорректный формат почты";
 
-    if (!passwordRef.current.trim() || passwordRef.current.length < 6)
+    if (!password || password.length < 6)
       newErrors.password = "Пароль должен быть больше 6 символов";
 
-    if (passwordRef.current !== confirmPasswordRef.current)
+    if (password !== confirmPassword)
       newErrors.confirmPassword = "Пароли не совпадают";
 
     setErrors(newErrors);
-
     if (Object.keys(newErrors).length > 0) return;
 
     registerMutation.mutate(
-      {
-        name: nameRef.current,
-        email: emailRef.current,
-        password: passwordRef.current,
-      },
+      { name, email, password },
       {
         onSuccess: (data) => {
-          console.log("[signup] success:", data);
+          navigate("/");
         },
         onError: (err: any) => {
-          console.log("[signup] error:", err);
           const message =
             err.response?.data?.detail ??
             err.response?.data?.message ??
             "Неизвестная ошибка";
-          setErrors({
-            password: message,
-          });
+          setErrors({ password: message });
         },
       },
     );
@@ -71,36 +65,39 @@ export const SignUp = () => {
 
   const inputs = [
     {
+      value: name,
       setValue: (str: string) => {
-        nameRef.current = str;
-        if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
+        setName(str);
+        if (errors.name) setErrors((p) => ({ ...p, name: undefined }));
       },
       error: errors.name,
       placeholder: "Логин",
     },
     {
+      value: email,
       setValue: (str: string) => {
-        emailRef.current = str;
-        if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
+        setEmail(str);
+        if (errors.email) setErrors((p) => ({ ...p, email: undefined }));
       },
       error: errors.email,
       placeholder: "Почта",
     },
     {
+      value: password,
       setValue: (str: string) => {
-        passwordRef.current = str;
-        if (errors.password)
-          setErrors((prev) => ({ ...prev, password: undefined }));
+        setPassword(str);
+        if (errors.password) setErrors((p) => ({ ...p, password: undefined }));
       },
       error: errors.password,
       placeholder: "Пароль",
       isPassword: true,
     },
     {
+      value: confirmPassword,
       setValue: (str: string) => {
-        confirmPasswordRef.current = str;
+        setConfirmPassword(str);
         if (errors.confirmPassword)
-          setErrors((prev) => ({ ...prev, confirmPassword: undefined }));
+          setErrors((p) => ({ ...p, confirmPassword: undefined }));
       },
       error: errors.confirmPassword,
       placeholder: "Повторите пароль",

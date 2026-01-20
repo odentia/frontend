@@ -34,12 +34,17 @@ function cleanArr(v?: string[]) {
   return a.length ? a : undefined;
 }
 
+function lastOfArr(v?: string[]) {
+  if (!v?.length) return undefined;
+  return v[v.length - 1];
+}
+
 function normalizeParams(
   input: GamesQueryParams = {},
 ): Required<Pick<GamesQueryParams, "page" | "page_size">> &
   Omit<GamesQueryParams, "page" | "page_size"> {
   const page = clampInt(input.page ?? 1, 1, 1_000_000);
-  const page_size = clampInt(input.page_size ?? 20, 1, 100);
+  const page_size = 18;
 
   const year_from =
     input.year_from == null ? undefined : clampInt(input.year_from, 1900, 2100);
@@ -84,17 +89,24 @@ export function useGamesPrev(params?: GamesQueryParams) {
   const api = useApi();
   const normalized = normalizeParams(params);
 
+  const adaptedParams = {
+    ...normalized,
+    platform: cleanStr(lastOfArr(normalized.platform)),
+    genre: cleanStr(lastOfArr(normalized.genre)),
+    age_rating: cleanStr(lastOfArr(normalized.age_rating)),
+  } as unknown as Record<string, unknown>;
+
   return api.useApiQuery<GamePrev>({
     key: ["games", "list", normalized],
-    path: "/api/v1/games/",
-    params: normalized,
+    path: "http://89.111.163.192:8010/api/v1/games/",
+    params: adaptedParams,
   });
 }
 
 export function usePlatforms() {
   const api = useApi().useApiQuery<Platform>({
     key: ["platforms"],
-    path: "/api/v1/genres/platforms",
+    path: "http://89.111.163.192:8010/api/v1/genres/platforms",
   });
   return api;
 }
@@ -102,12 +114,15 @@ export function usePlatforms() {
 export function useAge() {
   const api = useApi().useApiQuery<Age>({
     key: ["age"],
-    path: "/api/v1/genres/age-ratings",
+    path: "http://89.111.163.192:8010/api/v1/genres/age-ratings",
   });
   return api;
 }
 
 export function useGenres() {
-  const api = useApi().useApiQuery<Genres>({ key: ["genre"], path: "/api/v1/genres" });
+  const api = useApi().useApiQuery<Genres>({
+    key: ["genre"],
+    path: "http://89.111.163.192:8010/api/v1/genres",
+  });
   return api;
 }

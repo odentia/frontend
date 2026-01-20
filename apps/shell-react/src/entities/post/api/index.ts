@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useApi } from "@config-runtime";
-import { Post, PostQueryParams } from "../models";
+import { Post, PostData, PostQueryParams } from "../models";
 
 function s(v?: string) {
   return (v ?? "").trim();
@@ -45,21 +45,21 @@ export const usePost = (id?: string, listParams?: PostQueryParams) => {
 
   const post = api.useApiQuery<Post>({
     key: [`post-${id}`],
-    path: `/posts/${id}`,
+    path: `http://89.111.163.192:8000/api/v1/posts/${id}`,
     enabled: Boolean(id),
   });
 
   const samePosts = api.useApiQuery<Post[]>({
     key: [`post-${id}`, "same"],
-    path: `/posts/${id}/same`,
+    path: `http://89.111.163.192:8000/api/v1/posts`,
     enabled: Boolean(id),
   });
 
   const listQS = useMemo(() => buildPostsQS(listParams), [listParams]);
 
-  const posts = api.useApiQuery<Post[]>({
+  const posts = api.useApiQuery<PostData>({
     key: ["posts", listParams ?? {}],
-    path: `/posts/${listQS}`,
+    path: `http://89.111.163.192:8000/api/v1/posts/${listQS}`,
   });
 
   return { post, samePosts, posts };
