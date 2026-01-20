@@ -8,6 +8,7 @@ interface InputProps {
   placeholder: string;
   setValue: (str: string) => void;
   isPassword?: boolean;
+  value: string;
 }
 
 interface containerProps {
@@ -44,6 +45,7 @@ const ContainerComponent = ({
           key={key}
           onValueChange={el.setValue}
           hasError={el.error}
+          value={el.value}
           fontSize="18px"
           borderRadius="5px"
           color={el.error ? "red" : "var(--border)"}

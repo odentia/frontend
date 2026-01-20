@@ -12,7 +12,7 @@ export interface PageStyles {
 interface Author {
   name: string;
   avatar: string;
-  id: number;
+  id: string;
 }
 
 export type LayoutDirection = "row" | "column";
@@ -29,9 +29,15 @@ export interface LayoutContainer {
   parentId?: string | null;
 }
 
+export interface PostData {
+  total: number,
+  posts: Post[],
+}
+
 export interface Post {
-  id: number;
+  id: string;
   author: Author;
+  description: string;
   created_at: string;
   title?: string;
   rating: number;
@@ -45,17 +51,17 @@ export interface Post {
 
 export interface Page {
   styles: PageStyles;
-
   rootContainerId: string;
-
-  containers: {
-    root: {
-      id: "root";
-      direction: "column";
-      blockId: "t-title";
-      children: ["c-quote", "c-text-image", "c-gallery", "c-button"];
-    };
-  };
-
+  containers: Record<string, LayoutContainer>;
   blocks: Record<string, Block>;
+}
+
+export interface PostQueryParams {
+  search?: string;
+  tags?: string[];
+  game?: string;
+  rating_from?: string;
+  rating_to?: string;
+  comments_from?: string;
+  comments_to?: string;
 }

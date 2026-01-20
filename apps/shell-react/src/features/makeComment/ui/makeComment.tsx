@@ -9,7 +9,7 @@ export const MakeComment = ({
   id,
   type,
 }: {
-  id: number;
+  id: string;
   type: "game" | "post";
 }) => {
   const [comment, setComment] = useState("");

@@ -23,7 +23,8 @@
     "@api-client": "workspace:*",
     "@config-runtime": "workspace:*",
     "@types/react-color": "^3.0.13",
-    "@ui": "workspace:*"
+    "@ui": "workspace:*",
+    "react-dropzone": "^14.3.8"
   },
   "devDependencies": {
     "@api-client": "workspace:*",

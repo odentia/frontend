@@ -1,5 +1,5 @@
 interface Author {
-  id: number;
+  id: string;
   name: string;
   avatar: string | null;
 }
@@ -11,8 +11,8 @@ export interface CommentProps {
 }
 
 export interface Comment {
-  id: number;
-  author: { id: number; name: string; avatar: string | null };
+  id: string;
+  author: { id: string; name: string; avatar: string | null };
   date: string;
   text: string;
   isPositive: boolean;

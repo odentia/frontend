@@ -1,0 +1,90 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 12px;
+  background: rgb(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  color: var(--text);
+  font-size: 14px;
+
+  h3 {
+    margin: 0 0 8px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  h4 {
+    margin: 12px 0 6px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0.85;
+  }
+
+  &Body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &Item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    input,
+    select {
+      height: 28px;
+      padding: 0 8px;
+
+      background: var(--cards);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+
+      color: #e6e8eb;
+      font-size: 13px;
+
+      outline: none;
+
+      &:focus {
+        border-color: var(--attention);
+      }
+    }
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      padding: 0;
+    }
+
+    input[type="color"] {
+      padding: 0;
+      height: 28px;
+    }
+  }
+
+  &Group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+
+  &Empty {
+    font-size: 13px;
+    opacity: 0.7;
+  }
+}

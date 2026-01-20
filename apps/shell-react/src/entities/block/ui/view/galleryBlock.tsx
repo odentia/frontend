@@ -1,4 +1,5 @@
 import type { GalleryBlock as GalleryBlockProps } from "../../models/types";
+import { isValidUrl } from "../create/utils";
 
 export const GalleryBlock = ({ block }: { block: GalleryBlockProps }) => {
   const { images, styles, layout = "grid" } = block;
@@ -18,7 +19,7 @@ export const GalleryBlock = ({ block }: { block: GalleryBlockProps }) => {
         {images.map((img) => (
           <img
             key={img.id}
-            src={img.url}
+            src={isValidUrl(img.url) ? img.url : ""}
             alt={img.alt ?? ""}
             style={{
               height: 180,

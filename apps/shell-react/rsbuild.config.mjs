@@ -21,8 +21,43 @@ export default defineConfig({
   server: {
     port: 3000,
     host: "localhost",
-    cors: { origin: ["http://localhost:3010"] },
-    headers: { "Access-Control-Allow-Origin": "*" },
+
+    proxy: {
+      "/auth-api": {
+        target: "http://89.111.163.192:8011",
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { "^/auth-api": "" },
+      },
+
+      "/games-api": {
+        target: "http://89.111.163.192:8010",
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { "^/games-api": "" },
+      },
+
+      "/posts-api": {
+        target: "http://89.111.163.192:8000",
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { "^/posts-api": "" },
+      },
+
+      "/profile-api": {
+        target: "http://89.111.163.192:8001",
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { "^/profile-api": "" },
+      },
+
+      "/comments-api": {
+        target: "http://89.111.163.192:8012",
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { "^/comments-api": "" },
+      },
+    },
   },
   environments: {
     web: {

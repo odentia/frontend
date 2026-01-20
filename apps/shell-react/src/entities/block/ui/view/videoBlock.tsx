@@ -1,4 +1,5 @@
 import type { VideoBlock as VideoBlockProps } from "../../models/types";
+import { isValidUrl } from "../create/utils";
 
 export const VideoBlock = ({ block }: { block: VideoBlockProps }) => {
   const {
@@ -13,7 +14,7 @@ export const VideoBlock = ({ block }: { block: VideoBlockProps }) => {
   return (
     <div style={styles}>
       <video
-        src={url}
+        src={isValidUrl(url) ? url : ""}
         controls
         autoPlay={autoplay}
         loop={loop}

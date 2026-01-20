@@ -1,6 +1,8 @@
 .container {
-  min-width: 100vw;
+  width: 100%;
   min-height: 100vh;
-  display: grid;
-  background: "transparent";
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  display: block;
 }

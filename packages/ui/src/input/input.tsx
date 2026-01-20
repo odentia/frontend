@@ -116,7 +116,7 @@ const InputComponent = ({
           placeholder={placeholder || ""}
           onChange={(e) => handleChange(e.target.value)}
           type={isPassword ? "password" : "text"}
-          {...(value ? { value } : {})}
+          value={value ?? ""}
         />
         {rightIcon && <img src={rightIcon} style={iconStyle} alt="rightIcon" />}
       </div>

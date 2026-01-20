@@ -1,4 +1,5 @@
 import type { ButtonBlock as ButtonBlockProps } from "../../models/types";
+import { isValidUrl } from "../create/utils";
 import buttonStyles from "./buttonBlock.module.scss";
 
 export const ButtonBlock = ({ block }: { block: ButtonBlockProps }) => {
@@ -8,7 +9,7 @@ export const ButtonBlock = ({ block }: { block: ButtonBlockProps }) => {
   return (
     <div style={{ ...styles }}>
       <a
-        href={href}
+        href={isValidUrl(href) ? href : ""}
         target="_blank"
         rel="noreferrer"
         className={buttonStyles.container}

@@ -1,7 +1,7 @@
 export interface User {
-  id: number;
-  image_url: string;
-  username: string;
+  user_id: number;
+  avatar_url: string;
+  name: string;
   description: string;
   email: string;
   rating: number;

@@ -3,11 +3,12 @@ import React from "react";
 import styles from "./themeColor.module.scss";
 import { SketchPicker } from "react-color";
 import { useEffect, useState } from "react";
+import { ScssTheme } from "../../entities/theme/models";
 
 interface ThemeColorProps {
-  param: string;
+  param: keyof ScssTheme;
   title: string;
-  func: (name: string, value: string) => void;
+  func: (name: keyof ScssTheme, value: string) => void;
 }
 
 export const ThemeColor = React.memo(
@@ -21,14 +22,16 @@ export const ThemeColor = React.memo(
       const el = document.querySelector(".theme-root");
       if (!el) return;
 
-      const current = getComputedStyle(el).getPropertyValue(param).trim();
+      const current = getComputedStyle(el)
+        .getPropertyValue(param as string)
+        .trim();
       setColor(current);
     }, [param]);
 
     const handleChange = (c: any) => {
       const value = `rgba(${c.rgb.r}, ${c.rgb.g}, ${c.rgb.b}, ${c.rgb.a})`;
 
-      theme.setVar(param, value);
+      theme.setVar(param as string, value);
       func(param, value);
     };
 
@@ -39,7 +42,7 @@ export const ThemeColor = React.memo(
           <div
             className={styles.containerBodyColor}
             onClick={() => setPicker((p) => !p)}
-            style={{ backgroundColor: `var(${param})` }}
+            style={{ backgroundColor: `var(${String(param)})` }}
           />
           <span> - </span>
           <span>{color}</span>

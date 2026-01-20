@@ -4,4 +4,5 @@ export interface RatingProps {
   isLikedMe: boolean;
   isDislikedMe: boolean;
   id: number;
+  type: "game" | "post";
 }

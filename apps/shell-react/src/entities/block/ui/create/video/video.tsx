@@ -3,6 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { usePageEditor } from "../../../../../shared/store/postCreate/postCreate";
 import styles from "./video.module.scss";
 import { BlockCreatingProps } from "../types";
+import { blockStylesToCSS } from "../../../models/registr";
 
 export const CreateVideo = ({
   containerId: _containerId,
@@ -60,23 +61,25 @@ export const CreateVideo = ({
     <div {...getRootProps({ className: rootClassName })}>
       <input {...getInputProps()} className={styles.input} />
 
-      {hasVideo ? (
-        <button
-          type="button"
-          className={styles.videoWrapper}
-          onClick={handleClick}
-        >
-          <video src={block.url} className={styles.video} controls />
-        </button>
-      ) : (
-        <button
-          type="button"
-          className={styles.containerButton}
-          onClick={handleClick}
-        >
-          Добавьте видео-файл
-        </button>
-      )}
+      <div className={styles.content} style={blockStylesToCSS(block.styles)}>
+        {hasVideo ? (
+          <button
+            type="button"
+            className={styles.videoWrapper}
+            onClick={handleClick}
+          >
+            <video src={block.url} className={styles.video} controls />
+          </button>
+        ) : (
+          <button
+            type="button"
+            className={styles.containerButton}
+            onClick={handleClick}
+          >
+            Добавьте видео-файл
+          </button>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import type { EmbedBlock as EmbedBlockProps } from "../../models/types";
+import { isValidUrl } from "../create/utils";
 
 export const EmbedBlock = ({ block }: { block: EmbedBlockProps }) => {
   const { url, embedType, styles } = block;
@@ -6,7 +7,7 @@ export const EmbedBlock = ({ block }: { block: EmbedBlockProps }) => {
   return (
     <div style={{ ...styles }}>
       <iframe
-        src={url}
+        src={isValidUrl(url) ? url : ""}
         style={{
           width: "100%",
           minHeight: 300,

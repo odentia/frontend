@@ -3,6 +3,7 @@ import styles from "./text.module.scss";
 import { usePageEditor } from "../../../../../shared/store/postCreate/postCreate";
 import { BlockCreatingProps } from "../types";
 import { TextBlock } from "../../../models/types";
+import { blockStylesToCSS } from "../../../models/registr";
 
 export const CreateText = ({
   containerId: _containerId,
@@ -29,8 +30,6 @@ export const CreateText = ({
   }, [block?.markdown]);
 
   if (!block || block.type !== "TEXT") return null;
-
-  const textBlock = block;
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     updateBlock(blockId, e.target.value);
@@ -67,52 +66,54 @@ export const CreateText = ({
 
   return (
     <div className={styles.container}>
-      <div className={styles.containerToolbar}>
-        <button
-          type="button"
-          className={styles.containerToolbarItem}
-          onClick={() => wrap("**")}
-        >
-          b
-        </button>
-        <button
-          type="button"
-          className={styles.containerToolbarItem}
-          onClick={() => wrap("*")}
-        >
-          i
-        </button>
-        <button
-          type="button"
-          className={styles.containerToolbarItem}
-          onClick={() => wrap("`")}
-        >
-          c
-        </button>
-        <button
-          type="button"
-          className={styles.containerToolbarItem}
-          onClick={() => wrap("> ")}
-        >
-          q
-        </button>
-        <button
-          type="button"
-          className={styles.containerToolbarItem}
-          onClick={() => wrap("[", "](url)")}
-        >
-          link
-        </button>
-      </div>
+      <div className={styles.content} style={blockStylesToCSS(block.styles)}>
+        <div className={styles.containerToolbar}>
+          <button
+            type="button"
+            className={styles.containerToolbarItem}
+            onClick={() => wrap("**")}
+          >
+            b
+          </button>
+          <button
+            type="button"
+            className={styles.containerToolbarItem}
+            onClick={() => wrap("*")}
+          >
+            i
+          </button>
+          <button
+            type="button"
+            className={styles.containerToolbarItem}
+            onClick={() => wrap("`")}
+          >
+            c
+          </button>
+          <button
+            type="button"
+            className={styles.containerToolbarItem}
+            onClick={() => wrap("> ")}
+          >
+            q
+          </button>
+          <button
+            type="button"
+            className={styles.containerToolbarItem}
+            onClick={() => wrap("[", "](url)")}
+          >
+            link
+          </button>
+        </div>
 
-      <textarea
-        id={`ta-${blockId}`}
-        ref={textareaRef}
-        className={styles.containerText}
-        value={block.markdown}
-        onChange={handleChange}
-        placeholder="Введите текст..."
-      />
+        <textarea
+          id={`ta-${blockId}`}
+          ref={textareaRef}
+          className={styles.containerText}
+          value={block.markdown}
+          onChange={handleChange}
+          placeholder="Введите текст..."
+        />
+      </div>
     </div>
   );
 };

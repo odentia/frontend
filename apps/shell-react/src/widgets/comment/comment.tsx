@@ -63,6 +63,7 @@ export const Comment = ({
             rating={rating}
             isLikedMe={isLikedMe}
             isPositive={isPositive}
+            type={type}
           />
           <span
             className={styles.containerFooterMetricsText}

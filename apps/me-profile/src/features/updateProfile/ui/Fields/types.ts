@@ -1,7 +1,12 @@
-export type ProfileForm = {
+export type ProfileFieldsForm = {
   name: string;
   email: string;
   bio: string;
+};
+
+export type ProfileForm = ProfileFieldsForm & {
+  avatar_preview: string | undefined;
+  avatar_file: File | null;
 };
 
 type FieldKey = keyof ProfileForm;
@@ -33,7 +38,7 @@ export const fields: FieldConfig[] = [
 ];
 
 export type UpdateProfileFieldsProps = {
-  form: ProfileForm;
+  form: ProfileFieldsForm;
   onChange: (field: FieldKey, value: string) => void;
   errors: Partial<Record<FieldKey, string>>;
 };

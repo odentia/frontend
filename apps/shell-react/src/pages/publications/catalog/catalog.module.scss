@@ -1,0 +1,69 @@
+@use "@mixin" as mixin;
+
+.containerOuter {
+  width: 100%;
+  padding: 5%;
+  box-sizing: border-box;
+
+  &Header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+}
+
+.container {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  gap: 20px;
+
+  @include mixin.mobile {
+    flex-direction: column;
+  }
+
+  &Filters {
+    width: 20%;
+
+    @include mixin.mobile {
+      width: 100%;
+    }
+  }
+
+  &Cards {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 80vh;
+    gap: 10px;
+    background-color: var(--cards);
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+
+    &Error {
+      font-size: 14px;
+      color: var(--danger);
+    }
+  }
+}
+
+.wrapper {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &Text {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--subtext);
+  }
+}

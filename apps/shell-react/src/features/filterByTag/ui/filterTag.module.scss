@@ -1,0 +1,15 @@
+.container {
+  display: inline-flex;
+
+  &Active {
+    opacity: 1;
+    border: 1px solid var(--attention);
+    border-radius: 5px;
+    color: var(--attention);
+
+    & :global(.container) {
+      opacity: 1;
+      border: 1px solid var(--attention);
+    }
+  }
+}

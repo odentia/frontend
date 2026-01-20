@@ -1,7 +1,7 @@
 import { useApi } from "@config-runtime";
 import { useQueryClient } from "@tanstack/react-query";
 
-export const useCommentRating = (commentId: number) => {
+export const useCommentRating = (commentId: number, type: "game" | "post") => {
   const api = useApi();
   const qc = useQueryClient();
 
@@ -10,7 +10,7 @@ export const useCommentRating = (commentId: number) => {
   let prevPost: any;
 
   const likePost = api.useAuthedMutation(
-    `/posts/like/${commentId}`,
+    `/${type}/comments/${commentId}/like/`,
     "post",
     queryKey,
     {
@@ -45,5 +45,41 @@ export const useCommentRating = (commentId: number) => {
     },
   );
 
-  return { likePost };
+  const dislikePost = api.useAuthedMutation(
+    `/${type}/comments/${commentId}/dislike/`,
+    "post",
+    queryKey,
+    {
+      onMutate: async () => {
+        await qc.cancelQueries({ queryKey });
+
+        prevPost = qc.getQueryData<any>(queryKey);
+
+        qc.setQueryData<any>(queryKey, (old) => {
+          if (!old) return old;
+
+          const isLiked = old.isLikedByMe;
+          const nextRating = old.rating + (isLiked ? -1 : 1);
+
+          return {
+            ...old,
+            isLikedByMe: !isLiked,
+            rating: nextRating,
+          };
+        });
+      },
+
+      onError: (_err, _vars) => {
+        if (prevPost) {
+          qc.setQueryData(queryKey, prevPost);
+        }
+      },
+
+      onSettled: () => {
+        qc.invalidateQueries({ queryKey });
+      },
+    },
+  );
+
+  return { likePost, dislikePost };
 };

@@ -8,7 +8,7 @@ type UseCommentChildrenInfiniteOpts = {
 };
 
 export const useComments = (
-  id: number,
+  id: string,
   page: number,
   type: "post" | "game",
 ) => {
@@ -24,7 +24,7 @@ export const useComments = (
 };
 
 export const useCommentChildrenInfinite = (
-  parentId: number,
+  parentId: string,
   opts: UseCommentChildrenInfiniteOpts = {},
   type: "game" | "post",
 ) => {
@@ -55,7 +55,7 @@ export const useCommentChildrenInfinite = (
 };
 
 export const useFlattenedChildren = (
-  parentId: number,
+  parentId: string,
   enabled: boolean,
   type: "post" | "game",
 ) => {

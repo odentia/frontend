@@ -9,7 +9,7 @@ export function useChangePassword({ onError, onSuccess }: ChangePasswordProps) {
     ChangePassword,
     unknown,
     ApiError
-  >("/change-password", "post", [], {
+  >("profile/change-password", "post", [], {
     onError: (error) => onError(error.message || "Неизвестная ошибка"),
     onSuccess: onSuccess,
   });

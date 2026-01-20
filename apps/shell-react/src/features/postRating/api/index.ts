@@ -1,7 +1,7 @@
 import { useApi } from "@config-runtime";
 import { useQueryClient } from "@tanstack/react-query";
 
-export const usePostRating = (id: number) => {
+export const usePostRating = (id: string) => {
   const api = useApi();
   const qc = useQueryClient();
 

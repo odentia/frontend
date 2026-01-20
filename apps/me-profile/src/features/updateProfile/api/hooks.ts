@@ -4,5 +4,7 @@ import type { User, UserDto } from "../model/types";
 export const useUpdateUser = () => {
   const api = useApi();
 
-  return api.useAuthedMutation<User, UserDto>("/user/me", "patch", ["user-me"]);
+  return api.useAuthedMutation<User, UserDto>("/profile-api/api/v1/profile/me", "put", [
+    "user-me",
+  ]);
 };

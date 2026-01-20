@@ -1,5 +1,4 @@
 export { ButtonBlock } from "./buttonBlock";
-export { ContainerBlock } from "./containerBlock";
 export { GalleryBlock } from "./galleryBlock";
 export { SpacerBlock } from "./spacerBlock";
 export { DividerBlock } from "./dividerBlock";

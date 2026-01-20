@@ -1,0 +1,62 @@
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: space-between;
+  gap: 10px;
+
+  &Arrow {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  &Body {
+    display: flex;
+    gap: 15px;
+    overflow-x: hidden;
+    flex-grow: 1;
+    scroll-behavior: smooth;
+
+    &Item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      min-width: 100px;
+      transition:
+        transform 0.2s,
+        opacity 0.2s;
+
+      &Image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 5px;
+      }
+
+      &Title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--subtext);
+        text-align: center;
+      }
+
+      &.active {
+        transform: scale(1.05);
+        opacity: 1;
+        &Title {
+          color: var(--text);
+          font-weight: 700;
+        }
+      }
+
+      &.inactive {
+        opacity: 0.5;
+      }
+    }
+  }
+}

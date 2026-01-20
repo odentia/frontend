@@ -26,8 +26,8 @@ export const ApiProvider = ({ children }: LayoutProps) => {
   const client = useMemo(
     () =>
       createHttpClient({
-        baseURL: "http://localhost:8000/api/v1/",
-        refreshPath: "/auth/refresh",
+        baseURL: "",
+        refreshPath: "/auth-api/api/v1/auth/refresh",
         withCredentials: true,
         onAuthFailed: () => {
           console.log("Outed!");
@@ -36,13 +36,13 @@ export const ApiProvider = ({ children }: LayoutProps) => {
             window.location.href = "/auth/login";
           }
         },
-        onNetworkError: () => {
-          // if (typeof window !== "undefined") {
-          //   if (window.location.pathname !== "/network") {
-          //     window.location.href = "/network";
-          //   }
-          // }
-        },
+        // onNetworkError: () => {
+        //   if (typeof window !== "undefined") {
+        //     if (window.location.pathname !== "/network") {
+        //         window.location.href = "/network";
+        //     }
+        //   }
+        // },
       }),
     [],
   );

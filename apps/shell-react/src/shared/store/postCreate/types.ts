@@ -24,6 +24,9 @@ export interface PageEditorStore {
   id: string;
   title: string;
   styles: PageEditorStyles;
+  description: string;
+
+  game: { title: string; image?: string } | null;
 
   rootContainerId: string;
   containers: Record<string, LayoutContainer>;
@@ -37,6 +40,9 @@ export interface PageEditorStore {
 
   setTitle: (title: string) => void;
   updatePageStyles: (patch: Partial<PageEditorStyles>) => void;
+
+  setDescription: (description: string) => void;
+  setGame: (game: { title: string; image?: string } | null) => void;
 
   addBlockToRoot: (block: Block, index?: number) => void;
   addBlockToContainer: (
