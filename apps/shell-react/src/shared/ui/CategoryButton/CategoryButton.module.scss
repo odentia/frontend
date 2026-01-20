@@ -1,0 +1,36 @@
+.button {
+  width: 14%;
+  height: 75px;
+  background-color: #14141A;
+  border: 2px solid #8C7EFF;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #999;
+  font-size: 14px;
+  font-weight: 500;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    border-color: #A78BFA;
+    box-shadow: 0 0 8px rgba(140, 126, 255, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    width: 48%;
+    height: 60px;
+    font-size: 13px;
+  }
+}
+
+.icon {
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  white-space: nowrap;
+}
